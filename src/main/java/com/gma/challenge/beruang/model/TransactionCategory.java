@@ -18,5 +18,7 @@ public class TransactionCategory extends CommonNamedClass {
 
   private boolean expense;
   private String icon;
+  private String color;
   private boolean userDefined;
+  private boolean isActive;
 }
