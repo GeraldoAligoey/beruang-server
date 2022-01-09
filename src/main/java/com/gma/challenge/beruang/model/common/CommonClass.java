@@ -1,6 +1,6 @@
 package com.gma.challenge.beruang.model.common;
 
-import java.math.BigInteger;
+import java.io.Serializable;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,10 +15,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class CommonClass {
+public abstract class CommonClass implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private BigInteger id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
   
 }
