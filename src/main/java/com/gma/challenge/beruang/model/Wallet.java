@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 import com.gma.challenge.beruang.model.common.CommonNamedClass;
 
@@ -22,10 +20,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Wallet extends CommonNamedClass {
-  
-  @OneToOne
-  @JoinColumn
-  private Currency defaultCurrency;
+
+  private String defaultCurrencyCode;
   private boolean defaultWallet;
   private BigDecimal balanceAmount;
 
