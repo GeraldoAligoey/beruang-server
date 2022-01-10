@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gma.challenge.beruang.model.TransactionCategory;
 import com.gma.challenge.beruang.model.Wallet;
 
 public class WalletDataSample implements DataSampleService<Wallet> {
@@ -17,7 +16,7 @@ public class WalletDataSample implements DataSampleService<Wallet> {
     wallet.setDefaultWallet(true);
     wallet.setName("Test Wallet 001");
     wallet.setBalanceAmount(new BigDecimal(1000));
-    wallet.setCategories(createTransactionCategories());
+    wallet.setCategories(new TransactionCategoryDataSample().getSamples());
 
     return wallet;
   }
@@ -31,7 +30,7 @@ public class WalletDataSample implements DataSampleService<Wallet> {
     walletMyr.setDefaultWallet(true);
     walletMyr.setName("Test Wallet 001");
     walletMyr.setBalanceAmount(new BigDecimal(1000));
-    walletMyr.setCategories(createTransactionCategories());
+    walletMyr.setCategories(new TransactionCategoryDataSample().getSamples());
 
     wallets.add(walletMyr);
 
@@ -40,48 +39,10 @@ public class WalletDataSample implements DataSampleService<Wallet> {
     walletUsd.setDefaultWallet(false);
     walletUsd.setName("Test Wallet 002");
     walletUsd.setBalanceAmount(new BigDecimal(3000));
-    walletUsd.setCategories(createTransactionCategories());
+    walletUsd.setCategories(new TransactionCategoryDataSample().getSamples());
     
     wallets.add(walletUsd);
 
     return wallets;
-  }
-
-  private List<TransactionCategory> createTransactionCategories() {
-    List<TransactionCategory> categories = new ArrayList<>();
-
-    TransactionCategory expenseFoodDrink = new TransactionCategory();
-    expenseFoodDrink.setName("Food and Drinks");
-    expenseFoodDrink.setExpense(true);
-    expenseFoodDrink.setUserDefined(false);
-    expenseFoodDrink.setIcon("food-and-drinks.png");
-
-    categories.add(expenseFoodDrink);
-
-    TransactionCategory expenseRental = new TransactionCategory();
-    expenseRental.setName("Rental");
-    expenseRental.setExpense(true);
-    expenseRental.setUserDefined(false);
-    expenseRental.setIcon("rental.png");
-
-    categories.add(expenseRental);
-
-    TransactionCategory incomeSalary = new TransactionCategory();
-    incomeSalary.setName("Salary");
-    incomeSalary.setExpense(false);
-    incomeSalary.setUserDefined(false);
-    incomeSalary.setIcon("salary.png");
-
-    categories.add(incomeSalary);
-
-    TransactionCategory incomeBonus = new TransactionCategory();
-    incomeBonus.setName("Bonus");
-    incomeBonus.setExpense(false);
-    incomeBonus.setUserDefined(false);
-    incomeBonus.setIcon("bonus.png");
-
-    categories.add(incomeBonus);
-
-    return categories;
   }
 }
