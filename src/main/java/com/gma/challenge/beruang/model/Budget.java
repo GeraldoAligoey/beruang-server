@@ -23,17 +23,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Budget extends CommonNamedClass {
-  
+
   private String period;
   private BigDecimal limitAmount;
   private BigDecimal currentAmount;
 
-  @OneToOne
+  @OneToOne(cascade = {
+    CascadeType.PERSIST,
+    CascadeType.MERGE})
   @JoinColumn
   private Wallet wallet;
 
-  @ManyToMany(cascade = { 
-    CascadeType.PERSIST, 
-    CascadeType.MERGE })
+  @ManyToMany(cascade = {
+      CascadeType.PERSIST,
+      CascadeType.MERGE })
   private List<TransactionCategory> categories = new ArrayList<>();
 }
