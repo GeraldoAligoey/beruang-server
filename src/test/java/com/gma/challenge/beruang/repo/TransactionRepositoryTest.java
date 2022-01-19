@@ -75,4 +75,18 @@ public class TransactionRepositoryTest {
 
     assertNull(transaction);
   }
+
+  @Test
+  @Order(4)
+  public void testFindByWalletIdSortAsc() {
+    log.info("TransactionRepositoryTest - testFindByWalletIdSortAsc");
+
+  }
+
+  @Test
+  @Order(5)
+  public void testFindByWalletIdSortDesc() {
+    log.info("TransactionRepositoryTest - testFindByWalletIdSortDesc");
+
+  }
 }

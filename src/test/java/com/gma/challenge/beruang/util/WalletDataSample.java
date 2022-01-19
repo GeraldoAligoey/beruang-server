@@ -16,7 +16,7 @@ public class WalletDataSample implements DataSampleService<Wallet> {
     wallet.setDefaultWallet(true);
     wallet.setName("Test Wallet 001");
     wallet.setBalanceAmount(new BigDecimal(1000));
-    wallet.setCategories(new TransactionCategoryDataSample().getSamples());
+    wallet.setCategories(new CategoryDataSample().getSamples());
 
     return wallet;
   }
@@ -30,7 +30,7 @@ public class WalletDataSample implements DataSampleService<Wallet> {
     walletMyr.setDefaultWallet(true);
     walletMyr.setName("Test Wallet 001");
     walletMyr.setBalanceAmount(new BigDecimal(1000));
-    walletMyr.setCategories(new TransactionCategoryDataSample().getSamples());
+    walletMyr.setCategories(new CategoryDataSample().getSamples());
 
     wallets.add(walletMyr);
 
@@ -39,7 +39,7 @@ public class WalletDataSample implements DataSampleService<Wallet> {
     walletUsd.setDefaultWallet(false);
     walletUsd.setName("Test Wallet 002");
     walletUsd.setBalanceAmount(new BigDecimal(3000));
-    walletUsd.setCategories(new TransactionCategoryDataSample().getSamples());
+    walletUsd.setCategories(new CategoryDataSample().getSamples());
     
     wallets.add(walletUsd);
 

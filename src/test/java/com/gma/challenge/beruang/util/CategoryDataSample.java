@@ -3,19 +3,19 @@ package com.gma.challenge.beruang.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gma.challenge.beruang.model.TransactionCategory;
-import com.gma.challenge.beruang.repo.TransactionCategoryRepository;
+import com.gma.challenge.beruang.model.Category;
+import com.gma.challenge.beruang.repo.CategoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class TransactionCategoryDataSample implements DataSampleService<TransactionCategory> {
+public class CategoryDataSample implements DataSampleService<Category> {
 
   @Autowired
-  TransactionCategoryRepository transactionCategoryRepository;
+  CategoryRepository transactionCategoryRepository;
   
   @Override
-  public TransactionCategory getSample() {
-    TransactionCategory expenseFoodDrink = new TransactionCategory();
+  public Category getSample() {
+    Category expenseFoodDrink = new Category();
     expenseFoodDrink.setName("Food and Drinks");
     expenseFoodDrink.setExpense(true);
     expenseFoodDrink.setUserDefined(false);
@@ -25,10 +25,10 @@ public class TransactionCategoryDataSample implements DataSampleService<Transact
   }
 
   @Override
-  public List<TransactionCategory> getSamples() {
-    List<TransactionCategory> categories = new ArrayList<>();
+  public List<Category> getSamples() {
+    List<Category> categories = new ArrayList<>();
 
-    TransactionCategory expenseFoodDrink = new TransactionCategory();
+    Category expenseFoodDrink = new Category();
     expenseFoodDrink.setName("Food and Drinks");
     expenseFoodDrink.setExpense(true);
     expenseFoodDrink.setUserDefined(false);
@@ -36,7 +36,7 @@ public class TransactionCategoryDataSample implements DataSampleService<Transact
 
     categories.add(expenseFoodDrink);
 
-    TransactionCategory expenseRental = new TransactionCategory();
+    Category expenseRental = new Category();
     expenseRental.setName("Rental");
     expenseRental.setExpense(true);
     expenseRental.setUserDefined(false);
@@ -44,7 +44,7 @@ public class TransactionCategoryDataSample implements DataSampleService<Transact
 
     categories.add(expenseRental);
 
-    TransactionCategory incomeSalary = new TransactionCategory();
+    Category incomeSalary = new Category();
     incomeSalary.setName("Salary");
     incomeSalary.setExpense(false);
     incomeSalary.setUserDefined(false);
@@ -52,7 +52,7 @@ public class TransactionCategoryDataSample implements DataSampleService<Transact
 
     categories.add(incomeSalary);
 
-    TransactionCategory incomeBonus = new TransactionCategory();
+    Category incomeBonus = new Category();
     incomeBonus.setName("Bonus");
     incomeBonus.setExpense(false);
     incomeBonus.setUserDefined(false);

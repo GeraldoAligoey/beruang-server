@@ -14,11 +14,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransactionCategory extends CommonNamedClass {
+public class Category extends CommonNamedClass {
 
   private boolean expense;
   private String icon;
   private String color;
   private boolean userDefined;
-  private boolean isActive;
+  private boolean active;
 }

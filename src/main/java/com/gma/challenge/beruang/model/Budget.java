@@ -26,7 +26,7 @@ public class Budget extends CommonNamedClass {
 
   private String period;
   private BigDecimal limitAmount;
-  private BigDecimal currentAmount;
+  private BigDecimal currentAmount = new BigDecimal(0);
 
   @OneToOne(cascade = {
     CascadeType.PERSIST,
@@ -37,5 +37,5 @@ public class Budget extends CommonNamedClass {
   @ManyToMany(cascade = {
       CascadeType.PERSIST,
       CascadeType.MERGE })
-  private List<TransactionCategory> categories = new ArrayList<>();
+  private List<Category> categories = new ArrayList<>();
 }

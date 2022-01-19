@@ -23,11 +23,11 @@ import lombok.Setter;
 public class Wallet extends CommonNamedClass {
 
   private String defaultCurrencyCode;
-  private boolean defaultWallet;
-  private BigDecimal balanceAmount;
+  private boolean defaultWallet = false;
+  private BigDecimal balanceAmount = new BigDecimal(0);
 
   @ManyToMany(cascade = { 
     CascadeType.PERSIST, 
     CascadeType.MERGE })
-  private List<TransactionCategory> categories = new ArrayList<>();
+  private List<Category> categories = new ArrayList<>();
 }

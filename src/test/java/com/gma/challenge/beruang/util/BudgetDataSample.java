@@ -25,7 +25,7 @@ public class BudgetDataSample implements DataSampleService<Budget> {
     monthlyFoodBudget.setLimitAmount(new BigDecimal(1000));
     monthlyFoodBudget.setCurrentAmount(new BigDecimal(0));
     monthlyFoodBudget.setPeriod(Period.MONTHLY.getValue());
-    monthlyFoodBudget.setCategories(List.of(new TransactionCategoryDataSample().getSample()));
+    monthlyFoodBudget.setCategories(List.of(new CategoryDataSample().getSample()));
     monthlyFoodBudget.setWallet(new WalletDataSample().getSample());
 
     budgets.add(monthlyFoodBudget);
@@ -35,7 +35,7 @@ public class BudgetDataSample implements DataSampleService<Budget> {
     monthlyBudget.setLimitAmount(new BigDecimal(3000));
     monthlyBudget.setCurrentAmount(new BigDecimal(0));
     monthlyBudget.setPeriod(Period.MONTHLY.getValue());
-    monthlyBudget.setCategories(new TransactionCategoryDataSample().getSamples());
+    monthlyBudget.setCategories(new CategoryDataSample().getSamples());
 
     Wallet wallet = new WalletDataSample().getSample();
     wallet.setName("Spending wallet");

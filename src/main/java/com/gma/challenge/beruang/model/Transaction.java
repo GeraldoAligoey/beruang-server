@@ -38,5 +38,5 @@ public class Transaction extends CommonClass {
     CascadeType.MERGE
   })
   @JoinColumn
-  private TransactionCategory category;
+  private Category category;
 }
