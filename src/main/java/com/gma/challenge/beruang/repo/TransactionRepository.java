@@ -22,13 +22,13 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
   @Query("select t from Transaction t where t.wallet.id = ?1 and t.date between ?2 and ?3")
   List<Transaction> findByWalletIdAndDateRange(Long walletId, Date fromDate, Date toDate, Sort sort);
 
-  @Query("select t from Transaction t where t.budget.id = ?1")
+  @Query("select t from Transaction t where t.wallet.id = (select b.wallet.id from Budget b where b.id = ?1)")
   List<Transaction> findByBudgetId(Long budgetId);
 
-  @Query("select t from Transaction t where t.categories.id in ?1")
+  @Query("select t from Transaction t where t.category.id in ?1")
   List<Transaction> findByCategoryIds(List<Long> categoryIds, Sort sort);
 
-  @Query("select t from Transaction t where t.categories.id in ?1 and t.date between ?2 and ?3")
+  @Query("select t from Transaction t where t.category.id in ?1 and t.date between ?2 and ?3")
   List<Transaction> findByCategoryIdsAndDateRange(List<Long> categoryIds, Date fromDate, Date toDate, Sort sort);
 
   @Query("select t from Transaction t where t.amount between ?1 and ?2")
