@@ -2,7 +2,7 @@ package com.gma.challenge.beruang.util;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import com.gma.challenge.beruang.model.Transaction;
@@ -18,10 +18,13 @@ public class TransactionDataSample implements DataSampleService<Transaction> {
   @Override
   public List<Transaction> getSamples() {
     List<Transaction> transactions = new ArrayList<>();
-    
+
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.SECOND, 5);
+
     Transaction rentalTransaction = new Transaction();
     rentalTransaction.setAmount(new BigDecimal(1000));
-    rentalTransaction.setDate(new Date());
+    rentalTransaction.setDate(calendar.getTime());
     rentalTransaction.setNote("Rental fee");
 
     Wallet wallet = new WalletDataSample().getSample();
@@ -36,9 +39,11 @@ public class TransactionDataSample implements DataSampleService<Transaction> {
 
     transactions.add(rentalTransaction);
 
+    calendar.add(Calendar.SECOND, 5);
+
     Transaction foodDrinkTransaction = new Transaction();
     foodDrinkTransaction.setAmount(new BigDecimal(20));
-    foodDrinkTransaction.setDate(new Date());
+    foodDrinkTransaction.setDate(calendar.getTime());
     foodDrinkTransaction.setNote("Food and drinks");
 
     wallet.getCategories().forEach(category -> {
@@ -51,9 +56,10 @@ public class TransactionDataSample implements DataSampleService<Transaction> {
 
     transactions.add(foodDrinkTransaction);
 
+    calendar.add(Calendar.SECOND, 5);
     Transaction salaryTransaction = new Transaction();
     salaryTransaction.setAmount(new BigDecimal(7500));
-    salaryTransaction.setDate(new Date());
+    salaryTransaction.setDate(calendar.getTime());
     salaryTransaction.setNote("Salary");
 
     wallet.getCategories().forEach(category -> {

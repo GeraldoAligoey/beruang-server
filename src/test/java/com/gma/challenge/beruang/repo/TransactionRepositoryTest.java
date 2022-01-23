@@ -2,7 +2,10 @@ package com.gma.challenge.beruang.repo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -17,6 +20,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Sort;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,6 +65,44 @@ public class TransactionRepositoryTest {
 
   @Test
   @Order(3)
+  public void testFindByWalletIdSortAsc() {
+    log.info("TransactionRepositoryTest - testFindByWalletIdSortAsc");
+    
+    List<Transaction> transactions = transactionRepository.findByWalletId(1l, Sort.by(Sort.Direction.ASC, "date"));
+    assertEquals(3, transactions.size());
+
+    Date currentDate = Calendar.getInstance().getTime();
+
+    for (Transaction t : transactions) {
+      log.info(t.toString());
+
+      assertTrue(currentDate.before(t.getDate()));
+      currentDate = t.getDate();
+    }
+  }
+
+  @Test
+  @Order(4)
+  public void testFindByWalletIdSortDesc() {
+    log.info("TransactionRepositoryTest - testFindByWalletIdSortDesc");
+
+    List<Transaction> transactions = transactionRepository.findByWalletId(1l, Sort.by(Sort.Direction.DESC, "date"));
+    assertEquals(3, transactions.size());
+
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.SECOND, 50);
+    Date currentDate = calendar.getTime();
+
+    for (Transaction t : transactions) {
+      log.info(t.toString());
+
+      assertTrue(t.getDate().before(currentDate));
+      currentDate = t.getDate();
+    }
+  }
+
+  @Test
+  @Order(5)
   public void testDelete() {
     log.info("TransactionRepositoryTest - testDelete");
 
@@ -74,19 +116,5 @@ public class TransactionRepositoryTest {
     }
 
     assertNull(transaction);
-  }
-
-  @Test
-  @Order(4)
-  public void testFindByWalletIdSortAsc() {
-    log.info("TransactionRepositoryTest - testFindByWalletIdSortAsc");
-
-  }
-
-  @Test
-  @Order(5)
-  public void testFindByWalletIdSortDesc() {
-    log.info("TransactionRepositoryTest - testFindByWalletIdSortDesc");
-
   }
 }
