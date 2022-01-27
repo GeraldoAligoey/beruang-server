@@ -4,11 +4,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Beruang | Dashboard</title>
+  <title>Beruang | Category</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="plugins/google-font/googlefont.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -17,6 +16,8 @@
   <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
   <!-- JQVMap -->
   <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
@@ -27,6 +28,8 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  <!-- Bootstrap iconpicker-->
+  <link rel="stylesheet" href="plugins/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -34,7 +37,7 @@
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+      <img class="animation__shake" src="dist/img/icons8-teddy-bear-100.png" alt="AdminLTELogo" height="60" width="60">
     </div>
 
     <!-- Navbar -->
@@ -45,7 +48,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Dashboard</a>
+          <a href="#" class="nav-link">Category</a>
         </li>
       </ul>
 
@@ -64,55 +67,7 @@
 
       <!-- Sidebar -->
       <div class="sidebar">
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-            <li class="nav-item menu-open">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Dashboard
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-receipt"></i>
-                <p>
-                  Transactions
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-wallet"></i>
-                <p>
-                  Wallets
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-piggy-bank"></i>
-                <p>
-                  Budget
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-list"></i>
-                <p>
-                  Categories
-                </p>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
+        <div th:replace="sidebar-menu"></div>
       </div>
       <!-- /.sidebar -->
     </aside>
@@ -124,7 +79,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col">
-              <h1 class="m-0">Dashboard</h1>
+              <h1 class="m-0">Category</h1>
             </div><!-- /.col -->
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -134,109 +89,150 @@
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          <!-- Small boxes (Stat box) -->
           <div class="row">
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h3>150</h3>
-
-                  <p>New Orders</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-bag"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                  <p>Bounce Rate</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-warning">
-                <div class="inner">
-                  <h3>44</h3>
-
-                  <p>User Registrations</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-danger">
-                <div class="inner">
-                  <h3>65</h3>
-
-                  <p>Unique Visitors</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-          </div>
-          <!-- /.row -->
-          <!-- Main row -->
-          <div class="row">
-            <!-- Left col -->
-            <section class="col-lg-8 connectedSortable">
-              <!-- Custom tabs (Charts with tabs)-->
-              <div class="card">
+            <!-- left column -->
+            <div class="col-md-4">
+              <!-- general form elements -->
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fas fa-chart-pie mr-1"></i>
-                    Sales
-                  </h3>
-                  <div class="card-tools">
-                    <ul class="nav nav-pills ml-auto">
-                      <li class="nav-item">
-                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div><!-- /.card-header -->
-                <div class="card-body">
-                  <div class="tab-content p-0">
-                    <!-- Morris chart - Sales -->
-                    <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
+                  <h3 class="card-title">New Category</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Category Type</label>
+                          <select class="form-control select2" style="width: 100%;">
+                            <option selected="selected">Expense</option>
+                            <option>Income</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Category Color</label>
+                          <div class="input-group my-colorpicker2">
+                            <input type="text" class="form-control" value="#007bff" />
+                            <div class="input-group-append">
+                              <span class="input-group-text colorpicker-input-addon"><i
+                                  class="fas fa-square"></i></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label>Category Icon</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="category-icon">
+                            <span class="input-group-append">
+                              <button id="btn-icon" class="btn btn-primary" data-icon="fas fa-balance-scale"
+                                role="iconpicker"></button>
+                            </span>
+                          </div>
+                          <!-- <div>
+                            <button id="btn-icon" class="btn btn-primary" data-icon="fas fa-balance-scale"
+                              role="iconpicker"></button>
+                          </div> -->
+                        </div>
+                      </div>
                     </div>
-                    <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                      <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Category Name</label>
+                      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Category name">
                     </div>
                   </div>
-                </div><!-- /.card-body -->
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
               </div>
               <!-- /.card -->
-            </section>
-          </div>
-          <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
+            </div>
+            <div class="col-md-8">
+              <!-- /.card-body -->
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Categories</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Category Type</label>
+                        <select class="form-control select2" style="width: 100%;">
+                          <option selected="selected">Expense</option>
+                          <option>Income</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Category</label>
+                        <select class="form-control select2" style="width: 100%;">
+                          <option selected="selected">Alabama</option>
+                          <option>Alaska</option>
+                          <option>California</option>
+                          <option>Delaware</option>
+                          <option>Tennessee</option>
+                          <option>Texas</option>
+                          <option>Washington</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body table-responsive p-0" style="height: 500px">
+                    <table class="table table-head-fixed text-nowrap">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Category Name</th>
+                          <th>Category Type</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>183</td>
+                          <td>John Doe</td>
+                          <td>Expense</td>
+                          <td>11-7-2014</td>
+                        </tr>
+                        <tr>
+                          <td>219</td>
+                          <td>Alexander Pierce</td>
+                          <td>Income</td>
+                          <td>11-7-2014</td>
+                        </tr>
+                        <tr>
+                          <td>183</td>
+                          <td>John Doe</td>
+                          <td>Income</td>
+                          <td>11-7-2014</td>
+                        </tr>
+                        <tr>
+                          <td>219</td>
+                          <td>Alexander Pierce</td>
+                          <td>Expense</td>
+                          <td>11-7-2014</td>
+                        </tr>
+                        <tr>
+                          <td>183</td>
+                          <td>John Doe</td>
+                          <td>Expense</td>
+                          <td>11-7-2014</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
       </section>
       <!-- /.content -->
     </div>
@@ -279,6 +275,8 @@
   <!-- daterangepicker -->
   <script src="plugins/moment/moment.min.js"></script>
   <script src="plugins/daterangepicker/daterangepicker.js"></script>
+  <!-- bootstrap color picker -->
+  <script src="../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
   <!-- Tempusdominus Bootstrap 4 -->
   <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
   <!-- Summernote -->
@@ -287,10 +285,34 @@
   <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.js"></script>
+  <!-- Bootstrap iconpicker bundle-->
+  <script src="plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.bundle.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <!-- <script src="dist/js/demo.js"></script> -->
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <!-- <script src="dist/js/pages/dashboard.js"></script> -->
 </body>
+<script>
+  $(function () {
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2 .fa-square').css('color', '#007bff');
+
+    $('.my-colorpicker2').on('colorpickerChange', function (event) {
+      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+      $('#btn-icon').css('background-color', event.color.toString());
+      $('#btn-icon').css('border-color', event.color.toString());
+    })
+
+    $("input[data-bootstrap-switch]").each(function () {
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    })
+
+    $('#btn-icon').on('change', function (e) {
+      $('#category-icon').val(e.icon);
+    })
+  })
+</script>
 
 </html>
