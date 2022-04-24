@@ -2,8 +2,10 @@ package com.gma.challenge.beruang.util;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+import com.gma.challenge.beruang.model.Category;
 import com.gma.challenge.beruang.model.Wallet;
 
 public class WalletDataSample implements DataSampleService<Wallet> {
@@ -16,7 +18,7 @@ public class WalletDataSample implements DataSampleService<Wallet> {
     wallet.setDefaultWallet(true);
     wallet.setName("Test Wallet 001");
     wallet.setBalanceAmount(new BigDecimal(1000));
-    wallet.setCategories(new CategoryDataSample().getSamples());
+    wallet.setCategories(new HashSet<Category>(new CategoryDataSample().getSamples()));
 
     return wallet;
   }
@@ -30,7 +32,7 @@ public class WalletDataSample implements DataSampleService<Wallet> {
     walletMyr.setDefaultWallet(true);
     walletMyr.setName("Test Wallet 001");
     walletMyr.setBalanceAmount(new BigDecimal(1000));
-    walletMyr.setCategories(new CategoryDataSample().getSamples());
+    walletMyr.setCategories(new HashSet<Category>(new CategoryDataSample().getSamples()));
 
     wallets.add(walletMyr);
 
@@ -39,7 +41,7 @@ public class WalletDataSample implements DataSampleService<Wallet> {
     walletUsd.setDefaultWallet(false);
     walletUsd.setName("Test Wallet 002");
     walletUsd.setBalanceAmount(new BigDecimal(3000));
-    walletUsd.setCategories(new CategoryDataSample().getSamples());
+    walletMyr.setCategories(new HashSet<Category>(new CategoryDataSample().getSamples()));
     
     wallets.add(walletUsd);
 
