@@ -1,8 +1,8 @@
 package com.gma.challenge.beruang.model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,5 +31,13 @@ public class Wallet extends CommonNamedClass {
   @ManyToMany(cascade = { 
     CascadeType.PERSIST, 
     CascadeType.MERGE })
-  private List<Category> categories = new ArrayList<>();
+  private Set<Category> categories = new HashSet<>();
+
+  public void addCategory(Category category) {
+    categories.add(category);
+  }
+
+  public void removeCategory(Category category) {
+    categories.remove(category);
+  }
 }
