@@ -1,6 +1,7 @@
 package com.gma.challenge.beruang.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.gma.challenge.beruang.model.Category;
 
@@ -10,7 +11,7 @@ public interface ReadCategoryService {
   
   public List<Category> findAll();
 
-  public List<Category> findAllByWalletId(Long walletId);
+  public Set<Category> findAllByWalletId(Long walletId);
 
-  public List<Category> findAllByBudgetId(Long budgetId);
+  public Set<Category> findAllByBudgetId(Long budgetId);
 }
