@@ -1,7 +1,7 @@
 package com.gma.challenge.beruang.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -26,7 +26,7 @@ public class Transaction extends CommonClass {
   
   private String note;
   private BigDecimal amount;
-  private Date date;
+  private LocalDate date;
 
   @OneToOne(cascade = {
     CascadeType.PERSIST,
