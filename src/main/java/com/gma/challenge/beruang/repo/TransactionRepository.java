@@ -1,7 +1,7 @@
 package com.gma.challenge.beruang.repo;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.gma.challenge.beruang.model.Transaction;
@@ -16,24 +16,25 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-  @Query("select t from Transaction t where t.wallet.id = ?1")
   List<Transaction> findByWalletId(Long walletId, Sort sort);
-  
-  @Query("select t from Transaction t where t.wallet.id = ?1 and t.date between ?2 and ?3")
-  List<Transaction> findByWalletIdAndDateRange(Long walletId, Date fromDate, Date toDate, Sort sort);
 
-  @Query("select t from Transaction t where t.wallet.id = (select b.wallet.id from Budget b where b.id = ?1)")
+  @Query("select t from Transaction t where t.wallet.id = ?1 and t.date between ?2 and ?3")
+  List<Transaction> findByWalletIdAndDateRange(Long walletId, LocalDate fromDate, LocalDate toDate, Sort sort);
+
+  @Query(value = "select * from (select * from transaction t where t.wallet_id = (select b.wallet_id from budget b where b.id = :budgetId)) x where x.category_id in (select bc.categories_id from budget_categories bc where bc.budget_id = :budgetId) order by x.date desc", nativeQuery = true)
   List<Transaction> findByBudgetId(Long budgetId);
 
   @Query("select t from Transaction t where t.category.id in ?1")
   List<Transaction> findByCategoryIds(List<Long> categoryIds, Sort sort);
 
   @Query("select t from Transaction t where t.category.id in ?1 and t.date between ?2 and ?3")
-  List<Transaction> findByCategoryIdsAndDateRange(List<Long> categoryIds, Date fromDate, Date toDate, Sort sort);
+  List<Transaction> findByCategoryIdsAndDateRange(List<Long> categoryIds, LocalDate fromDate, LocalDate toDate,
+      Sort sort);
 
   @Query("select t from Transaction t where t.amount between ?1 and ?2")
   List<Transaction> findByAmountRange(BigDecimal fromAmount, BigDecimal toAmount, Sort sort);
 
   @Query("select t from Transaction t where t.amount between ?1 and ?2 and t.date between ?3 and ?4")
-  List<Transaction> findByAmountRangeAndDateRange(BigDecimal fromAmount, BigDecimal toAmount, Date fromDate, Date toDate, Sort sort);
+  List<Transaction> findByAmountRangeAndDateRange(BigDecimal fromAmount, BigDecimal toAmount, LocalDate fromDate,
+      LocalDate toDate, Sort sort);
 }
