@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.serviceImpl;
+package com.gma.challenge.beruang.repo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.gma.challenge.beruang.model.Category;
-import com.gma.challenge.beruang.service.ReadCategoryService;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -21,16 +20,16 @@ import org.springframework.test.context.jdbc.Sql;
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @Sql("classpath:test_category.sql")
-public class ReadCategoryServiceImplTest {
+public class CategoryRepositoryTest {
 
-  private final static Logger LOG = LoggerFactory.getLogger(ReadCategoryServiceImplTest.class);
+  private final static Logger LOG = LoggerFactory.getLogger(CategoryRepositoryTest.class);
 
   @Autowired
-  ReadCategoryService readCategoryService;
+  CategoryRepository categoryRepository;
 
   @Test
   public void findAll() {
-    List<Category> categories = readCategoryService.findAll();
+    List<Category> categories = categoryRepository.findAll();
     LOG.info("Categories size: {}", categories.size());
 
     for (Category category : categories) {
@@ -42,7 +41,7 @@ public class ReadCategoryServiceImplTest {
 
   @Test
   public void findByWalletId() {
-    Set<Category> categories = readCategoryService.findAllByWalletId(2l);
+    Set<Category> categories = categoryRepository.findByWalletId(2l);
 
     assertTrue(categories.size() == 2);
 
@@ -58,7 +57,7 @@ public class ReadCategoryServiceImplTest {
 
   @Test
   public void findByBudgetId() {
-    Set<Category> categories = readCategoryService.findAllByBudgetId(1l);
+    Set<Category> categories = categoryRepository.findByBudgetId(1l);
 
     assertTrue(categories.size() == 2);
 

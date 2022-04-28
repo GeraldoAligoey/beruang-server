@@ -1,11 +1,10 @@
-package com.gma.challenge.beruang.serviceImpl;
+package com.gma.challenge.beruang.repo;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
 import com.gma.challenge.beruang.model.Budget;
-import com.gma.challenge.beruang.repo.BudgetRepository;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -18,11 +17,11 @@ import org.springframework.test.context.jdbc.Sql;
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @Sql("classpath:test_budget.sql")
-public class ReadBudgetServiceImplTest {
+public class BudgetRepositoryTest {
 
   private static final String DAILY = "DAILY";
   private static final String MONTHLY = "MONTHLY";
-  private static final Logger LOG = LoggerFactory.getLogger(ReadBudgetServiceImplTest.class);
+  private static final Logger LOG = LoggerFactory.getLogger(BudgetRepositoryTest.class);
 
   @Autowired
   private BudgetRepository budgetRepository;

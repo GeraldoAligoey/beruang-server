@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.serviceImpl;
+package com.gma.challenge.beruang.repo;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.gma.challenge.beruang.model.Transaction;
-import com.gma.challenge.beruang.repo.TransactionRepository;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -21,9 +20,9 @@ import org.springframework.test.context.jdbc.Sql;
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @Sql("classpath:test_transaction.sql")
-public class ReadTransactionServiceImplTest {
+public class TransactionRepositoryTest {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ReadTransactionServiceImplTest.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TransactionRepositoryTest.class);
 
   @Autowired
   private TransactionRepository transactionRepository;
