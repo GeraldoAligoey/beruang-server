@@ -1,11 +1,10 @@
-package com.gma.challenge.beruang.serviceImpl;
+package com.gma.challenge.beruang.service;
 
 import java.util.List;
 import java.util.Set;
 
 import com.gma.challenge.beruang.model.Category;
 import com.gma.challenge.beruang.repo.CategoryRepository;
-import com.gma.challenge.beruang.service.ReadCategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
