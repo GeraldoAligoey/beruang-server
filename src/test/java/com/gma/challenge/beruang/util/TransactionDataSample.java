@@ -1,8 +1,8 @@
 package com.gma.challenge.beruang.util;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import com.gma.challenge.beruang.model.Transaction;
@@ -19,16 +19,13 @@ public class TransactionDataSample implements DataSampleService<Transaction> {
   public List<Transaction> getSamples() {
     List<Transaction> transactions = new ArrayList<>();
 
-    Calendar calendar = Calendar.getInstance();
-    calendar.add(Calendar.SECOND, 5);
-
     Transaction rentalTransaction = new Transaction();
     rentalTransaction.setAmount(new BigDecimal(1000));
-    rentalTransaction.setDate(calendar.getTime());
+    rentalTransaction.setDate(LocalDate.of(2022, 1, 1));
     rentalTransaction.setNote("Rental fee");
 
     Wallet wallet = new WalletDataSample().getSample();
-    
+
     wallet.getCategories().forEach(category -> {
       if ("Rental".equals(category.getName())) {
         rentalTransaction.setCategory(category);
@@ -39,11 +36,9 @@ public class TransactionDataSample implements DataSampleService<Transaction> {
 
     transactions.add(rentalTransaction);
 
-    calendar.add(Calendar.SECOND, 5);
-
     Transaction foodDrinkTransaction = new Transaction();
     foodDrinkTransaction.setAmount(new BigDecimal(20));
-    foodDrinkTransaction.setDate(calendar.getTime());
+    foodDrinkTransaction.setDate(LocalDate.of(2022, 1, 2));
     foodDrinkTransaction.setNote("Food and drinks");
 
     wallet.getCategories().forEach(category -> {
@@ -56,10 +51,9 @@ public class TransactionDataSample implements DataSampleService<Transaction> {
 
     transactions.add(foodDrinkTransaction);
 
-    calendar.add(Calendar.SECOND, 5);
     Transaction salaryTransaction = new Transaction();
     salaryTransaction.setAmount(new BigDecimal(7500));
-    salaryTransaction.setDate(calendar.getTime());
+    salaryTransaction.setDate(LocalDate.of(2022, 1, 3));
     salaryTransaction.setNote("Salary");
 
     wallet.getCategories().forEach(category -> {
@@ -74,5 +68,5 @@ public class TransactionDataSample implements DataSampleService<Transaction> {
 
     return transactions;
   }
-  
+
 }

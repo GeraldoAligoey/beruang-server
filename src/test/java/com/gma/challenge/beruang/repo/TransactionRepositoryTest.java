@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -71,13 +70,14 @@ public class TransactionRepositoryTest {
     List<Transaction> transactions = transactionRepository.findByWalletId(1l, Sort.by(Sort.Direction.ASC, "date"));
     assertEquals(3, transactions.size());
 
-    Date currentDate = Calendar.getInstance().getTime();
+    // Date currentDate = Calendar.getInstance().getTime();
+    LocalDate currentLocalDate = LocalDate.of(2020, 1, 1);
 
     for (Transaction t : transactions) {
       log.info(t.toString());
 
-      assertTrue(currentDate.before(t.getDate()));
-      currentDate = t.getDate();
+      assertTrue(currentLocalDate.isBefore(t.getDate()));
+      currentLocalDate = t.getDate();
     }
   }
 
@@ -89,15 +89,13 @@ public class TransactionRepositoryTest {
     List<Transaction> transactions = transactionRepository.findByWalletId(1l, Sort.by(Sort.Direction.DESC, "date"));
     assertEquals(3, transactions.size());
 
-    Calendar calendar = Calendar.getInstance();
-    calendar.add(Calendar.SECOND, 50);
-    Date currentDate = calendar.getTime();
+    LocalDate currentLocalDate = LocalDate.of(2022, 2, 1);
 
     for (Transaction t : transactions) {
       log.info(t.toString());
 
-      assertTrue(t.getDate().before(currentDate));
-      currentDate = t.getDate();
+      assertTrue(t.getDate().isBefore(currentLocalDate));
+      currentLocalDate = t.getDate();
     }
   }
 
