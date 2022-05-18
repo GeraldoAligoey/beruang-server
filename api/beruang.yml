@@ -1,0 +1,159 @@
+openapi: 3.0.2
+info:
+  title: Beruang API 
+  description: Beruang API
+  version: 1.0.0
+servers:
+  - url: /api
+paths:
+  /wallets:
+    post:
+      tags:
+        - Wallet 
+      summary: Create a new wallet
+      description: Create a new wallet
+      operationId: CreateWallet
+      requestBody:
+        description: Details of the new wallet to add
+        content:
+          application/json :
+            schema:
+              $ref: '#/components/schemas/NewWalletRequest'
+        required: true
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+      x-codegen-request-body-name: body
+    get: 
+      tags:
+        - Wallet 
+      summary: Get all wallets
+      description: Get all wallets
+      operationId: GetWallets
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletsResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+components:
+  schemas:
+    NewWallet:
+      type: object
+      required:
+        - name
+        - defaultCurrencyCode
+        - categories
+      properties:
+        name:
+          type: string
+        defaultCurrencyCode:
+          type: string
+        defaultWallet:
+          type: boolean
+        balanceAmount:
+          type: number
+          format: double
+        categories:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Category'
+    NewWalletRequest:
+      required:
+        - wallet
+      type: object
+      properties:
+        wallet: 
+          $ref: '#/components/schemas/NewWallet' 
+    Wallet:
+      type: object
+      required:
+        - name
+        - defaultCurrencyCode
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        defaultCurrencyCode:
+          type: string
+        defaultWallet:
+          type: boolean
+        balanceAmount:
+          type: number
+          format: double
+        categories:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Category'
+    WalletResponse:
+      type: object
+      required:
+        - wallet
+      properties:
+        wallet:
+          $ref: '#/components/schemas/Wallet'
+    WalletsResponse:
+      type: object
+      required:
+        - wallets
+      properties:
+        wallets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Wallet'
+    Category:
+      type: object
+      required:
+        - name
+        - expense
+        - icon
+        - color
+        - userDefined
+        - active
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        expense:
+          type: boolean
+        icon:
+          type: string
+        color:
+          type: string
+        userDefined:
+          type: boolean
+        active:
+          type: boolean
+    GenericErrorModel: 
+      required: 
+        - errors
+      type: object
+      properties:
+        errors:
+          required:
+            - body
+          type: object
+          properties:
+            body:
+              type: array
+              items:
+                type: string
