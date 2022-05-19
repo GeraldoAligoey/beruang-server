@@ -7,12 +7,31 @@ servers:
   - url: /api
 paths:
   /wallets:
+    get: 
+      tags:
+        - Wallet 
+      summary: Get all wallets
+      description: Get all wallets
+      operationId: findWallets
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletsResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
     post:
       tags:
         - Wallet 
       summary: Create a new wallet
       description: Create a new wallet
-      operationId: CreateWallet
+      operationId: createWallet
       requestBody:
         description: Details of the new wallet to add
         content:
@@ -33,13 +52,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorModel'
-      x-codegen-request-body-name: body
-    get: 
+      x-codegen-request-body-name: wallet
+  /wallets/{walletId}:
+    get:
       tags:
-        - Wallet 
-      summary: Get all wallets
-      description: Get all wallets
-      operationId: GetWallets
+        - Wallet
+      summary: Get a wallet
+      description: Get a wallet
+      operationId: findWallet
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the wallet to get
+          required: true
+          schema: 
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+    put:
+      tags:
+        - Wallet
+      summary: Update wallet
+      description: Update wallet
+      operationId: updateWallet
+      parameters:
+        - name: walletId
+          in: path 
+          description: the id of the wallet to be updated
+          required: true
+          schema:
+            type: number 
+      requestBody: 
+        content:  
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWalletRequest'
       responses:
         200:
           description: OK
@@ -47,6 +105,214 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WalletsResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+    delete:
+      tags:
+        - Wallet
+      summary: Delete a wallet
+      description: Delete a wallet
+      operationId: deleteWallet
+      parameters:
+        - name: walletId
+          in: path
+          description: Wallet id to delete
+          required: true
+          schema:
+            type: number
+      responses:
+        200: 
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+  /wallets/{walletId}/budgets:
+    get:
+      tags:
+        - Budget
+      summary: Get all budgets
+      description: Get all budgets
+      operationId: findBudgets
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the wallet that contains all the budget
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetsResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+    post:
+      tags:
+        - Budget
+      summary: Create a budget
+      description: Create a budget
+      operationId: createBudget
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the wallet that contains all the budget
+          required: true
+          schema: 
+            type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewBudgetRequest'
+      responses:
+        200:
+          description: OK 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+  # /wallets/{walletId}/budgets/{budgetId}:
+  #   get:
+  #   put:
+  #   delete:
+  # /wallets/{id}/transactions:
+  #   get:
+  #   post:
+  # /wallets/{id}/transactions/{id}:
+  /categories:
+    get:
+      tags:
+        - Category
+      summary: Get all tags
+      description: Get all tags
+      operationId: getCategories
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoriesResponse'
+    post:
+      tags:
+        - Category
+      summary: Create a category
+      description: Create a category
+      operationId: createCategory
+      requestBody:
+        description: Category to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCategoryRequest'
+        required: true
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+  /categories/{id}:
+    get:
+      tags:
+        - Category
+      summary: Get a catagory
+      description: Get a catagory
+      operationId: findCategory
+      parameters:
+        - name: id
+          in: path
+          description: Id of the category to get
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+    put:
+      tags: 
+        - Category
+      summary: Update a category
+      description: Update a category
+      operationId: updateCategory
+      parameters:
+        - name: id
+          in: path
+          description: Id of the category to update
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: Category object with the updated content 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCategoryRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+    delete:
+      tags:
+        - Category
+      summary: Delete a category 
+      description: Delete a category 
+      operationId: deleteCategory
+      parameters:
+        - name: id
+          in: path
+          description: Id of the category to delete
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content: {}
         422:
           description: Unexpected error
           content:
@@ -96,7 +362,7 @@ components:
           type: string
         defaultWallet:
           type: boolean
-        balanceAmount:
+        initialBalanceAmount:
           type: number
           format: double
         categories:
@@ -119,6 +385,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Wallet'
+    UpdateWalletRequest:
+      type: object
+      required:
+        - wallet
+      properties:
+        wallet:
+          $ref: '#/components/schemas/UpdateWallet'
+    UpdateWallet:
+      type: object
+      properties:
+        name:
+          type: string
+        defaultCurrencyCode:
+          type: string
+        defaultWallet:
+          type: boolean
+        initialBalanceAmount:
+          type: number
+          format: double
+        categories: 
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
     Category:
       type: object
       required:
@@ -126,8 +415,6 @@ components:
         - expense
         - icon
         - color
-        - userDefined
-        - active
       properties:
         id:
           type: number
@@ -139,10 +426,117 @@ components:
           type: string
         color:
           type: string
-        userDefined:
-          type: boolean
         active:
           type: boolean
+    CategoryResponse:
+      type: object
+      required:
+        - category
+      properties:
+        category:
+          $ref: '#/components/schemas/Category'
+    CategoriesResponse:
+      type: object
+      required:
+        - categories
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+    NewCategoryRequest:
+      type: object
+      required:
+        - name
+        - expense
+        - icon
+        - color
+      properties:
+        name:
+          type: string
+        expense:
+          type: boolean
+        icon:
+          type: string
+        color:
+          type: string
+    UpdateCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        expense:
+          type: boolean
+        icon:
+          type: string
+        color:
+          type: string
+    UpdateCategoryRequest:
+      type: object
+      required:
+        - category
+      properties:
+        category:
+          $ref: '#/components/schemas/UpdateCategory'
+    Budget:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        period:
+          type: string 
+        limitAmount:
+          type: number
+          format: double
+        currentAmount:
+          type: number
+          format: double
+        wallet:
+          $ref: '#/components/schemas/Wallet'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+    BudgetResponse:
+      type: object
+      required:
+        - budget
+      properties:
+        budget:
+          $ref: '#/components/schemas/Budget'
+    BudgetsResponse:
+      type: array
+      required:
+        - budgets
+      properties:
+        budgets:
+          items:
+            $ref: '#/components/schemas/Budget'
+    NewBudgetRequest:
+      type: object
+      required:
+        - name
+        - period
+        - limitAmount
+        - currentAmount
+        - categories
+      properties:
+        name:
+          type: string
+        period:
+          type: string 
+        limitAmount:
+          type: number
+          format: double
+        currentAmount:
+          type: number
+          format: double
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
     GenericErrorModel: 
       required: 
         - errors
