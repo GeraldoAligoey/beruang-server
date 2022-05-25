@@ -195,10 +195,111 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorModel'
-  # /wallets/{walletId}/budgets/{budgetId}:
-  #   get:
-  #   put:
-  #   delete:
+  /wallets/{walletId}/budgets/{budgetId}:
+    get:
+      tags:
+        - Budget
+      summary: Get a budget in a wallet
+      description: Get a budget in a wallet
+      operationId: findBudget
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the wallet
+          required: true
+          schema:
+            type: number
+        - name: budgetId
+          in: path
+          description: Id of the budget
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+    put:
+      tags:
+        - Budget
+      summary: Update a budget in a wallet
+      description: Update a budget in a wallet
+      operationId: updateBudget
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the wallet
+          required: true
+          schema:
+            type: number
+        - name: budgetId
+          in: path
+          description: Id of the budget
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: Budget to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBudgetRequest'
+        required: true
+      responses:
+        200:
+          description: OK 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+    delete:
+      tags:
+        - Budget
+      summary: Delete a budget
+      description: Delete a budget
+      operationId: deleteBudget
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the wallet
+          required: true
+          schema:
+            type: number
+        - name: budgetId
+          in: path
+          description: Id of the budget
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+      
   # /wallets/{id}/transactions:
   #   get:
   #   post:
@@ -537,6 +638,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Category'
+    UpdateBudget:
+      type: object
+      properties:
+        name:
+          type: string
+        period:
+          type: string 
+        limitAmount:
+          type: number
+          format: double
+        currentAmount:
+          type: number
+          format: double
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+    UpdateBudgetRequest:
+      type: object
+      required:
+        - budget
+      properties:
+        budget:
+          $ref: '#/components/schemas/UpdateBudget'
     GenericErrorModel: 
       required: 
         - errors
