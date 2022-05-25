@@ -299,11 +299,168 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorModel'
-      
-  # /wallets/{id}/transactions:
-  #   get:
-  #   post:
-  # /wallets/{id}/transactions/{id}:
+  /wallets/{walletId}/transactions:
+    get:
+      tags:
+        - Transaction
+      summary: Get all transactions in a wallet
+      description: Get all transactions in a wallet
+      operationId: getTransactions
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the wallet
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+    post:
+      tags:
+        - Transaction
+      summary: Create a new transaction in a wallet 
+      description: Create a new transaction in a wallet 
+      operationId: createTransaction
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the wallet
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: New transaction information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTransactionRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+  /wallets/{walletId}/transactions/{transactionId}:
+    get:
+      tags:
+        - Transaction
+      summary: Get a transaction in a wallet 
+      description: Get a transaction in a wallet 
+      operationId: getTransaction
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the wallet
+          required: true
+          schema:
+            type: number
+        - name: transactionId
+          in: path
+          description: Id of the transaction
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+    put:
+      tags:
+        - Transaction
+      summary: Update a transaction in a wallet 
+      description: Update a transaction in a wallet 
+      operationId: updateTransaction
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the wallet
+          required: true
+          schema:
+            type: number
+        - name: transactionId
+          in: path
+          description: Id of the transaction
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: Updated transaction information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTransactionRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
+    delete:
+      tags:
+        - Transaction
+      summary: Delete a transaction in a wallet 
+      description: Delete a transaction in a wallet 
+      operationId: deleteTransaction
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the wallet
+          required: true
+          schema:
+            type: number
+        - name: transactionId
+          in: path
+          description: Id of the transaction
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
   /categories:
     get:
       tags:
@@ -662,6 +819,82 @@ components:
       properties:
         budget:
           $ref: '#/components/schemas/UpdateBudget'
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: number
+        note:
+          type: string        
+        amount:
+          type: number
+          format: double
+        date:
+          type: string
+          format: date
+        wallet:
+          $ref: '#/components/schemas/Wallet'
+        category:
+          $ref: '#/components/schemas/Category'
+    TransactionResponse:
+      type: object
+      required:
+        - transaction
+      properties:
+        transaction:
+          $ref: '#/components/schemas/Transaction'
+    TransactionsResponse:
+      type: object
+      required:
+        - transactions
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    NewTransactionRequest:
+      type: object
+      required:
+        - note
+        - amount
+        - date
+        - walletId
+        - categoryId
+      properties:
+        note:
+          type: string        
+        amount:
+          type: number
+          format: double
+        date:
+          type: string
+          format: date
+        walletId:
+          type: number
+        categoryId:
+          type: number
+    UpdateTransaction:
+      type: object
+      properties:
+        note:
+          type: string        
+        amount:
+          type: number
+          format: double
+        date:
+          type: string
+          format: date
+        walletId:
+          type: number
+        categoryId:
+          type: number
+    UpdateTransactionRequest:
+      type: object
+      required:
+        - transaction
+      properties:
+        transaction:
+          $ref: '#/components/schemas/UpdateTransaction'
     GenericErrorModel: 
       required: 
         - errors
