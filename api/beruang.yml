@@ -765,11 +765,12 @@ components:
         budget:
           $ref: '#/components/schemas/Budget'
     BudgetsResponse:
-      type: array
+      type: object 
       required:
         - budgets
       properties:
         budgets:
+          type: array
           items:
             $ref: '#/components/schemas/Budget'
     NewBudgetRequest:
