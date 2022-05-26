@@ -1,10 +1,10 @@
 package com.gma.challenge.beruang.controller;
 
-import com.gma.challenge.beruang.api.CategoriesApi;
+import com.gma.challenge.beruang.api.WalletsApi;
 
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class CategoryController implements CategoriesApi {
+public class WalletController implements WalletsApi {
   
 }
