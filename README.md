@@ -1,3 +1,3 @@
-# berUang
+# beruang
 
-Money management webapp.
+Money management REST server. Built with contract-first development approach. 
