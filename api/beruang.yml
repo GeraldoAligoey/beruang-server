@@ -52,7 +52,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorModel'
-      x-codegen-request-body-name: wallet
   /wallets/{walletId}:
     get:
       tags:
@@ -613,7 +612,8 @@ components:
         - defaultCurrencyCode
       properties:
         id:
-          type: number
+          type: integer 
+          format: int64
         name:
           type: string
         defaultCurrencyCode:
@@ -675,7 +675,8 @@ components:
         - color
       properties:
         id:
-          type: number
+          type: integer 
+          format: int64
         name:
           type: string
         expense:
@@ -740,7 +741,8 @@ components:
       type: object
       properties:
         id:
-          type: number
+          type: integer 
+          format: int64
         name:
           type: string
         period:
@@ -824,7 +826,8 @@ components:
       type: object
       properties:
         id:
-          type: number
+          type: integer 
+          format: int64
         note:
           type: string        
         amount:
