@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### OpenAPI generated folder ###
+**/src/main/gen/**
