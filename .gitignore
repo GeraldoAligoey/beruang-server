@@ -34,3 +34,4 @@ build/
 
 ### OpenAPI generated folder ###
 **/src/main/gen/**
+.openapi-generator
