@@ -65,7 +65,8 @@ paths:
           description: Id of the wallet to get
           required: true
           schema: 
-            type: number
+            type: integer
+            format: int64
       responses:
         200:
           description: OK
@@ -91,7 +92,8 @@ paths:
           description: the id of the wallet to be updated
           required: true
           schema:
-            type: number 
+            type: integer
+            format: int64
       requestBody: 
         content:  
           application/json:
@@ -122,7 +124,8 @@ paths:
           description: Wallet id to delete
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
       responses:
         200: 
           description: OK
@@ -149,7 +152,8 @@ paths:
           description: Id of the wallet that contains all the budget
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
       responses:
         200:
           description: OK 
@@ -175,7 +179,8 @@ paths:
           description: Id of the wallet that contains all the budget
           required: true
           schema: 
-            type: number
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
@@ -207,13 +212,15 @@ paths:
           description: Id of the wallet
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
         - name: budgetId
           in: path
           description: Id of the budget
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
       responses:
         200:
           description: OK 
@@ -239,13 +246,15 @@ paths:
           description: Id of the wallet
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
         - name: budgetId
           in: path
           description: Id of the budget
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
       requestBody:
         description: Budget to update
         content:
@@ -278,13 +287,15 @@ paths:
           description: Id of the wallet
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
         - name: budgetId
           in: path
           description: Id of the budget
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
       responses:
         200:
           description: OK
@@ -311,7 +322,8 @@ paths:
           description: Id of the wallet
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
       responses:
         200:
           description: OK
@@ -337,7 +349,8 @@ paths:
           description: Id of the wallet
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
       requestBody:
         description: New transaction information
         content:
@@ -370,13 +383,15 @@ paths:
           description: Id of the wallet
           required: true
           schema:
-            type: number
+            type: integer 
+            format: int64
         - name: transactionId
           in: path
           description: Id of the transaction
           required: true
           schema:
-            type: number
+            type: integer 
+            format: int64
       responses:
         200:
           description: OK
@@ -402,13 +417,15 @@ paths:
           description: Id of the wallet
           required: true
           schema:
-            type: number
+            type: integer 
+            format: int64
         - name: transactionId
           in: path
           description: Id of the transaction
           required: true
           schema:
-            type: number
+            type: integer 
+            format: int64
       requestBody:
         description: Updated transaction information
         content:
@@ -440,13 +457,15 @@ paths:
           description: Id of the wallet
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
         - name: transactionId
           in: path
           description: Id of the transaction
           required: true
           schema:
-            type: number
+            type: integer
+            format: int64
       responses:
         200:
           description: OK
@@ -513,7 +532,8 @@ paths:
           description: Id of the category to get
           required: true
           schema:
-            type: number
+            type: integer 
+            format: int64
       responses:
         200:
           description: OK
@@ -521,6 +541,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryResponse'
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorModel'
     put:
       tags: 
         - Category
@@ -533,7 +559,8 @@ paths:
           description: Id of the category to update
           required: true
           schema:
-            type: number
+            type: integer 
+            format: int64
       requestBody:
         description: Category object with the updated content 
         content:
@@ -565,7 +592,8 @@ paths:
           description: Id of the category to delete
           required: true
           schema:
-            type: number
+            type: integer 
+            format: int64
       responses:
         200:
           description: OK
