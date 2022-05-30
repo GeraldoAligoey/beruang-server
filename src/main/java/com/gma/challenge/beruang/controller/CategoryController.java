@@ -34,15 +34,14 @@ public class CategoryController implements CategoriesApi {
   }
 
   @Override
-  public ResponseEntity<Void> deleteCategory(BigDecimal id) {
+  public ResponseEntity<Void> deleteCategory(Long id) {
     // TODO Auto-generated method stub
     return CategoriesApi.super.deleteCategory(id);
   }
 
   @Override
-  public ResponseEntity<CategoryResponseData> findCategory(BigDecimal id) {
-    // TODO Auto-generated method stub
-    return CategoriesApi.super.findCategory(id);
+  public ResponseEntity<CategoryResponseData> findCategory(Long id) {
+    return ResponseEntity.ok(categoryReadService.findCategory(id));
   }
 
   @Override
@@ -57,7 +56,7 @@ public class CategoryController implements CategoriesApi {
   }
 
   @Override
-  public ResponseEntity<CategoryResponseData> updateCategory(BigDecimal id,
+  public ResponseEntity<CategoryResponseData> updateCategory(Long id,
       @Valid UpdateCategoryRequestData updateCategoryRequestData) {
     // TODO Auto-generated method stub
     return CategoriesApi.super.updateCategory(id, updateCategoryRequestData);
