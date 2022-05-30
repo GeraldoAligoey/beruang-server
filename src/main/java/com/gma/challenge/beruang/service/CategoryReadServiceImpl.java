@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gma.challenge.beruang.data.CategoriesResponseData;
 import com.gma.challenge.beruang.data.CategoryData;
+import com.gma.challenge.beruang.data.CategoryResponseData;
 import com.gma.challenge.beruang.domain.Category;
 import com.gma.challenge.beruang.repo.CategoryRepository;
 
@@ -37,6 +38,29 @@ public class CategoryReadServiceImpl implements CategoryReadService {
 
       data.addCategoriesItem(categoryData);
     }
+
+    return data;
+  }
+
+  @Override
+  public CategoryResponseData findCategory(Long id) {
+    Category category = categoryRepository.findById(id).orElse(null);
+
+    if (category == null) {
+      //throw error
+    }
+
+    CategoryResponseData data = new CategoryResponseData();
+
+    CategoryData categoryData = new CategoryData();
+    categoryData.setId(category.getId());
+    categoryData.setName(category.getName());
+    categoryData.setExpense(category.isExpense());
+    categoryData.setIcon(category.getIcon());
+    categoryData.setColor(category.getColor());
+    categoryData.setActive(category.isActive());
+
+    data.category(categoryData);
 
     return data;
   }
