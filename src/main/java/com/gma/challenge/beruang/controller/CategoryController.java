@@ -1,8 +1,5 @@
 package com.gma.challenge.beruang.controller;
 
-import java.math.BigDecimal;
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import com.gma.challenge.beruang.api.CategoriesApi;
@@ -11,32 +8,35 @@ import com.gma.challenge.beruang.data.CategoryResponseData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
 import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
 import com.gma.challenge.beruang.service.CategoryReadService;
+import com.gma.challenge.beruang.service.CategoryWriteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.context.request.NativeWebRequest;
 
 @Controller
 public class CategoryController implements CategoriesApi {
 
   private final CategoryReadService categoryReadService;
+  private final CategoryWriteService categoryWriteService;
 
   @Autowired
-  public CategoryController(CategoryReadService categoryReadService) {
+  public CategoryController(CategoryReadService categoryReadService,
+      CategoryWriteService categoryWriteService) {
     this.categoryReadService = categoryReadService;
+    this.categoryWriteService = categoryWriteService;
   }
 
   @Override
   public ResponseEntity<CategoryResponseData> createCategory(@Valid NewCategoryRequestData newCategoryRequestData) {
-    // TODO Auto-generated method stub
-    return CategoriesApi.super.createCategory(newCategoryRequestData);
+    return ResponseEntity.ok(categoryWriteService.createCategory(newCategoryRequestData));
   }
 
   @Override
   public ResponseEntity<Void> deleteCategory(Long id) {
-    // TODO Auto-generated method stub
-    return CategoriesApi.super.deleteCategory(id);
+    categoryWriteService.deleteCategory(id);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @Override
@@ -50,16 +50,9 @@ public class CategoryController implements CategoriesApi {
   }
 
   @Override
-  public Optional<NativeWebRequest> getRequest() {
-    // TODO Auto-generated method stub
-    return CategoriesApi.super.getRequest();
-  }
-
-  @Override
   public ResponseEntity<CategoryResponseData> updateCategory(Long id,
       @Valid UpdateCategoryRequestData updateCategoryRequestData) {
-    // TODO Auto-generated method stub
-    return CategoriesApi.super.updateCategory(id, updateCategoryRequestData);
+    return ResponseEntity.ok(categoryWriteService.updateCategory(id, updateCategoryRequestData));
   }
-  
+
 }
