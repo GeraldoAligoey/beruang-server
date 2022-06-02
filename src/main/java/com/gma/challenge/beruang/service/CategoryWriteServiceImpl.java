@@ -9,6 +9,7 @@ import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
 import com.gma.challenge.beruang.domain.Category;
 import com.gma.challenge.beruang.repo.CategoryRepository;
 import com.gma.challenge.beruang.util.Mapper;
+import com.gma.challenge.beruang.util.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class CategoryWriteServiceImpl implements CategoryWriteService {
 
   @Override
   public CategoryResponseData createCategory(NewCategoryRequestData newCategoryRequestData) {
+    Validator.validateNewCategoryRequestData(newCategoryRequestData);
     Category category = categoryRepository.saveAndFlush(Mapper.toCategory(newCategoryRequestData));
 
     CategoryResponseData categoryResponseData = new CategoryResponseData();
