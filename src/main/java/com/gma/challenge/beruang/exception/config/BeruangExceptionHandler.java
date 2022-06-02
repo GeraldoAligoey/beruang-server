@@ -5,6 +5,7 @@ import java.util.List;
 import com.gma.challenge.beruang.data.GenericErrorModelData;
 import com.gma.challenge.beruang.data.GenericErrorModelErrorsData;
 import com.gma.challenge.beruang.exception.CategoryNotFoundException;
+import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,4 +38,8 @@ public class BeruangExceptionHandler extends ResponseEntityExceptionHandler {
     return handleExceptionInternal(ex, null, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
 
+  @ExceptionHandler(IncompleteRequestDataException.class)
+  public ResponseEntity<Object> handleIncompleteRequestDataException(IncompleteRequestDataException ex, WebRequest request) {
+    return handleExceptionInternal(ex, null, new HttpHeaders(), HttpStatus.UNPROCESSABLE_ENTITY, request);
+  }
 }
