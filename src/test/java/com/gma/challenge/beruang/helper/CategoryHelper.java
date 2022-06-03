@@ -1,30 +1,22 @@
 package com.gma.challenge.beruang.helper;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.CategoryResponseData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
+import com.gma.challenge.beruang.data.UpdateCategoryData;
+import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
 
 public class CategoryHelper {
 
-  /**
-   *
-   */
   private static final String CATEGORY_ICON = "fa-solid fa-books";
-  /**
-   *
-   */
   private static final boolean CATEGORY_EXPENSE = true;
-  /**
-   *
-   */
   private static final String CATEGORY_COLOR = "green";
-  /**
-   *
-   */
   private static final String CATEGORY_NAME = "Hobby";
+
+  private static final String UPDATE_CATEGORY_ICON = "updated fa-solid fa-books";
+  private static final boolean UPDATE_CATEGORY_EXPENSE = false;
+  private static final String UPDATE_CATEGORY_COLOR = "updated green";
+  private static final String UPDATE_CATEGORY_NAME = "Updated Hobby";
 
   public static NewCategoryRequestData getValidNewCategoryRequestDataSample() {
     NewCategoryRequestData requestData = new NewCategoryRequestData();
@@ -65,5 +57,47 @@ public class CategoryHelper {
     requestData.setIcon(CATEGORY_ICON);
 
     return requestData;
+  }
+
+  public static UpdateCategoryRequestData getValidUpdateCategoryRequestDataSample() {
+    UpdateCategoryRequestData requestData = new UpdateCategoryRequestData();
+    UpdateCategoryData categoryData = new UpdateCategoryData();
+    categoryData.setName(UPDATE_CATEGORY_NAME);
+    categoryData.setExpense(UPDATE_CATEGORY_EXPENSE);
+    categoryData.setColor(UPDATE_CATEGORY_COLOR);
+    categoryData.setIcon(UPDATE_CATEGORY_ICON);
+
+    return requestData.category(categoryData);
+  }
+
+  public static boolean isUpdateCategoryResponseDataEqualsToSample(CategoryResponseData responseData) {
+    CategoryData category = responseData.getCategory();
+
+    if (!category.getName().equals(UPDATE_CATEGORY_NAME)) {
+      return false;
+    }
+
+    if (!category.getExpense().equals(UPDATE_CATEGORY_EXPENSE)) {
+      return false;
+    }
+
+    if (!category.getColor().equals(UPDATE_CATEGORY_COLOR)) {
+      return false;
+    }
+
+    if (!category.getIcon().equals(UPDATE_CATEGORY_ICON)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  public static UpdateCategoryRequestData getInvalidUpdateCategoryRequestDataSample() {
+    UpdateCategoryRequestData requestData = new UpdateCategoryRequestData();
+    UpdateCategoryData categoryData = new UpdateCategoryData();
+    categoryData.setName(UPDATE_CATEGORY_NAME);
+    categoryData.setIcon(UPDATE_CATEGORY_ICON);
+
+    return requestData.category(categoryData);
   }
 }
