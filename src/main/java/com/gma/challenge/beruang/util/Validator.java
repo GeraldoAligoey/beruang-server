@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
+import com.gma.challenge.beruang.data.UpdateCategoryData;
+import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 
 public class Validator {
@@ -29,6 +31,35 @@ public class Validator {
       dataFields.add("icon");
     }
 
-    throw new IncompleteRequestDataException(message.concat(Arrays.asList(dataFields).toString()));
+    if (!dataFields.isEmpty()) {
+      throw new IncompleteRequestDataException(message.concat(Arrays.asList(dataFields).toString()));
+    }
+  }
+
+  public static void validateUpdateCategoryRequestData(UpdateCategoryRequestData updateCategoryRequestData) {
+    String message = "Missing data field(s): ";
+    List<String> dataFields = new ArrayList<>();
+
+    UpdateCategoryData requestData = updateCategoryRequestData.getCategory();
+
+    if (requestData.getName() == null || requestData.getName().isEmpty() || requestData.getName().isBlank()) {
+      dataFields.add("name");
+    }
+
+    if (requestData.getColor() == null || requestData.getColor().isEmpty() || requestData.getColor().isBlank()) {
+      dataFields.add("color");
+    }
+
+    if (requestData.getExpense() == null) {
+      dataFields.add("expense");
+    }
+
+    if (requestData.getIcon() == null || requestData.getIcon().isEmpty() || requestData.getIcon().isBlank()) {
+      dataFields.add("icon");
+    }
+
+    if (!dataFields.isEmpty()) {
+      throw new IncompleteRequestDataException(message.concat(Arrays.asList(dataFields).toString()));
+    }
   }
 }
