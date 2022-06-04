@@ -26,7 +26,7 @@ public class Wallet extends CommonNamedClass {
 
   private String defaultCurrencyCode;
   private boolean defaultWallet = false;
-  private BigDecimal balanceAmount = new BigDecimal(0);
+  private BigDecimal initialBalanceAmount = new BigDecimal(0);
 
   @ManyToMany(cascade = { 
     CascadeType.PERSIST, 
