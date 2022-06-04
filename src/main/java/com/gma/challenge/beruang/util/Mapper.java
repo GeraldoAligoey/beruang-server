@@ -1,9 +1,14 @@
 package com.gma.challenge.beruang.util;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
 import com.gma.challenge.beruang.data.UpdateCategoryData;
+import com.gma.challenge.beruang.data.WalletData;
 import com.gma.challenge.beruang.domain.Category;
+import com.gma.challenge.beruang.domain.Wallet;
 
 public class Mapper {
 
@@ -40,4 +45,21 @@ public class Mapper {
     return category;
   }
 
+  public static WalletData toWalletData(Wallet wallet) {
+    WalletData walletData = new WalletData();
+    walletData.setId(wallet.getId());
+    walletData.setName(wallet.getName());
+    walletData.setDefaultCurrencyCode(wallet.getDefaultCurrencyCode());
+    walletData.setDefaultWallet(wallet.isDefaultWallet());
+    walletData.setInitialBalanceAmount(wallet.getInitialBalanceAmount());
+
+    List<CategoryData> categoryDatas = wallet.getCategories()
+        .stream()
+        .map(category -> toCategoryData(category))
+        .collect(Collectors.toList());
+
+    walletData.setCategories(categoryDatas);
+
+    return walletData;
+  }
 }
