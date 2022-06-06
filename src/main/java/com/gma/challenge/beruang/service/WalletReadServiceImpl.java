@@ -10,6 +10,7 @@ import com.gma.challenge.beruang.data.WalletData;
 import com.gma.challenge.beruang.data.WalletResponseData;
 import com.gma.challenge.beruang.data.WalletsResponseData;
 import com.gma.challenge.beruang.domain.Wallet;
+import com.gma.challenge.beruang.exception.WalletNotFoundException;
 import com.gma.challenge.beruang.repo.WalletRepository;
 import com.gma.challenge.beruang.util.Mapper;
 
@@ -21,7 +22,8 @@ public class WalletReadServiceImpl implements WalletReadService {
 
   @Override
   public WalletResponseData findWallet(Long walletId) {
-    Wallet wallet = walletRepository.findById(walletId).orElse(null);
+    Wallet wallet = walletRepository.findById(walletId)
+        .orElseThrow(() -> new WalletNotFoundException("Wallet id " + walletId + " not found"));
     WalletResponseData responseData = new WalletResponseData();
     responseData.setWallet(Mapper.toWalletData(wallet));
 
@@ -32,7 +34,8 @@ public class WalletReadServiceImpl implements WalletReadService {
   public WalletsResponseData findWallets() {
     List<Wallet> wallets = walletRepository.findAll();
     WalletsResponseData responseData = new WalletsResponseData();
-    List<WalletData> walletDatas = wallets.stream().map(wallet -> Mapper.toWalletData(wallet)).collect(Collectors.toList());
+    List<WalletData> walletDatas = wallets.stream().map(wallet -> Mapper.toWalletData(wallet))
+        .collect(Collectors.toList());
     responseData.setWallets(walletDatas);
 
     return responseData;
