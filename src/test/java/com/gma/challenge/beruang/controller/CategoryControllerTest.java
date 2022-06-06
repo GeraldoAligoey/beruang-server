@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -20,11 +21,14 @@ import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.helper.CategoryHelper;
 
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("test")
 public class CategoryControllerTest {
 
   private static final long VALID_ID = 1l;
   private static final Long INVALID_ID = -1l;
+  private static final Long VALID_LINKED_ID = 500l;
+  private static final Long VALID_UNLINKED_ID = 502l;
 
   @Autowired
   private CategoryController SUT;
@@ -32,7 +36,6 @@ public class CategoryControllerTest {
   @Test
   public void testCreateCategory_validNewCategoryRequestData() {
     ResponseEntity<CategoryResponseData> responseEntity = SUT.createCategory(CategoryHelper.getValidNewCategoryRequestDataSample());
-
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getCategory());
     assertTrue(CategoryHelper.isCategoryResponseDataEqualsToSample(responseEntity.getBody()));
@@ -44,10 +47,19 @@ public class CategoryControllerTest {
   }
 
   @Test
-  public void testDeleteCategory_validId() {
-    ResponseEntity<Void> responseEntity = SUT.deleteCategory(VALID_ID);
-
+  @Sql("classpath:sql/testDeleteCategory.sql")
+  public void testDeleteCategory_validId_Linked() {
+    ResponseEntity<Void> responseEntity = SUT.deleteCategory(VALID_LINKED_ID);
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertThrows(CategoryNotFoundException.class, () -> SUT.findCategory(VALID_LINKED_ID));
+  }
+
+  @Test
+  @Sql("classpath:sql/testDeleteCategory.sql")
+  public void testDeleteCategory_validId_Unlinked() {
+    ResponseEntity<Void> responseEntity = SUT.deleteCategory(VALID_UNLINKED_ID);
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertThrows(CategoryNotFoundException.class, () -> SUT.findCategory(VALID_UNLINKED_ID));
   }
 
   @Test
@@ -56,15 +68,14 @@ public class CategoryControllerTest {
   }
 
   @Test
-  public void testFindCategory_validIdRecordExist() {
+  public void testFindCategory_validId_RecordExist() {
     ResponseEntity<CategoryResponseData> responseEntity = SUT.findCategory(VALID_ID);
-
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getCategory());
   }
 
   @Test
-  public void testFindCategory_validIdRecordNotExist() {
+  public void testFindCategory_validId_RecordNotExist() {
     assertThrows(CategoryNotFoundException.class, () -> SUT.findCategory(100l));
   }
 
@@ -74,30 +85,27 @@ public class CategoryControllerTest {
   }
 
   @Test
-  @Sql("classpath:sql/testGetCategories_empty.sql")
-  public void testGetCategories_empty() {
-    ResponseEntity<CategoriesResponseData> responseEntity = SUT.getCategories();
-
+  @Sql("classpath:sql/testFind_empty.sql")
+  public void testFindCategories_empty() {
+    ResponseEntity<CategoriesResponseData> responseEntity = SUT.findCategories();
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getCategories());
     assertTrue(responseEntity.getBody().getCategories().isEmpty());
   }
 
   @Test
-  @Sql("classpath:sql/testGetCategories_singleItem.sql")
-  public void testGetCategories_singleItem() {
-    ResponseEntity<CategoriesResponseData> responseEntity = SUT.getCategories();
-
+  @Sql("classpath:sql/testFindCategories_singleItem.sql")
+  public void testFindCategories_singleItem() {
+    ResponseEntity<CategoriesResponseData> responseEntity = SUT.findCategories();
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getCategories());
     assertTrue(responseEntity.getBody().getCategories().size() == 1);
   }
 
   @Test
-  @Sql("classpath:sql/testGetCategories_multipleItems.sql")
-  public void testGetCategories_multipleItems() {
-    ResponseEntity<CategoriesResponseData> responseEntity = SUT.getCategories();
-
+  @Sql("classpath:sql/testFindCategories_multipleItems.sql")
+  public void testFindCategories_multipleItems() {
+    ResponseEntity<CategoriesResponseData> responseEntity = SUT.findCategories();
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getCategories());
     assertTrue(responseEntity.getBody().getCategories().size() > 1);
@@ -106,7 +114,6 @@ public class CategoryControllerTest {
   @Test
   public void testUpdateCategory_validId_validRequestData() {
     ResponseEntity<CategoryResponseData> responseEntity = SUT.updateCategory(VALID_ID, CategoryHelper.getValidUpdateCategoryRequestDataSample());
-
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getCategory());
     assertTrue(CategoryHelper.isUpdateCategoryResponseDataEqualsToSample(responseEntity.getBody()));
