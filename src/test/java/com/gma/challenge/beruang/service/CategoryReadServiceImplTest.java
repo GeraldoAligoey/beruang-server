@@ -6,32 +6,38 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import com.gma.challenge.beruang.data.CategoriesResponseData;
-import com.gma.challenge.beruang.data.CategoryData;
-import com.gma.challenge.beruang.data.CategoryResponseData;
-import com.gma.challenge.beruang.exception.CategoryNotFoundException;
-
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.gma.challenge.beruang.data.CategoriesResponseData;
+import com.gma.challenge.beruang.data.CategoryData;
+import com.gma.challenge.beruang.data.CategoryResponseData;
+import com.gma.challenge.beruang.exception.CategoryNotFoundException;
+
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("test")
 public class CategoryReadServiceImplTest {
-  
+
+  private static final long VALID_ID = 1l;
+  private static final long VALID_NORECORD_ID = 100l;
+  private static final long INVALID_ID = -100l;
+
   private final static Logger LOG = LoggerFactory.getLogger(CategoryReadServiceImplTest.class);
 
   @Autowired
   private CategoryReadServiceImpl SUT;
 
   @Test
-  @Sql("classpath:sql/testGetCategories_empty.sql")
-  public void testGetCategories_empty() {
-    CategoriesResponseData categoriesResponseData = SUT.getCategories();
+  @Sql("classpath:sql/testFind_empty.sql")
+  public void testFindCategories_empty() {
+    CategoriesResponseData categoriesResponseData = SUT.findCategories();
     List<CategoryData> categoryDatas = categoriesResponseData.getCategories();
 
     LOG.info("categoryDatas size: {}", categoryDatas.size());
@@ -41,9 +47,9 @@ public class CategoryReadServiceImplTest {
   }
 
   @Test
-  @Sql("classpath:sql/testGetCategories_singleItem.sql")
-  public void testGetCategories_singleItem() {
-    CategoriesResponseData categoriesResponseData = SUT.getCategories();
+  @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindCategories_singleItem.sql"})
+  public void testFindCategories_singleItem() {
+    CategoriesResponseData categoriesResponseData = SUT.findCategories();
     List<CategoryData> categoryDatas = categoriesResponseData.getCategories();
 
     LOG.info("categoryDatas size: {}", categoryDatas.size());
@@ -52,9 +58,9 @@ public class CategoryReadServiceImplTest {
   }
 
   @Test
-  @Sql("classpath:sql/testGetCategories_multipleItems.sql")
-  public void testGetCategories_multipleItems() {
-    CategoriesResponseData categoriesResponseData = SUT.getCategories();
+  @Sql("classpath:sql/testFindCategories_multipleItems.sql")
+  public void testFindCategories_multipleItems() {
+    CategoriesResponseData categoriesResponseData = SUT.findCategories();
     List<CategoryData> categoryDatas = categoriesResponseData.getCategories();
 
     LOG.info("categoryDatas size: {}", categoryDatas.size());
@@ -63,21 +69,19 @@ public class CategoryReadServiceImplTest {
   }
 
   @Test
-  @Sql("classpath:sql/testGetCategories_multipleItems.sql")
-  public void testFindCategory_validIdRecordExist() {
-    CategoryResponseData categoryResponseData = SUT.findCategory(1l);
-    CategoryData categoryData = categoryResponseData.getCategory();
-
-    assertTrue(categoryData != null);
+  @Sql("classpath:sql/testFindCategories_multipleItems.sql")
+  public void testFindCategory_validId_RecordExist() {
+    CategoryResponseData categoryResponseData = SUT.findCategory(VALID_ID);
+    assertNotNull(categoryResponseData.getCategory());
   }
 
   @Test
-  public void testFindCategory_validIdRecordNotExist() {
-    assertThrows(CategoryNotFoundException.class, () -> SUT.findCategory(100l));
+  public void testFindCategory_validId_RecordNotExist() {
+    assertThrows(CategoryNotFoundException.class, () -> SUT.findCategory(VALID_NORECORD_ID));
   }
 
   @Test
   public void testFindCategory_invalidId() {
-    assertThrows(CategoryNotFoundException.class, () -> SUT.findCategory(-100l));
+    assertThrows(CategoryNotFoundException.class, () -> SUT.findCategory(INVALID_ID));
   }
 }
