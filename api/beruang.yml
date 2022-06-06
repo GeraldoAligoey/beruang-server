@@ -485,7 +485,7 @@ paths:
         - Category
       summary: Get all tags
       description: Get all tags
-      operationId: getCategories
+      operationId: findCategories
       responses:
         200:
           description: OK
@@ -519,7 +519,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericErrorModel'
-  /categories/{id}:
+  /categories/{categoryId}:
     get:
       tags:
         - Category
@@ -527,7 +527,7 @@ paths:
       description: Get a catagory
       operationId: findCategory
       parameters:
-        - name: id
+        - name: categoryId
           in: path
           description: Id of the category to get
           required: true
@@ -554,7 +554,7 @@ paths:
       description: Update a category
       operationId: updateCategory
       parameters:
-        - name: id
+        - name: categoryId
           in: path
           description: Id of the category to update
           required: true
@@ -587,7 +587,7 @@ paths:
       description: Delete a category 
       operationId: deleteCategory
       parameters:
-        - name: id
+        - name: categoryId
           in: path
           description: Id of the category to delete
           required: true
