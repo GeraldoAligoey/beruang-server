@@ -52,19 +52,19 @@ public class WalletController implements WalletsApi {
   }
 
   @Override
-  public ResponseEntity<String> deleteBudget(Long walletId, Long budgetId) {
+  public ResponseEntity<Void> deleteBudget(Long walletId, Long budgetId) {
     // TODO Auto-generated method stub
     return WalletsApi.super.deleteBudget(walletId, budgetId);
   }
 
   @Override
-  public ResponseEntity<String> deleteTransaction(Long walletId, Long transactionId) {
+  public ResponseEntity<Void> deleteTransaction(Long walletId, Long transactionId) {
     // TODO Auto-generated method stub
     return WalletsApi.super.deleteTransaction(walletId, transactionId);
   }
 
   @Override
-  public ResponseEntity<String> deleteWallet(Long walletId) {
+  public ResponseEntity<Void> deleteWallet(Long walletId) {
     // TODO Auto-generated method stub
     return WalletsApi.super.deleteWallet(walletId);
   }
@@ -118,7 +118,7 @@ public class WalletController implements WalletsApi {
   }
 
   @Override
-  public ResponseEntity<WalletsResponseData> updateWallet(Long walletId,
+  public ResponseEntity<WalletResponseData> updateWallet(Long walletId,
       @Valid UpdateWalletRequestData updateWalletRequestData) {
     // TODO Auto-generated method stub
     return WalletsApi.super.updateWallet(walletId, updateWalletRequestData);
