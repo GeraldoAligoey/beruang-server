@@ -105,7 +105,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WalletsResponse'
+                $ref: '#/components/schemas/WalletResponse'
         422:
           description: Unexpected error
           content:
@@ -129,10 +129,7 @@ paths:
       responses:
         200: 
           description: OK
-          content:
-            application/json:
-              schema:
-                type: string
+          content: {}
         422:
           description: Unexpected error
           content:
@@ -299,10 +296,7 @@ paths:
       responses:
         200:
           description: OK
-          content:
-            application/json:
-              schema:
-                type: string
+          content: {}
         422:
           description: Unexpected error
           content:
@@ -469,10 +463,7 @@ paths:
       responses:
         200:
           description: OK
-          content:
-            application/json:
-              schema:
-                type: string
+          content: {}
         422:
           description: Unexpected error
           content:
@@ -619,7 +610,7 @@ components:
           type: string
         defaultWallet:
           type: boolean
-        balanceAmount:
+        initialBalanceAmount:
           type: number
           format: double
         categories:
