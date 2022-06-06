@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
 import com.gma.challenge.beruang.domain.common.CommonNamedClass;
@@ -28,7 +29,7 @@ public class Wallet extends CommonNamedClass {
   private boolean defaultWallet = false;
   private BigDecimal initialBalanceAmount = new BigDecimal(0);
 
-  @ManyToMany(cascade = { 
+  @ManyToMany(fetch = FetchType.EAGER, cascade = { 
     CascadeType.PERSIST, 
     CascadeType.MERGE })
   private Set<Category> categories = new HashSet<>();
