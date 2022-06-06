@@ -45,8 +45,8 @@ public class CategoryController implements CategoriesApi {
   }
 
   @Override
-  public ResponseEntity<CategoriesResponseData> getCategories() {
-    return ResponseEntity.ok(categoryReadService.getCategories());
+  public ResponseEntity<CategoriesResponseData> findCategories() {
+    return ResponseEntity.ok(categoryReadService.findCategories());
   }
 
   @Override

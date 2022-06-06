@@ -5,7 +5,7 @@ import com.gma.challenge.beruang.data.CategoryResponseData;
 
 public interface CategoryReadService {
 
-  public CategoriesResponseData getCategories();
+  public CategoriesResponseData findCategories();
 
-  public CategoryResponseData findCategory(Long id);
+  public CategoryResponseData findCategory(Long categoryId);
 }

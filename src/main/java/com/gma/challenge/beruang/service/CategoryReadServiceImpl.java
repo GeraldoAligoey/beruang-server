@@ -23,7 +23,7 @@ public class CategoryReadServiceImpl implements CategoryReadService {
   }
 
   @Override
-  public CategoriesResponseData getCategories() {
+  public CategoriesResponseData findCategories() {
     List<Category> categories = categoryRepository.findAll();
 
     CategoriesResponseData data = new CategoriesResponseData();
@@ -36,8 +36,8 @@ public class CategoryReadServiceImpl implements CategoryReadService {
   }
 
   @Override
-  public CategoryResponseData findCategory(Long id) {
-    Category category = categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
+  public CategoryResponseData findCategory(Long categoryId) {
+    Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category id " + categoryId + " not found"));
 
     CategoryResponseData data = new CategoryResponseData();
 
