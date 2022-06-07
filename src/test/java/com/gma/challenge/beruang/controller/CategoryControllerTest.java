@@ -48,7 +48,7 @@ public class CategoryControllerTest {
 
   @Test
   @Sql("classpath:sql/testDeleteCategory.sql")
-  public void testDeleteCategory_validId_Linked() {
+  public void testDeleteCategory_validId_linked() {
     ResponseEntity<Void> responseEntity = SUT.deleteCategory(VALID_LINKED_ID);
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertThrows(CategoryNotFoundException.class, () -> SUT.findCategory(VALID_LINKED_ID));
@@ -56,7 +56,7 @@ public class CategoryControllerTest {
 
   @Test
   @Sql("classpath:sql/testDeleteCategory.sql")
-  public void testDeleteCategory_validId_Unlinked() {
+  public void testDeleteCategory_validId_unlinked() {
     ResponseEntity<Void> responseEntity = SUT.deleteCategory(VALID_UNLINKED_ID);
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertThrows(CategoryNotFoundException.class, () -> SUT.findCategory(VALID_UNLINKED_ID));
@@ -68,14 +68,14 @@ public class CategoryControllerTest {
   }
 
   @Test
-  public void testFindCategory_validId_RecordExist() {
+  public void testFindCategory_validId_recordExist() {
     ResponseEntity<CategoryResponseData> responseEntity = SUT.findCategory(VALID_ID);
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getCategory());
   }
 
   @Test
-  public void testFindCategory_validId_RecordNotExist() {
+  public void testFindCategory_validId_recordNotExist() {
     assertThrows(CategoryNotFoundException.class, () -> SUT.findCategory(100l));
   }
 
