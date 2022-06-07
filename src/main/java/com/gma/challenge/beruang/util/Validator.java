@@ -14,7 +14,7 @@ import com.gma.challenge.beruang.data.UpdateWalletRequestData;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 
 public class Validator {
-  
+
   public static void validateNewCategoryRequestData(NewCategoryRequestData requestData) {
     String message = "Missing data field(s): ";
     List<String> dataFields = new ArrayList<>();
@@ -41,30 +41,25 @@ public class Validator {
   }
 
   public static void validateUpdateCategoryRequestData(UpdateCategoryRequestData updateCategoryRequestData) {
-    String message = "Missing data field(s): ";
-    List<String> dataFields = new ArrayList<>();
-
     UpdateCategoryData requestData = updateCategoryRequestData.getCategory();
 
-    if (requestData.getName() == null || requestData.getName().isEmpty() || requestData.getName().isBlank()) {
-      dataFields.add("name");
+    if (requestData.getName() != null && !requestData.getName().isBlank()) {
+      return;
     }
 
-    if (requestData.getColor() == null || requestData.getColor().isEmpty() || requestData.getColor().isBlank()) {
-      dataFields.add("color");
+    if (requestData.getColor() != null && !requestData.getColor().isBlank()) {
+      return;
     }
 
-    if (requestData.getExpense() == null) {
-      dataFields.add("expense");
+    if (requestData.getExpense() != null) {
+      return;
     }
 
-    if (requestData.getIcon() == null || requestData.getIcon().isEmpty() || requestData.getIcon().isBlank()) {
-      dataFields.add("icon");
+    if (requestData.getIcon() != null && !requestData.getIcon().isBlank()) {
+      return;
     }
 
-    if (!dataFields.isEmpty()) {
-      throw new IncompleteRequestDataException(message.concat(Arrays.asList(dataFields).toString()));
-    }
+    throw new IncompleteRequestDataException("Missing data field(s) to be updated");
   }
 
   public static void validateNewWalletRequestData(NewWalletRequestData newWalletRequestData) {
@@ -77,7 +72,8 @@ public class Validator {
       dataFields.add("name");
     }
 
-    if (requestData.getDefaultCurrencyCode() == null || requestData.getDefaultCurrencyCode().isEmpty() || requestData.getDefaultCurrencyCode().isBlank()) {
+    if (requestData.getDefaultCurrencyCode() == null || requestData.getDefaultCurrencyCode().isEmpty()
+        || requestData.getDefaultCurrencyCode().isBlank()) {
       dataFields.add("defaultCurrencyCode");
     }
 
@@ -94,23 +90,23 @@ public class Validator {
     UpdateWalletData updateWalletData = updateWalletRequestData.getWallet();
 
     if (updateWalletData.getName() != null && !updateWalletData.getName().isBlank()) {
-      return;      
+      return;
     }
 
     if (updateWalletData.getDefaultCurrencyCode() != null && !updateWalletData.getDefaultCurrencyCode().isBlank()) {
-      return;      
+      return;
     }
 
     if (updateWalletData.getDefaultWallet() != null) {
-      return;      
+      return;
     }
 
     if (updateWalletData.getInitialBalanceAmount() == null) {
-      return;      
+      return;
     }
 
     if (updateWalletData.getCategories() == null && !updateWalletData.getCategories().isEmpty()) {
-      return;      
+      return;
     }
 
     throw new IncompleteRequestDataException("Missing data field(s) to be updated");

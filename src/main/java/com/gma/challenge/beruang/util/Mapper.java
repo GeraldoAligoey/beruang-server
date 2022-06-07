@@ -53,11 +53,22 @@ public class Mapper {
   }
 
   public static Category updateCategory(Category category, UpdateCategoryData categoryData) {
-    category.setName(categoryData.getName());
-    category.setExpense(categoryData.getExpense());
-    category.setIcon(categoryData.getIcon());
-    category.setColor(categoryData.getColor());
+    if (categoryData.getName() != null && !categoryData.getName().isBlank()) {
+      category.setName(categoryData.getName());
+    }
 
+    if (categoryData.getExpense() != null) {
+      category.setExpense(categoryData.getExpense());
+    }
+
+    if (categoryData.getIcon() != null && !categoryData.getIcon().isBlank()) {
+      category.setIcon(categoryData.getIcon());
+    }
+
+    if (categoryData.getColor() != null && !categoryData.getColor().isBlank()) {
+      category.setColor(categoryData.getColor());
+    }
+    
     return category;
   }
 
@@ -86,10 +97,10 @@ public class Mapper {
     wallet.setDefaultCurrencyCode(newWalletData.getDefaultCurrencyCode());
 
     Set<Category> categories = newWalletData.getCategories()
-      .stream()
-      .map(categoryData -> toCategory(categoryData))
-      .collect(Collectors.toSet());
-    
+        .stream()
+        .map(categoryData -> toCategory(categoryData))
+        .collect(Collectors.toSet());
+
     wallet.setCategories(categories);
 
     if (newWalletData.getInitialBalanceAmount() == null) {
@@ -124,9 +135,9 @@ public class Mapper {
 
     if (updateWalletData.getCategories() != null && !updateWalletData.getCategories().isEmpty()) {
       Set<Category> categories = updateWalletData.getCategories()
-        .stream()
-        .map(categoryData -> toCategory(categoryData))
-        .collect(Collectors.toSet());
+          .stream()
+          .map(categoryData -> toCategory(categoryData))
+          .collect(Collectors.toSet());
       wallet.setCategories(categories);
     }
 
