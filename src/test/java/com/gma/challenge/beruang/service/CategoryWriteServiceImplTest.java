@@ -45,11 +45,19 @@ public class CategoryWriteServiceImplTest {
   }
 
   @Test
-  public void testUpdateCategory_validId_validRequestData() {
-    CategoryResponseData categoryResponseData = SUT.updateCategory(VALID_ID, CategoryHelper.getValidUpdateCategoryRequestDataSample());
+  public void testUpdateCategory_validId_validFullRequestData() {
+    CategoryResponseData categoryResponseData = SUT.updateCategory(VALID_ID, CategoryHelper.getValidFullUpdateCategoryRequestDataSample());
     assertNotNull(categoryResponseData);
     assertNotNull(categoryResponseData.getCategory());
     assertTrue(CategoryHelper.isUpdateCategoryResponseDataEqualsToSample(categoryResponseData));
+  }
+
+  @Test
+  public void testUpdateCategory_validId_validNotFullRequestData() {
+    CategoryResponseData categoryResponseData = SUT.updateCategory(VALID_ID, CategoryHelper.getValidNotFullUpdateCategoryRequestDataSample());
+    assertNotNull(categoryResponseData);
+    assertNotNull(categoryResponseData.getCategory());
+    assertTrue(CategoryHelper.isUpdateCategoryResponseDataEqualsToNotFullSample(categoryResponseData));
   }
 
   @Test
@@ -58,8 +66,13 @@ public class CategoryWriteServiceImplTest {
   }
 
   @Test
-  public void testUpdateCategory_invalidId_validRequestData() {
-    assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidUpdateCategoryRequestDataSample()));
+  public void testUpdateCategory_invalidId_validFullRequestData() {
+    assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidFullUpdateCategoryRequestDataSample()));
+  }
+
+  @Test
+  public void testUpdateCategory_invalidId_validNotFullRequestData() {
+    assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidNotFullUpdateCategoryRequestDataSample()));
   }
 
   @Test

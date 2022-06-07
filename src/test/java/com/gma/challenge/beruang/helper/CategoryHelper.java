@@ -59,7 +59,7 @@ public class CategoryHelper {
     return requestData;
   }
 
-  public static UpdateCategoryRequestData getValidUpdateCategoryRequestDataSample() {
+  public static UpdateCategoryRequestData getValidFullUpdateCategoryRequestDataSample() {
     UpdateCategoryRequestData requestData = new UpdateCategoryRequestData();
     UpdateCategoryData categoryData = new UpdateCategoryData();
     categoryData.setName(UPDATE_CATEGORY_NAME);
@@ -95,9 +95,28 @@ public class CategoryHelper {
   public static UpdateCategoryRequestData getInvalidUpdateCategoryRequestDataSample() {
     UpdateCategoryRequestData requestData = new UpdateCategoryRequestData();
     UpdateCategoryData categoryData = new UpdateCategoryData();
-    categoryData.setName(UPDATE_CATEGORY_NAME);
-    categoryData.setIcon(UPDATE_CATEGORY_ICON);
-
     return requestData.category(categoryData);
+  }
+
+  public static UpdateCategoryRequestData getValidNotFullUpdateCategoryRequestDataSample() {
+    UpdateCategoryRequestData requestData = new UpdateCategoryRequestData();
+    UpdateCategoryData categoryData = new UpdateCategoryData();
+    categoryData.setExpense(UPDATE_CATEGORY_EXPENSE);
+    categoryData.setColor(UPDATE_CATEGORY_COLOR);
+    return requestData.category(categoryData);
+  }
+
+  public static boolean isUpdateCategoryResponseDataEqualsToNotFullSample(
+      CategoryResponseData categoryResponseData) {
+    CategoryData category = categoryResponseData.getCategory();
+    if (!category.getExpense().equals(UPDATE_CATEGORY_EXPENSE)) {
+      return false;
+    }
+
+    if (!category.getColor().equals(UPDATE_CATEGORY_COLOR)) {
+      return false;
+    }
+
+    return true;
   }
 }

@@ -112,11 +112,19 @@ public class CategoryControllerTest {
   }
 
   @Test
-  public void testUpdateCategory_validId_validRequestData() {
-    ResponseEntity<CategoryResponseData> responseEntity = SUT.updateCategory(VALID_ID, CategoryHelper.getValidUpdateCategoryRequestDataSample());
+  public void testUpdateCategory_validId_validFullRequestData() {
+    ResponseEntity<CategoryResponseData> responseEntity = SUT.updateCategory(VALID_ID, CategoryHelper.getValidFullUpdateCategoryRequestDataSample());
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getCategory());
     assertTrue(CategoryHelper.isUpdateCategoryResponseDataEqualsToSample(responseEntity.getBody()));
+  }
+
+  @Test
+  public void testUpdateCategory_validId_validNotFullRequestData() {
+    ResponseEntity<CategoryResponseData> responseEntity = SUT.updateCategory(VALID_ID, CategoryHelper.getValidNotFullUpdateCategoryRequestDataSample());
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertNotNull(responseEntity.getBody().getCategory());
+    assertTrue(CategoryHelper.isUpdateCategoryResponseDataEqualsToNotFullSample(responseEntity.getBody()));
   }
 
   @Test
@@ -125,12 +133,17 @@ public class CategoryControllerTest {
   }
 
   @Test
-  public void testUpdateCategory_invalidId_validRequestData() {
-    assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidUpdateCategoryRequestDataSample()));
+  public void testUpdateCategory_invalidId_validFullRequestData() {
+    assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidFullUpdateCategoryRequestDataSample()));
   }
 
   @Test
   public void testUpdateCategory_invalidId_invalidRequestData() {
     assertThrows(IncompleteRequestDataException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getInvalidUpdateCategoryRequestDataSample()));
+  }
+
+  @Test
+  public void testUpdateCategory_invalidId_validNotFullRequestData() {
+    assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidNotFullUpdateCategoryRequestDataSample()));
   }
 }
