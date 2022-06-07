@@ -69,19 +69,17 @@ public class CategoryWriteServiceImpl implements CategoryWriteService {
 
   @Override
   public void deleteCategory(Long id) {
-    Category category = categoryRepository.findById(id).orElse(null);
-    if (category != null) {
-      List<Wallet> wallets = walletRepository.findByCategoryIds(Arrays.asList(id));
+    Category category = categoryRepository.findById(id)
+        .orElseThrow(() -> new CategoryNotFoundException("Invalid category id"));
 
-      for (Wallet wallet : wallets) {
-        wallet.removeCategory(category);
-        walletRepository.saveAndFlush(wallet);
-      }
+    List<Wallet> wallets = walletRepository.findByCategoryIds(Arrays.asList(id));
 
-      categoryRepository.delete(category);
-    } else {
-      throw new CategoryNotFoundException("Invalid category id");
+    for (Wallet wallet : wallets) {
+      wallet.removeCategory(category);
+      walletRepository.saveAndFlush(wallet);
     }
+
+    categoryRepository.delete(category);
   }
 
 }
