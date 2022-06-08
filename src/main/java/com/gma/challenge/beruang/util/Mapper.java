@@ -7,10 +7,9 @@ import java.util.stream.Collectors;
 
 import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
-import com.gma.challenge.beruang.data.NewWalletData;
 import com.gma.challenge.beruang.data.NewWalletRequestData;
-import com.gma.challenge.beruang.data.UpdateCategoryData;
-import com.gma.challenge.beruang.data.UpdateWalletData;
+import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
+import com.gma.challenge.beruang.data.UpdateWalletRequestData;
 import com.gma.challenge.beruang.data.WalletData;
 import com.gma.challenge.beruang.domain.Category;
 import com.gma.challenge.beruang.domain.Wallet;
@@ -41,32 +40,32 @@ public class Mapper {
     return category;
   }
 
-  public static Category toCategory(NewCategoryRequestData newCategoryData) {
+  public static Category toCategory(NewCategoryRequestData requestData) {
     Category category = new Category();
-    category.setName(newCategoryData.getName());
-    category.setExpense(newCategoryData.getExpense());
-    category.setIcon(newCategoryData.getIcon());
-    category.setColor(newCategoryData.getColor());
+    category.setName(requestData.getName());
+    category.setExpense(requestData.getExpense());
+    category.setIcon(requestData.getIcon());
+    category.setColor(requestData.getColor());
     category.setActive(true);
 
     return category;
   }
 
-  public static Category updateCategory(Category category, UpdateCategoryData categoryData) {
-    if (categoryData.getName() != null && !categoryData.getName().isBlank()) {
-      category.setName(categoryData.getName());
+  public static Category updateCategory(Category category, UpdateCategoryRequestData requestData) {
+    if (requestData.getName() != null && !requestData.getName().isBlank()) {
+      category.setName(requestData.getName());
     }
 
-    if (categoryData.getExpense() != null) {
-      category.setExpense(categoryData.getExpense());
+    if (requestData.getExpense() != null) {
+      category.setExpense(requestData.getExpense());
     }
 
-    if (categoryData.getIcon() != null && !categoryData.getIcon().isBlank()) {
-      category.setIcon(categoryData.getIcon());
+    if (requestData.getIcon() != null && !requestData.getIcon().isBlank()) {
+      category.setIcon(requestData.getIcon());
     }
 
-    if (categoryData.getColor() != null && !categoryData.getColor().isBlank()) {
-      category.setColor(categoryData.getColor());
+    if (requestData.getColor() != null && !requestData.getColor().isBlank()) {
+      category.setColor(requestData.getColor());
     }
     
     return category;
@@ -90,51 +89,50 @@ public class Mapper {
     return walletData;
   }
 
-  public static Wallet toWallet(NewWalletRequestData newWalletRequestData) {
-    NewWalletData newWalletData = newWalletRequestData.getWallet();
+  public static Wallet toWallet(NewWalletRequestData requestData) {
     Wallet wallet = new Wallet();
-    wallet.setName(newWalletData.getName());
-    wallet.setDefaultCurrencyCode(newWalletData.getDefaultCurrencyCode());
+    wallet.setName(requestData.getName());
+    wallet.setDefaultCurrencyCode(requestData.getDefaultCurrencyCode());
 
-    Set<Category> categories = newWalletData.getCategories()
+    Set<Category> categories = requestData.getCategories()
         .stream()
         .map(categoryData -> toCategory(categoryData))
         .collect(Collectors.toSet());
 
     wallet.setCategories(categories);
 
-    if (newWalletData.getInitialBalanceAmount() == null) {
+    if (requestData.getInitialBalanceAmount() == null) {
       wallet.setInitialBalanceAmount(BigDecimal.ZERO);
     } else {
-      wallet.setInitialBalanceAmount(newWalletData.getInitialBalanceAmount());
+      wallet.setInitialBalanceAmount(requestData.getInitialBalanceAmount());
     }
 
-    if (newWalletData.getDefaultWallet() != null) {
-      wallet.setDefaultWallet(newWalletData.getDefaultWallet());
+    if (requestData.getDefaultWallet() != null) {
+      wallet.setDefaultWallet(requestData.getDefaultWallet());
     }
 
     return wallet;
   }
 
-  public static Wallet updateWallet(Wallet wallet, UpdateWalletData updateWalletData) {
-    if (updateWalletData.getName() != null && !updateWalletData.getName().isBlank()) {
-      wallet.setName(updateWalletData.getName());
+  public static Wallet updateWallet(Wallet wallet, UpdateWalletRequestData requestData) {
+    if (requestData.getName() != null && !requestData.getName().isBlank()) {
+      wallet.setName(requestData.getName());
     }
 
-    if (updateWalletData.getDefaultWallet() != null) {
-      wallet.setDefaultWallet(updateWalletData.getDefaultWallet());
+    if (requestData.getDefaultWallet() != null) {
+      wallet.setDefaultWallet(requestData.getDefaultWallet());
     }
 
-    if (updateWalletData.getDefaultCurrencyCode() != null && !updateWalletData.getDefaultCurrencyCode().isBlank()) {
-      wallet.setDefaultCurrencyCode(updateWalletData.getDefaultCurrencyCode());
+    if (requestData.getDefaultCurrencyCode() != null && !requestData.getDefaultCurrencyCode().isBlank()) {
+      wallet.setDefaultCurrencyCode(requestData.getDefaultCurrencyCode());
     }
 
-    if (updateWalletData.getInitialBalanceAmount() != null) {
-      wallet.setInitialBalanceAmount(updateWalletData.getInitialBalanceAmount());
+    if (requestData.getInitialBalanceAmount() != null) {
+      wallet.setInitialBalanceAmount(requestData.getInitialBalanceAmount());
     }
 
-    if (updateWalletData.getCategories() != null && !updateWalletData.getCategories().isEmpty()) {
-      Set<Category> categories = updateWalletData.getCategories()
+    if (requestData.getCategories() != null && !requestData.getCategories().isEmpty()) {
+      Set<Category> categories = requestData.getCategories()
           .stream()
           .map(categoryData -> toCategory(categoryData))
           .collect(Collectors.toSet());

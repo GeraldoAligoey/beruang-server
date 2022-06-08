@@ -45,7 +45,7 @@ public class WalletWriteServiceImpl implements WalletWriteService {
 
       Wallet wallet = walletRepository.getReferenceById(walletId);
       WalletData walletData = Mapper.toWalletData(
-          walletRepository.saveAndFlush(Mapper.updateWallet(wallet, updateWalletRequestData.getWallet())));
+          walletRepository.saveAndFlush(Mapper.updateWallet(wallet, updateWalletRequestData)));
       WalletResponseData responseData = new WalletResponseData();
       responseData.setWallet(walletData);
 

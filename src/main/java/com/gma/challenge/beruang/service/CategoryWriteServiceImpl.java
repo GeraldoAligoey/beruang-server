@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.CategoryResponseData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
-import com.gma.challenge.beruang.data.UpdateCategoryData;
 import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
 import com.gma.challenge.beruang.domain.Category;
 import com.gma.challenge.beruang.domain.Wallet;
@@ -50,12 +49,11 @@ public class CategoryWriteServiceImpl implements CategoryWriteService {
   @Override
   public CategoryResponseData updateCategory(Long id, UpdateCategoryRequestData updateCategoryRequestData) {
     Validator.validateUpdateCategoryRequestData(updateCategoryRequestData);
-    UpdateCategoryData updateCategoryData = updateCategoryRequestData.getCategory();
 
     try {
       Category category = categoryRepository.getReferenceById(id);
       CategoryData categoryData = Mapper
-          .toCategoryData(categoryRepository.saveAndFlush(Mapper.updateCategory(category, updateCategoryData)));
+          .toCategoryData(categoryRepository.saveAndFlush(Mapper.updateCategory(category, updateCategoryRequestData)));
 
       CategoryResponseData categoryResponseData = new CategoryResponseData();
       categoryResponseData.category(categoryData);

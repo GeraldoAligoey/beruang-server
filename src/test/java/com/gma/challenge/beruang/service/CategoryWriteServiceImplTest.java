@@ -53,11 +53,11 @@ public class CategoryWriteServiceImplTest {
   }
 
   @Test
-  public void testUpdateCategory_validId_validNotFullRequestData() {
-    CategoryResponseData categoryResponseData = SUT.updateCategory(VALID_ID, CategoryHelper.getValidNotFullUpdateCategoryRequestDataSample());
+  public void testUpdateCategory_validId_validPartialRequestData() {
+    CategoryResponseData categoryResponseData = SUT.updateCategory(VALID_ID, CategoryHelper.getValidPartialUpdateCategoryRequestDataSample());
     assertNotNull(categoryResponseData);
     assertNotNull(categoryResponseData.getCategory());
-    assertTrue(CategoryHelper.isUpdateCategoryResponseDataEqualsToNotFullSample(categoryResponseData));
+    assertTrue(CategoryHelper.isUpdateCategoryResponseDataEqualsToPartialSample(categoryResponseData));
   }
 
   @Test
@@ -71,8 +71,8 @@ public class CategoryWriteServiceImplTest {
   }
 
   @Test
-  public void testUpdateCategory_invalidId_validNotFullRequestData() {
-    assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidNotFullUpdateCategoryRequestDataSample()));
+  public void testUpdateCategory_invalidId_validPartialRequestData() {
+    assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidPartialUpdateCategoryRequestDataSample()));
   }
 
   @Test

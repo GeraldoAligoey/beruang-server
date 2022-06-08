@@ -120,11 +120,11 @@ public class CategoryControllerTest {
   }
 
   @Test
-  public void testUpdateCategory_validId_validNotFullRequestData() {
-    ResponseEntity<CategoryResponseData> responseEntity = SUT.updateCategory(VALID_ID, CategoryHelper.getValidNotFullUpdateCategoryRequestDataSample());
+  public void testUpdateCategory_validId_validPartialRequestData() {
+    ResponseEntity<CategoryResponseData> responseEntity = SUT.updateCategory(VALID_ID, CategoryHelper.getValidPartialUpdateCategoryRequestDataSample());
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getCategory());
-    assertTrue(CategoryHelper.isUpdateCategoryResponseDataEqualsToNotFullSample(responseEntity.getBody()));
+    assertTrue(CategoryHelper.isUpdateCategoryResponseDataEqualsToPartialSample(responseEntity.getBody()));
   }
 
   @Test
@@ -143,7 +143,7 @@ public class CategoryControllerTest {
   }
 
   @Test
-  public void testUpdateCategory_invalidId_validNotFullRequestData() {
-    assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidNotFullUpdateCategoryRequestDataSample()));
+  public void testUpdateCategory_invalidId_validPartialRequestData() {
+    assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidPartialUpdateCategoryRequestDataSample()));
   }
 }

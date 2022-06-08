@@ -5,11 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
-import com.gma.challenge.beruang.data.NewWalletData;
 import com.gma.challenge.beruang.data.NewWalletRequestData;
-import com.gma.challenge.beruang.data.UpdateCategoryData;
 import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
-import com.gma.challenge.beruang.data.UpdateWalletData;
 import com.gma.challenge.beruang.data.UpdateWalletRequestData;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 
@@ -40,9 +37,7 @@ public class Validator {
     }
   }
 
-  public static void validateUpdateCategoryRequestData(UpdateCategoryRequestData updateCategoryRequestData) {
-    UpdateCategoryData requestData = updateCategoryRequestData.getCategory();
-
+  public static void validateUpdateCategoryRequestData(UpdateCategoryRequestData requestData) {
     if (requestData.getName() != null && !requestData.getName().isBlank()) {
       return;
     }
@@ -62,11 +57,9 @@ public class Validator {
     throw new IncompleteRequestDataException("Missing data field(s) to be updated");
   }
 
-  public static void validateNewWalletRequestData(NewWalletRequestData newWalletRequestData) {
+  public static void validateNewWalletRequestData(NewWalletRequestData requestData) {
     String message = "Missing data field(s): ";
     List<String> dataFields = new ArrayList<>();
-
-    NewWalletData requestData = newWalletRequestData.getWallet();
 
     if (requestData.getName() == null || requestData.getName().isEmpty() || requestData.getName().isBlank()) {
       dataFields.add("name");
@@ -86,26 +79,24 @@ public class Validator {
     }
   }
 
-  public static void validateUpdateWalletRequestData(UpdateWalletRequestData updateWalletRequestData) {
-    UpdateWalletData updateWalletData = updateWalletRequestData.getWallet();
-
-    if (updateWalletData.getName() != null && !updateWalletData.getName().isBlank()) {
+  public static void validateUpdateWalletRequestData(UpdateWalletRequestData requestData) {
+    if (requestData.getName() != null && !requestData.getName().isBlank()) {
       return;
     }
 
-    if (updateWalletData.getDefaultCurrencyCode() != null && !updateWalletData.getDefaultCurrencyCode().isBlank()) {
+    if (requestData.getDefaultCurrencyCode() != null && !requestData.getDefaultCurrencyCode().isBlank()) {
       return;
     }
 
-    if (updateWalletData.getDefaultWallet() != null) {
+    if (requestData.getDefaultWallet() != null) {
       return;
     }
 
-    if (updateWalletData.getInitialBalanceAmount() == null) {
+    if (requestData.getInitialBalanceAmount() == null) {
       return;
     }
 
-    if (updateWalletData.getCategories() == null && !updateWalletData.getCategories().isEmpty()) {
+    if (requestData.getCategories() == null && !requestData.getCategories().isEmpty()) {
       return;
     }
 

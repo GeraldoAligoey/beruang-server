@@ -3,7 +3,6 @@ package com.gma.challenge.beruang.helper;
 import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.CategoryResponseData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
-import com.gma.challenge.beruang.data.UpdateCategoryData;
 import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
 
 public class CategoryHelper {
@@ -61,13 +60,12 @@ public class CategoryHelper {
 
   public static UpdateCategoryRequestData getValidFullUpdateCategoryRequestDataSample() {
     UpdateCategoryRequestData requestData = new UpdateCategoryRequestData();
-    UpdateCategoryData categoryData = new UpdateCategoryData();
-    categoryData.setName(UPDATE_CATEGORY_NAME);
-    categoryData.setExpense(UPDATE_CATEGORY_EXPENSE);
-    categoryData.setColor(UPDATE_CATEGORY_COLOR);
-    categoryData.setIcon(UPDATE_CATEGORY_ICON);
+    requestData.setName(UPDATE_CATEGORY_NAME);
+    requestData.setExpense(UPDATE_CATEGORY_EXPENSE);
+    requestData.setColor(UPDATE_CATEGORY_COLOR);
+    requestData.setIcon(UPDATE_CATEGORY_ICON);
 
-    return requestData.category(categoryData);
+    return requestData;
   }
 
   public static boolean isUpdateCategoryResponseDataEqualsToSample(CategoryResponseData responseData) {
@@ -94,19 +92,17 @@ public class CategoryHelper {
 
   public static UpdateCategoryRequestData getInvalidUpdateCategoryRequestDataSample() {
     UpdateCategoryRequestData requestData = new UpdateCategoryRequestData();
-    UpdateCategoryData categoryData = new UpdateCategoryData();
-    return requestData.category(categoryData);
+    return requestData;
   }
 
-  public static UpdateCategoryRequestData getValidNotFullUpdateCategoryRequestDataSample() {
+  public static UpdateCategoryRequestData getValidPartialUpdateCategoryRequestDataSample() {
     UpdateCategoryRequestData requestData = new UpdateCategoryRequestData();
-    UpdateCategoryData categoryData = new UpdateCategoryData();
-    categoryData.setExpense(UPDATE_CATEGORY_EXPENSE);
-    categoryData.setColor(UPDATE_CATEGORY_COLOR);
-    return requestData.category(categoryData);
+    requestData.setExpense(UPDATE_CATEGORY_EXPENSE);
+    requestData.setColor(UPDATE_CATEGORY_COLOR);
+    return requestData;
   }
 
-  public static boolean isUpdateCategoryResponseDataEqualsToNotFullSample(
+  public static boolean isUpdateCategoryResponseDataEqualsToPartialSample(
       CategoryResponseData categoryResponseData) {
     CategoryData category = categoryResponseData.getCategory();
     if (!category.getExpense().equals(UPDATE_CATEGORY_EXPENSE)) {
@@ -119,4 +115,18 @@ public class CategoryHelper {
 
     return true;
   }
+
+  public static CategoryData getCategoryDataSample() {
+    CategoryData categoryData = new CategoryData();
+    categoryData.setId(1l);
+    categoryData.setName(UPDATE_CATEGORY_NAME);
+    categoryData.setExpense(UPDATE_CATEGORY_EXPENSE);
+    categoryData.setColor(UPDATE_CATEGORY_COLOR);
+    categoryData.setIcon(UPDATE_CATEGORY_ICON);
+    categoryData.setActive(true);
+
+    return categoryData;
+  }
+
+
 }
