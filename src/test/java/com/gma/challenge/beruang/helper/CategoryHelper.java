@@ -1,5 +1,8 @@
 package com.gma.challenge.beruang.helper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.CategoryResponseData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
@@ -116,16 +119,11 @@ public class CategoryHelper {
     return true;
   }
 
-  public static CategoryData getCategoryDataSample() {
-    CategoryData categoryData = new CategoryData();
-    categoryData.setId(1l);
-    categoryData.setName(UPDATE_CATEGORY_NAME);
-    categoryData.setExpense(UPDATE_CATEGORY_EXPENSE);
-    categoryData.setColor(UPDATE_CATEGORY_COLOR);
-    categoryData.setIcon(UPDATE_CATEGORY_ICON);
-    categoryData.setActive(true);
-
-    return categoryData;
+  public static List<Long> getCategoryIdsDataSample() {
+    List<Long> categoryIds = new ArrayList<>();
+    categoryIds.add(1l);
+    categoryIds.add(2l);
+    return categoryIds;
   }
 
 

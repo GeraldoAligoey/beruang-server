@@ -70,7 +70,7 @@ public class Validator {
       dataFields.add("defaultCurrencyCode");
     }
 
-    if (requestData.getCategories() == null || requestData.getCategories().isEmpty()) {
+    if (requestData.getCategoryIds() == null || requestData.getCategoryIds().isEmpty()) {
       dataFields.add("categories");
     }
 
@@ -96,7 +96,7 @@ public class Validator {
       return;
     }
 
-    if (requestData.getCategories() == null && !requestData.getCategories().isEmpty()) {
+    if (requestData.getCategoryIds() == null && !requestData.getCategoryIds().isEmpty()) {
       return;
     }
 

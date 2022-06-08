@@ -28,7 +28,7 @@ public class Mapper {
     return categoryData;
   }
 
-  private static Category toCategory(CategoryData categoryData) {
+  public static Category toCategory(CategoryData categoryData) {
     Category category = new Category();
     category.setId(categoryData.getId());
     category.setName(categoryData.getName());
@@ -94,9 +94,9 @@ public class Mapper {
     wallet.setName(requestData.getName());
     wallet.setDefaultCurrencyCode(requestData.getDefaultCurrencyCode());
 
-    Set<Category> categories = requestData.getCategories()
+    Set<Category> categories = requestData.getCategoryIds()
         .stream()
-        .map(categoryData -> toCategory(categoryData))
+        .map(categoryId -> toCategory(categoryId))
         .collect(Collectors.toSet());
 
     wallet.setCategories(categories);
@@ -112,6 +112,13 @@ public class Mapper {
     }
 
     return wallet;
+  }
+
+  public static Category toCategory(Long categoryId) {
+    Category category = new Category();
+    category.setId(categoryId);
+
+    return category;
   }
 
   public static Wallet updateWallet(Wallet wallet, UpdateWalletRequestData requestData) {
@@ -131,8 +138,8 @@ public class Mapper {
       wallet.setInitialBalanceAmount(requestData.getInitialBalanceAmount());
     }
 
-    if (requestData.getCategories() != null && !requestData.getCategories().isEmpty()) {
-      Set<Category> categories = requestData.getCategories()
+    if (requestData.getCategoryIds() != null && !requestData.getCategoryIds().isEmpty()) {
+      Set<Category> categories = requestData.getCategoryIds()
           .stream()
           .map(categoryData -> toCategory(categoryData))
           .collect(Collectors.toSet());
