@@ -613,10 +613,11 @@ components:
         initialBalanceAmount:
           type: number
           format: double
-        categories:
+        categoryIds:
           type: array
           items: 
-            $ref: '#/components/schemas/Category'
+            type: integer 
+            format: int64
     Wallet:
       type: object
       required:
@@ -668,10 +669,11 @@ components:
         initialBalanceAmount:
           type: number
           format: double
-        categories: 
+        categoryIds:
           type: array
-          items:
-            $ref: '#/components/schemas/Category'
+          items: 
+            type: integer 
+            format: int64
     Category:
       type: object
       required:
@@ -794,10 +796,11 @@ components:
         currentAmount:
           type: number
           format: double
-        categories:
+        categoryIds:
           type: array
-          items:
-            $ref: '#/components/schemas/Category'
+          items: 
+            type: integer 
+            format: int64
     UpdateBudgetRequest:
       type: object
       minProperties: 1
