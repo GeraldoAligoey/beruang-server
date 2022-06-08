@@ -597,7 +597,7 @@ paths:
                 $ref: '#/components/schemas/GenericErrorModel'
 components:
   schemas:
-    NewWallet:
+    NewWalletRequest:
       type: object
       required:
         - name
@@ -617,13 +617,6 @@ components:
           type: array
           items: 
             $ref: '#/components/schemas/Category'
-    NewWalletRequest:
-      required:
-        - wallet
-      type: object
-      properties:
-        wallet: 
-          $ref: '#/components/schemas/NewWallet' 
     Wallet:
       type: object
       required:
@@ -664,13 +657,7 @@ components:
             $ref: '#/components/schemas/Wallet'
     UpdateWalletRequest:
       type: object
-      required:
-        - wallet
-      properties:
-        wallet:
-          $ref: '#/components/schemas/UpdateWallet'
-    UpdateWallet:
-      type: object
+      minProperties: 1
       properties:
         name:
           type: string
@@ -738,8 +725,9 @@ components:
           type: string
         color:
           type: string
-    UpdateCategory:
+    UpdateCategoryRequest:
       type: object
+      minProperties: 1
       properties:
         name:
           type: string
@@ -749,13 +737,6 @@ components:
           type: string
         color:
           type: string
-    UpdateCategoryRequest:
-      type: object
-      required:
-        - category
-      properties:
-        category:
-          $ref: '#/components/schemas/UpdateCategory'
     Budget:
       type: object
       properties:
@@ -817,8 +798,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Category'
-    UpdateBudget:
+    UpdateBudgetRequest:
       type: object
+      minProperties: 1
       properties:
         name:
           type: string
@@ -834,13 +816,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Category'
-    UpdateBudgetRequest:
-      type: object
-      required:
-        - budget
-      properties:
-        budget:
-          $ref: '#/components/schemas/UpdateBudget'
     Transaction:
       type: object
       properties:
@@ -896,8 +871,9 @@ components:
           type: number
         categoryId:
           type: number
-    UpdateTransaction:
+    UpdateTransactionRequest:
       type: object
+      minProperties: 1
       properties:
         note:
           type: string        
@@ -911,13 +887,6 @@ components:
           type: number
         categoryId:
           type: number
-    UpdateTransactionRequest:
-      type: object
-      required:
-        - transaction
-      properties:
-        transaction:
-          $ref: '#/components/schemas/UpdateTransaction'
     GenericErrorModel: 
       required: 
         - errors
