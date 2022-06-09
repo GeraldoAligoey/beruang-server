@@ -38,20 +38,22 @@ public class Validator {
   }
 
   public static void validateUpdateCategoryRequestData(UpdateCategoryRequestData requestData) {
-    if (requestData.getName() != null && !requestData.getName().isBlank()) {
-      return;
-    }
+    if (requestData != null) {
+      if (requestData.getName() != null && !requestData.getName().isBlank()) {
+        return;
+      }
 
-    if (requestData.getColor() != null && !requestData.getColor().isBlank()) {
-      return;
-    }
+      if (requestData.getColor() != null && !requestData.getColor().isBlank()) {
+        return;
+      }
 
-    if (requestData.getExpense() != null) {
-      return;
-    }
+      if (requestData.getExpense() != null) {
+        return;
+      }
 
-    if (requestData.getIcon() != null && !requestData.getIcon().isBlank()) {
-      return;
+      if (requestData.getIcon() != null && !requestData.getIcon().isBlank()) {
+        return;
+      }
     }
 
     throw new IncompleteRequestDataException("Missing data field(s) to be updated");
@@ -80,24 +82,26 @@ public class Validator {
   }
 
   public static void validateUpdateWalletRequestData(UpdateWalletRequestData requestData) {
-    if (requestData.getName() != null && !requestData.getName().isBlank()) {
-      return;
-    }
+    if (requestData != null) {
+      if (requestData.getName() != null && !requestData.getName().isBlank()) {
+        return;
+      }
 
-    if (requestData.getDefaultCurrencyCode() != null && !requestData.getDefaultCurrencyCode().isBlank()) {
-      return;
-    }
+      if (requestData.getDefaultCurrencyCode() != null && !requestData.getDefaultCurrencyCode().isBlank()) {
+        return;
+      }
 
-    if (requestData.getDefaultWallet() != null) {
-      return;
-    }
+      if (requestData.getDefaultWallet() != null) {
+        return;
+      }
 
-    if (requestData.getInitialBalanceAmount() == null) {
-      return;
-    }
+      if (requestData.getInitialBalanceAmount() != null) {
+        return;
+      }
 
-    if (requestData.getCategoryIds() == null && !requestData.getCategoryIds().isEmpty()) {
-      return;
+      if (requestData.getCategoryIds() != null && !requestData.getCategoryIds().isEmpty()) {
+        return;
+      }
     }
 
     throw new IncompleteRequestDataException("Missing data field(s) to be updated");
