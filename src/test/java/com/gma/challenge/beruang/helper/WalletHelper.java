@@ -1,11 +1,13 @@
 package com.gma.challenge.beruang.helper;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.NewWalletRequestData;
+import com.gma.challenge.beruang.data.UpdateWalletRequestData;
 import com.gma.challenge.beruang.data.WalletData;
 import com.gma.challenge.beruang.data.WalletResponseData;
 
@@ -16,8 +18,13 @@ public class WalletHelper {
   private static final String WALLET_CURRENCYCODE = "MYR";
   private static final String WALLET_NAME = "My Wallet";
 
-  public static NewWalletRequestData getValidNewWalletRequestDataSample() {
+  private static final List<Long> UPDATE_WALLET_CATEGORYIDS = Arrays.asList(Long.valueOf(5));
+  private static final BigDecimal UPDATE_WALLET_INITIALBALANCE = new BigDecimal(5000);
+  private static final boolean UPDATE_WALLET_DEFAULTWALLET = true;
+  private static final String UPDATE_WALLET_CURRENCYCODE = "JPY";
+  private static final String UPDATE_WALLET_NAME = "Updated Wallet Name";
 
+  public static NewWalletRequestData getValidNewWalletRequestDataSample() {
     NewWalletRequestData requestData = new NewWalletRequestData();
     requestData.setName(WALLET_NAME);
     requestData.setDefaultCurrencyCode(WALLET_CURRENCYCODE);
@@ -56,10 +63,94 @@ public class WalletHelper {
 
   private static boolean isEquals(WalletData walletData, List<Long> categoryIdsDataSample) {
     List<CategoryData> categories = walletData.getCategories();
-
     List<Long> categoryIds = categories.stream().map(category -> category.getId()).collect(Collectors.toList());
 
     return categoryIds.containsAll(categoryIdsDataSample);
+  }
+
+  public static NewWalletRequestData getInvalidNewWalletRequestDataSample() {
+    NewWalletRequestData requestData = new NewWalletRequestData();
+    requestData.setName(WALLET_NAME);
+    requestData.setDefaultCurrencyCode(WALLET_CURRENCYCODE);
+
+    return requestData;
+  }
+
+  public static UpdateWalletRequestData getValidFullUpdateRequestDataSample() {
+    UpdateWalletRequestData requestData = new UpdateWalletRequestData();
+    requestData.setName(UPDATE_WALLET_NAME);
+    requestData.setDefaultCurrencyCode(UPDATE_WALLET_CURRENCYCODE);
+    requestData.setDefaultWallet(UPDATE_WALLET_DEFAULTWALLET);
+    requestData.setInitialBalanceAmount(UPDATE_WALLET_INITIALBALANCE);
+    requestData.setCategoryIds(UPDATE_WALLET_CATEGORYIDS);
+    return requestData;
+  }
+
+  public static boolean isWalletUpdatedFullResponseDataEqualsToSample(WalletResponseData responseData) {
+    WalletData walletData = responseData.getWallet();
+
+    if (!walletData.getName().equals(UPDATE_WALLET_NAME)) {
+      return false;
+    }
+
+    if (!walletData.getDefaultWallet().equals(UPDATE_WALLET_DEFAULTWALLET)) {
+      return false;
+    }
+
+    if (!walletData.getDefaultCurrencyCode().equals(UPDATE_WALLET_CURRENCYCODE)) {
+      return false;
+    }
+
+    if (!walletData.getInitialBalanceAmount().equals(UPDATE_WALLET_INITIALBALANCE)) {
+      return false;
+    }
+
+    List<CategoryData> categories = walletData.getCategories();
+    List<Long> categoryIds = categories.stream().map(category -> category.getId()).collect(Collectors.toList());
+
+    if (!categoryIds.containsAll(UPDATE_WALLET_CATEGORYIDS)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  public static UpdateWalletRequestData getValidPartialUpdateRequestDataSample() {
+    UpdateWalletRequestData requestData = new UpdateWalletRequestData();
+    requestData.setName(UPDATE_WALLET_NAME);
+    requestData.setInitialBalanceAmount(UPDATE_WALLET_INITIALBALANCE);
+    requestData.setCategoryIds(UPDATE_WALLET_CATEGORYIDS);
+    return requestData;
+  }
+
+  public static boolean isWalletUpdatedPartialResponseDataEqualsToSample(WalletResponseData responseData) {
+    WalletData walletData = responseData.getWallet();
+
+    if (!walletData.getName().equals(UPDATE_WALLET_NAME)) {
+      return false;
+    }
+
+    if (!walletData.getInitialBalanceAmount().equals(UPDATE_WALLET_INITIALBALANCE)) {
+      return false;
+    }
+
+    List<CategoryData> categories = walletData.getCategories();
+    List<Long> categoryIds = categories.stream().map(category -> category.getId()).collect(Collectors.toList());
+
+    if (!categoryIds.containsAll(UPDATE_WALLET_CATEGORYIDS)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  public static UpdateWalletRequestData getInvalidUpdateRequestDataSample() {
+    UpdateWalletRequestData requestData = new UpdateWalletRequestData();
+    return requestData;
+  }
+
+  public static UpdateWalletRequestData getNullUpdateRequestDataSample() {
+    return null;
   }
 
 }
