@@ -1,6 +1,6 @@
 package com.gma.challenge.beruang.helper;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.gma.challenge.beruang.data.CategoryData;
@@ -120,10 +120,11 @@ public class CategoryHelper {
   }
 
   public static List<Long> getCategoryIdsDataSample() {
-    List<Long> categoryIds = new ArrayList<>();
-    categoryIds.add(1l);
-    categoryIds.add(2l);
-    return categoryIds;
+    return Arrays.asList(Long.valueOf(1), Long.valueOf(2));
+  }
+
+  public static UpdateCategoryRequestData getNullUpdateCategoryRequestDataSample() {
+    return null;
   }
 
 

@@ -66,6 +66,11 @@ public class CategoryWriteServiceImplTest {
   }
 
   @Test
+  public void testUpdateCategory_validId_nullRequestData() {
+    assertThrows(IncompleteRequestDataException.class, () -> SUT.updateCategory(VALID_ID, CategoryHelper.getNullUpdateCategoryRequestDataSample()));
+  }
+
+  @Test
   public void testUpdateCategory_invalidId_validFullRequestData() {
     assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidFullUpdateCategoryRequestDataSample()));
   }
@@ -78,6 +83,11 @@ public class CategoryWriteServiceImplTest {
   @Test
   public void testUpdateCategory_invalidId_invalidRequestData() {
     assertThrows(IncompleteRequestDataException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getInvalidUpdateCategoryRequestDataSample()));
+  }
+
+  @Test
+  public void testUpdateCategory_invalidId_nullRequestData() {
+    assertThrows(IncompleteRequestDataException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getNullUpdateCategoryRequestDataSample()));
   }
 
   @Test
