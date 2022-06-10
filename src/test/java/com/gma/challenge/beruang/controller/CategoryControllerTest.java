@@ -61,7 +61,7 @@ public class CategoryControllerTest implements ControllerTest {
   @Override
   public void testCreate_invalidNullNewRequestData() {
     assertThrows(IncompleteRequestDataException.class,
-        () -> SUT.createCategory(CategoryHelper.getInvalidIncompleteNewCategoryRequestDataSample()));
+        () -> SUT.createCategory(CategoryHelper.getInvalidNullNewCategoryRequestDataSample()));
   }
 
   @Test

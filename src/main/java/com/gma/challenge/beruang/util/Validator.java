@@ -13,6 +13,10 @@ import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 public class Validator {
 
   public static void validateNewCategoryRequestData(NewCategoryRequestData requestData) {
+    if (requestData == null) {
+      throw new IncompleteRequestDataException("Invalid request data");
+    }
+
     String message = "Missing data field(s): ";
     List<String> dataFields = new ArrayList<>();
 
@@ -60,6 +64,10 @@ public class Validator {
   }
 
   public static void validateNewWalletRequestData(NewWalletRequestData requestData) {
+    if (requestData == null) {
+      throw new IncompleteRequestDataException("Invalid request data");
+    }
+
     String message = "Missing data field(s): ";
     List<String> dataFields = new ArrayList<>();
 
