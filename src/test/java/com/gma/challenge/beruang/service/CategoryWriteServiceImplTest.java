@@ -43,9 +43,23 @@ public class CategoryWriteServiceImplTest implements WriteServiceTest {
 
   @Test
   @Override
-  public void testCreate_invalidRequestData() {
+  public void testCreate_invalidIncompleteRequestData() {
     assertThrows(IncompleteRequestDataException.class,
         () -> SUT.createCategory(CategoryHelper.getInvalidIncompleteNewCategoryRequestDataSample()));
+  }
+
+  @Test
+  @Override
+  public void testCreate_invalidEmptyRequestData() {
+    assertThrows(IncompleteRequestDataException.class,
+        () -> SUT.createCategory(CategoryHelper.getInvalidEmptyNewCategoryRequestDataSample()));
+  }
+
+  @Test
+  @Override
+  public void testCreate_invalidNullRequestData() {
+    assertThrows(IncompleteRequestDataException.class,
+        () -> SUT.createCategory(CategoryHelper.getInvalidNullNewCategoryRequestDataSample()));
   }
 
   @Test

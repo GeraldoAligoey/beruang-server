@@ -4,7 +4,11 @@ public interface WriteServiceTest {
 
   public void testCreate_validRequestData();
 
-  public void testCreate_invalidRequestData();
+  public void testCreate_invalidIncompleteRequestData();
+
+  public void testCreate_invalidEmptyRequestData();
+
+  public void testCreate_invalidNullRequestData();
 
   public void testUpdate_validId_validFullRequestData();
 
