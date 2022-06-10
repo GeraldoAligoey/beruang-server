@@ -144,12 +144,12 @@ public class WalletHelper {
     return true;
   }
 
-  public static UpdateWalletRequestData getInvalidUpdateRequestDataSample() {
+  public static UpdateWalletRequestData getInvalidEmptyUpdateRequestDataSample() {
     UpdateWalletRequestData requestData = new UpdateWalletRequestData();
     return requestData;
   }
 
-  public static UpdateWalletRequestData getNullUpdateRequestDataSample() {
+  public static UpdateWalletRequestData getInvalidNullUpdateRequestDataSample() {
     return null;
   }
 

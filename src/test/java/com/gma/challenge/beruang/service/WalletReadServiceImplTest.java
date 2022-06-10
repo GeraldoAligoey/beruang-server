@@ -21,7 +21,7 @@ import com.gma.challenge.beruang.exception.WalletNotFoundException;
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("test")
-public class WalletReadServiceImplTest {
+public class WalletReadServiceImplTest implements ReadServiceTest {
 
   private static final Long VALID_ID = 1l;
   private static final Long VALID_NORECORD_ID = 99999l;
@@ -32,7 +32,8 @@ public class WalletReadServiceImplTest {
 
   @Test
   @Sql("classpath:sql/testFind_empty.sql")
-  public void testFindWallets_empty() {
+  @Override
+  public void testFind_empty() {
     WalletsResponseData walletsResponseData = SUT.findWallets();
     List<WalletData> wallets = walletsResponseData.getWallets();
 
@@ -42,7 +43,8 @@ public class WalletReadServiceImplTest {
 
   @Test
   @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindWallets_singleItem.sql"})
-  public void testFindWallets_singleItem() {
+  @Override
+  public void testFind_single() {
     WalletsResponseData walletsResponseData = SUT.findWallets();
     List<WalletData> wallets = walletsResponseData.getWallets();
 
@@ -52,7 +54,8 @@ public class WalletReadServiceImplTest {
   
   @Test
   @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindWallets_multipleItems.sql"})
-  public void testFindWallets_multipleItems() {
+  @Override
+  public void testFind_multiple() {
     WalletsResponseData walletsResponseData = SUT.findWallets();
     List<WalletData> wallets = walletsResponseData.getWallets();
 
@@ -61,18 +64,21 @@ public class WalletReadServiceImplTest {
   }
 
   @Test
-  public void testFindWallet_validId_RecordExist() {
+  @Override
+  public void testFind_validId_recordExist() {
     WalletResponseData walletResponseData = SUT.findWallet(VALID_ID);
     assertNotNull(walletResponseData.getWallet());
   }
 
   @Test
-  public void testFindWallet_validId_RecordNotExist() {
+  @Override
+  public void testFind_validId_recordNotExist() {
     assertThrows(WalletNotFoundException.class, () -> SUT.findWallet(VALID_NORECORD_ID));
   }
 
   @Test
-  public void testFindWallet_invalidId() {
+  @Override
+  public void testFind_invalidId() {
     assertThrows(WalletNotFoundException.class, () -> SUT.findWallet(INVALID_ID));
   }
 }

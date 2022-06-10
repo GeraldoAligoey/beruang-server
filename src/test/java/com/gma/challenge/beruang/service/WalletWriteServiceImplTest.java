@@ -21,7 +21,7 @@ import com.gma.challenge.beruang.repo.WalletRepository;
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("test")
-public class WalletWriteServiceImplTest {
+public class WalletWriteServiceImplTest implements WriteServiceTest {
 
   private static final Long INVALID_ID = -9999l; 
   private final Long VALID_ID = 1l;
@@ -33,7 +33,8 @@ public class WalletWriteServiceImplTest {
   private WalletRepository walletRepository;
 
   @Test
-  public void testCreateWallet_validRequestData() {
+  @Override
+  public void testCreate_validRequestData() {
     WalletResponseData responseData = SUT.createWallet(WalletHelper.getValidNewWalletRequestDataSample());
     assertNotNull(responseData);
     assertNotNull(responseData.getWallet());
@@ -42,12 +43,14 @@ public class WalletWriteServiceImplTest {
   }
 
   @Test
-  public void testCreateWallet_invalidRequestData() {
+  @Override
+  public void testCreate_invalidRequestData() {
     assertThrows(IncompleteRequestDataException.class, () -> SUT.createWallet(WalletHelper.getInvalidNewWalletRequestDataSample()));
   }
 
   @Test
-  public void testUpdateWallet_validId_validFullRequestData() {
+  @Override
+  public void testUpdate_validId_validFullRequestData() {
     WalletResponseData responseData = SUT.updateWallet(VALID_ID, WalletHelper.getValidFullUpdateRequestDataSample());
     assertNotNull(responseData);
     assertNotNull(responseData.getWallet());
@@ -56,7 +59,8 @@ public class WalletWriteServiceImplTest {
   }
 
   @Test
-  public void testUpdateWallet_validId_validPartialRequestData() {
+  @Override
+  public void testUpdate_validId_validPartialRequestData() {
     WalletResponseData responseData = SUT.updateWallet(VALID_ID, WalletHelper.getValidPartialUpdateRequestDataSample());
     assertNotNull(responseData);
     assertNotNull(responseData.getWallet());
@@ -65,43 +69,51 @@ public class WalletWriteServiceImplTest {
   }
 
   @Test
-  public void testUpdateWallet_validId_invalidRequestData() {
-    assertThrows(InvalidRequestException.class, () -> SUT.updateWallet(VALID_ID, WalletHelper.getInvalidUpdateRequestDataSample()));
+  @Override
+  public void testUpdate_validId_invalidEmptyRequestData() {
+    assertThrows(InvalidRequestException.class, () -> SUT.updateWallet(VALID_ID, WalletHelper.getInvalidEmptyUpdateRequestDataSample()));
   }
 
   @Test
-  public void testUpdateWallet_validId_nullRequestData() {
-    assertThrows(InvalidRequestException.class, () -> SUT.updateWallet(VALID_ID, WalletHelper.getNullUpdateRequestDataSample()));
+  @Override
+  public void testUpdate_validId_invalidNullRequestData() {
+    assertThrows(InvalidRequestException.class, () -> SUT.updateWallet(VALID_ID, WalletHelper.getInvalidNullUpdateRequestDataSample()));
   }
 
   @Test
-  public void testUpdateWallet_invalidId_validFullRequestData() {
+  @Override
+  public void testUpdate_invalidId_validFullRequestData() {
     assertThrows(WalletNotFoundException.class, () -> SUT.updateWallet(INVALID_ID, WalletHelper.getValidFullUpdateRequestDataSample()));
   }
   
   @Test
-  public void testUpdateWallet_invalidId_validPartialRequestData() {
+  @Override
+  public void testUpdate_invalidId_validPartialRequestData() {
     assertThrows(WalletNotFoundException.class, () -> SUT.updateWallet(INVALID_ID, WalletHelper.getValidPartialUpdateRequestDataSample()));
   }
 
   @Test
-  public void testUpdateWallet_invalidId_invalidRequestData() {
-    assertThrows(InvalidRequestException.class, () -> SUT.updateWallet(INVALID_ID, WalletHelper.getInvalidUpdateRequestDataSample()));
+  @Override
+  public void testUpdate_invalidId_invalidEmptyRequestData() {
+    assertThrows(InvalidRequestException.class, () -> SUT.updateWallet(INVALID_ID, WalletHelper.getInvalidEmptyUpdateRequestDataSample()));
   }
 
   @Test
-  public void testUpdateWallet_invalidId_nullRequestData() {
-    assertThrows(InvalidRequestException.class, () -> SUT.updateWallet(INVALID_ID, WalletHelper.getNullUpdateRequestDataSample()));
+  @Override
+  public void testUpdate_invalidId_invalidNullRequestData() {
+    assertThrows(InvalidRequestException.class, () -> SUT.updateWallet(INVALID_ID, WalletHelper.getInvalidNullUpdateRequestDataSample()));
   }
 
   @Test
-  public void testDeleteWallet_validId() {
+  @Override
+  public void testDelete_validId() {
     SUT.deleteWallet(VALID_ID);
     assertNull(walletRepository.findById(VALID_ID).orElse(null));
   }
 
   @Test
-  public void testDeleteWallet_invalidId() {
+  @Override
+  public void testDelete_invalidId() {
     assertThrows(WalletNotFoundException.class, () -> SUT.deleteWallet(INVALID_ID));
   }
 }

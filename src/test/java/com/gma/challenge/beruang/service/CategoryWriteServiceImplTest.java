@@ -20,7 +20,7 @@ import com.gma.challenge.beruang.repo.CategoryRepository;
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("test")
-public class CategoryWriteServiceImplTest {
+public class CategoryWriteServiceImplTest implements WriteServiceTest {
 
   private static final long VALID_ID = 1l;
   private static final Long INVALID_ID = -1l;
@@ -32,72 +32,94 @@ public class CategoryWriteServiceImplTest {
   private CategoryRepository categoryRepository;
 
   @Test
-  public void testCreateCategory_validRequestData() {
-    CategoryResponseData categoryResponseData = SUT.createCategory(CategoryHelper.getValidNewCategoryRequestDataSample());
+  @Override
+  public void testCreate_validRequestData() {
+    CategoryResponseData categoryResponseData = SUT
+        .createCategory(CategoryHelper.getValidNewCategoryRequestDataSample());
     assertNotNull(categoryResponseData);
     assertNotNull(categoryResponseData.getCategory());
     assertTrue(CategoryHelper.isCategoryResponseDataEqualsToSample(categoryResponseData));
   }
 
   @Test
-  public void testCreateCategory_invalidRequestData() {
-    assertThrows(IncompleteRequestDataException.class, () -> SUT.createCategory(CategoryHelper.getInvalidNewCategoryRequestDataSample()));
+  @Override
+  public void testCreate_invalidRequestData() {
+    assertThrows(IncompleteRequestDataException.class,
+        () -> SUT.createCategory(CategoryHelper.getInvalidIncompleteNewCategoryRequestDataSample()));
   }
 
   @Test
-  public void testUpdateCategory_validId_validFullRequestData() {
-    CategoryResponseData categoryResponseData = SUT.updateCategory(VALID_ID, CategoryHelper.getValidFullUpdateCategoryRequestDataSample());
+  @Override
+  public void testUpdate_validId_validFullRequestData() {
+    CategoryResponseData categoryResponseData = SUT.updateCategory(VALID_ID,
+        CategoryHelper.getValidFullUpdateCategoryRequestDataSample());
     assertNotNull(categoryResponseData);
     assertNotNull(categoryResponseData.getCategory());
     assertTrue(CategoryHelper.isUpdateCategoryResponseDataEqualsToSample(categoryResponseData));
   }
 
   @Test
-  public void testUpdateCategory_validId_validPartialRequestData() {
-    CategoryResponseData categoryResponseData = SUT.updateCategory(VALID_ID, CategoryHelper.getValidPartialUpdateCategoryRequestDataSample());
+  @Override
+  public void testUpdate_validId_validPartialRequestData() {
+    CategoryResponseData categoryResponseData = SUT.updateCategory(VALID_ID,
+        CategoryHelper.getValidPartialUpdateCategoryRequestDataSample());
     assertNotNull(categoryResponseData);
     assertNotNull(categoryResponseData.getCategory());
     assertTrue(CategoryHelper.isUpdateCategoryResponseDataEqualsToPartialSample(categoryResponseData));
   }
 
   @Test
-  public void testUpdateCategory_validId_invalidRequestData() {
-    assertThrows(IncompleteRequestDataException.class, () -> SUT.updateCategory(VALID_ID, CategoryHelper.getInvalidUpdateCategoryRequestDataSample()));
+  @Override
+  public void testUpdate_validId_invalidEmptyRequestData() {
+    assertThrows(IncompleteRequestDataException.class,
+        () -> SUT.updateCategory(VALID_ID, CategoryHelper.getInvalidEmptyUpdateCategoryRequestDataSample()));
   }
 
   @Test
-  public void testUpdateCategory_validId_nullRequestData() {
-    assertThrows(IncompleteRequestDataException.class, () -> SUT.updateCategory(VALID_ID, CategoryHelper.getNullUpdateCategoryRequestDataSample()));
+  @Override
+  public void testUpdate_validId_invalidNullRequestData() {
+    assertThrows(IncompleteRequestDataException.class,
+        () -> SUT.updateCategory(VALID_ID, CategoryHelper.getInvalidNullUpdateCategoryRequestDataSample()));
   }
 
   @Test
-  public void testUpdateCategory_invalidId_validFullRequestData() {
-    assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidFullUpdateCategoryRequestDataSample()));
+  @Override
+  public void testUpdate_invalidId_validFullRequestData() {
+    assertThrows(CategoryNotFoundException.class,
+        () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidFullUpdateCategoryRequestDataSample()));
   }
 
   @Test
-  public void testUpdateCategory_invalidId_validPartialRequestData() {
-    assertThrows(CategoryNotFoundException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidPartialUpdateCategoryRequestDataSample()));
+  @Override
+  public void testUpdate_invalidId_validPartialRequestData() {
+    assertThrows(CategoryNotFoundException.class,
+        () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getValidPartialUpdateCategoryRequestDataSample()));
   }
 
   @Test
-  public void testUpdateCategory_invalidId_invalidRequestData() {
-    assertThrows(IncompleteRequestDataException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getInvalidUpdateCategoryRequestDataSample()));
+  @Override
+  public void testUpdate_invalidId_invalidEmptyRequestData() {
+    assertThrows(IncompleteRequestDataException.class,
+        () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getInvalidEmptyUpdateCategoryRequestDataSample()));
   }
 
   @Test
-  public void testUpdateCategory_invalidId_nullRequestData() {
-    assertThrows(IncompleteRequestDataException.class, () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getNullUpdateCategoryRequestDataSample()));
+  @Override
+  public void testUpdate_invalidId_invalidNullRequestData() {
+    assertThrows(IncompleteRequestDataException.class,
+        () -> SUT.updateCategory(INVALID_ID, CategoryHelper.getInvalidNullUpdateCategoryRequestDataSample()));
   }
 
   @Test
-  public void testDeleteCategory_validId() {
+  @Override
+  public void testDelete_validId() {
     SUT.deleteCategory(VALID_ID);
     assertNull(categoryRepository.findById(VALID_ID).orElse(null));
   }
 
   @Test
-  public void testDeleteCategory_invalidId() {
+  @Override
+  public void testDelete_invalidId() {
     assertThrows(CategoryNotFoundException.class, () -> SUT.deleteCategory(INVALID_ID));
   }
 }

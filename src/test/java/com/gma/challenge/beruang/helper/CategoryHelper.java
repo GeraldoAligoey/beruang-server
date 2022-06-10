@@ -51,13 +51,23 @@ public class CategoryHelper {
 
     return true;
   }
+
+  public static NewCategoryRequestData getInvalidNullNewCategoryRequestDataSample() {
+    return null;
+  }
   
-  public static NewCategoryRequestData getInvalidNewCategoryRequestDataSample() {
+  public static NewCategoryRequestData getInvalidIncompleteNewCategoryRequestDataSample() {
     NewCategoryRequestData requestData = new NewCategoryRequestData();
     requestData.setExpense(CATEGORY_EXPENSE);
     requestData.setColor(CATEGORY_COLOR);
     requestData.setIcon(CATEGORY_ICON);
 
+    return requestData;
+  }
+
+  public static NewCategoryRequestData getInvalidEmptyNewCategoryRequestDataSample() {
+    NewCategoryRequestData requestData = new NewCategoryRequestData();
+    
     return requestData;
   }
 
@@ -93,7 +103,7 @@ public class CategoryHelper {
     return true;
   }
 
-  public static UpdateCategoryRequestData getInvalidUpdateCategoryRequestDataSample() {
+  public static UpdateCategoryRequestData getInvalidEmptyUpdateCategoryRequestDataSample() {
     UpdateCategoryRequestData requestData = new UpdateCategoryRequestData();
     return requestData;
   }
@@ -123,7 +133,7 @@ public class CategoryHelper {
     return Arrays.asList(Long.valueOf(1), Long.valueOf(2));
   }
 
-  public static UpdateCategoryRequestData getNullUpdateCategoryRequestDataSample() {
+  public static UpdateCategoryRequestData getInvalidNullUpdateCategoryRequestDataSample() {
     return null;
   }
 

@@ -23,7 +23,7 @@ import com.gma.challenge.beruang.exception.CategoryNotFoundException;
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("test")
-public class CategoryReadServiceImplTest {
+public class CategoryReadServiceImplTest implements ReadServiceTest {
 
   private static final long VALID_ID = 1l;
   private static final long VALID_NORECORD_ID = 100l;
@@ -36,7 +36,8 @@ public class CategoryReadServiceImplTest {
 
   @Test
   @Sql("classpath:sql/testFind_empty.sql")
-  public void testFindCategories_empty() {
+  @Override
+  public void testFind_empty() {
     CategoriesResponseData categoriesResponseData = SUT.findCategories();
     List<CategoryData> categoryDatas = categoriesResponseData.getCategories();
 
@@ -48,7 +49,8 @@ public class CategoryReadServiceImplTest {
 
   @Test
   @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindCategories_singleItem.sql"})
-  public void testFindCategories_singleItem() {
+  @Override
+  public void testFind_single() {
     CategoriesResponseData categoriesResponseData = SUT.findCategories();
     List<CategoryData> categoryDatas = categoriesResponseData.getCategories();
 
@@ -59,7 +61,8 @@ public class CategoryReadServiceImplTest {
 
   @Test
   @Sql("classpath:sql/testFindCategories_multipleItems.sql")
-  public void testFindCategories_multipleItems() {
+  @Override
+  public void testFind_multiple() {
     CategoriesResponseData categoriesResponseData = SUT.findCategories();
     List<CategoryData> categoryDatas = categoriesResponseData.getCategories();
 
@@ -70,18 +73,21 @@ public class CategoryReadServiceImplTest {
 
   @Test
   @Sql("classpath:sql/testFindCategories_multipleItems.sql")
-  public void testFindCategory_validId_RecordExist() {
+  @Override
+  public void testFind_validId_recordExist() {
     CategoryResponseData categoryResponseData = SUT.findCategory(VALID_ID);
     assertNotNull(categoryResponseData.getCategory());
   }
 
   @Test
-  public void testFindCategory_validId_RecordNotExist() {
+  @Override
+  public void testFind_validId_recordNotExist() {
     assertThrows(CategoryNotFoundException.class, () -> SUT.findCategory(VALID_NORECORD_ID));
   }
 
   @Test
-  public void testFindCategory_invalidId() {
+  @Override
+  public void testFind_invalidId() {
     assertThrows(CategoryNotFoundException.class, () -> SUT.findCategory(INVALID_ID));
   }
 }
