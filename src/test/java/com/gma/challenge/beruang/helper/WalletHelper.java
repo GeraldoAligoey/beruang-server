@@ -68,7 +68,7 @@ public class WalletHelper {
     return categoryIds.containsAll(categoryIdsDataSample);
   }
 
-  public static NewWalletRequestData getInvalidNewWalletRequestDataSample() {
+  public static NewWalletRequestData getInvalidIncompleteNewWalletRequestDataSample() {
     NewWalletRequestData requestData = new NewWalletRequestData();
     requestData.setName(WALLET_NAME);
     requestData.setDefaultCurrencyCode(WALLET_CURRENCYCODE);
@@ -150,6 +150,15 @@ public class WalletHelper {
   }
 
   public static UpdateWalletRequestData getInvalidNullUpdateRequestDataSample() {
+    return null;
+  }
+
+  public static NewWalletRequestData getInvalidEmptyNewWalletRequestDataSample() {
+    NewWalletRequestData requestData = new NewWalletRequestData();
+    return requestData;
+  }
+
+  public static NewWalletRequestData getInvalidNullNewWalletRequestDataSample() {
     return null;
   }
 
