@@ -12,8 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 import com.gma.challenge.beruang.data.WalletResponseData;
+import com.gma.challenge.beruang.data.WalletsResponseData;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
 import com.gma.challenge.beruang.helper.WalletHelper;
@@ -23,6 +25,8 @@ import com.gma.challenge.beruang.helper.WalletHelper;
 @ActiveProfiles("test")
 public class WalletControllerTest implements ControllerTest {
 
+  private static final Long VALID_UNLINKED_ID = Long.valueOf(501);
+  private static final Long VALID_LINKED_ID = Long.valueOf(500);
   private static final Long INVALID_ID = Long.valueOf(-10000);
   private static final Long VALID_ID = Long.valueOf(1);
 
@@ -124,65 +128,76 @@ public class WalletControllerTest implements ControllerTest {
 
   @Test
   @Override
+  @Sql("classpath:sql/testDeleteWallet.sql")
   public void testDelete_validId_linked() {
-    // TODO Auto-generated method stub
-
+    ResponseEntity<Void> responseEntity = SUT.deleteWallet(VALID_LINKED_ID);
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertThrows(WalletNotFoundException.class, () -> SUT.findWallet(VALID_LINKED_ID));
   }
 
   @Test
   @Override
+  @Sql("classpath:sql/testDeleteWallet.sql")
   public void testDelete_validId_unlinked() {
-    // TODO Auto-generated method stub
-
+    ResponseEntity<Void> responseEntity = SUT.deleteWallet(VALID_UNLINKED_ID);
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertThrows(WalletNotFoundException.class, () -> SUT.findWallet(VALID_UNLINKED_ID));
   }
 
   @Test
   @Override
   public void testDelete_invalidId() {
-    // TODO Auto-generated method stub
-
+    assertThrows(WalletNotFoundException.class, () -> SUT.findWallet(INVALID_ID));
   }
 
   @Test
   @Override
   public void testFindRecord_validId_recordExist() {
-    // TODO Auto-generated method stub
-
+    ResponseEntity<WalletResponseData> responseEntity = SUT.findWallet(VALID_ID);
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertNotNull(responseEntity.getBody().getWallet());
   }
 
   @Test
   @Override
   public void testFindRecord_validId_recordNotExist() {
-    // TODO Auto-generated method stub
-
+    assertThrows(WalletNotFoundException.class, () -> SUT.findWallet(10000l));
   }
 
   @Test
   @Override
   public void testFindRecord_invalidId() {
-    // TODO Auto-generated method stub
-
+    assertThrows(WalletNotFoundException.class, () -> SUT.findWallet(INVALID_ID));
   }
 
   @Test
   @Override
+  @Sql("classpath:sql/testFind_empty.sql")
   public void testFindRecords_empty() {
-    // TODO Auto-generated method stub
-
+    ResponseEntity<WalletsResponseData> responseEntity = SUT.findWallets();
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertNotNull(responseEntity.getBody().getWallets());
+    assertTrue(responseEntity.getBody().getWallets().isEmpty());
   }
 
   @Test
   @Override
+  @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindWallets_single.sql"})
   public void testFindRecords_single() {
-    // TODO Auto-generated method stub
-
+    ResponseEntity<WalletsResponseData> responseEntity = SUT.findWallets();
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertNotNull(responseEntity.getBody().getWallets());
+    assertTrue(responseEntity.getBody().getWallets().size() == 1);
   }
 
   @Test
   @Override
+  @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindWallets_multiple.sql"})
   public void testFindRecords_multiple() {
-    // TODO Auto-generated method stub
-
+    ResponseEntity<WalletsResponseData> responseEntity = SUT.findWallets();
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertNotNull(responseEntity.getBody().getWallets());
+    assertTrue(responseEntity.getBody().getWallets().size() > 1);
   }
 
 }
