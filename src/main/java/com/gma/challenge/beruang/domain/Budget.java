@@ -27,8 +27,8 @@ import lombok.ToString;
 public class Budget extends CommonNamedClass {
 
   private String period;
-  private BigDecimal limitAmount;
-  private BigDecimal currentAmount = new BigDecimal(0);
+  private BigDecimal limitAmount = BigDecimal.ZERO;
+  private BigDecimal currentAmount = BigDecimal.ZERO;
 
   @OneToOne(cascade = {
     CascadeType.PERSIST,
