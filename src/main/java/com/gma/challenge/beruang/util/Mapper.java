@@ -165,7 +165,7 @@ public class Mapper {
     return budgetData;
   }
 
-  private static List<CategoryData> toCategoriesData(Collection<Category> categories) {
+  public static List<CategoryData> toCategoriesData(Collection<Category> categories) {
     if (categories != null) {
       return categories.stream()
           .map(category -> toCategoryData(category))
