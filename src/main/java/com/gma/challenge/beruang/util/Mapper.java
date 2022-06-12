@@ -1,16 +1,19 @@
 package com.gma.challenge.beruang.util;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.gma.challenge.beruang.data.BudgetData;
 import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
 import com.gma.challenge.beruang.data.NewWalletRequestData;
 import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
 import com.gma.challenge.beruang.data.UpdateWalletRequestData;
 import com.gma.challenge.beruang.data.WalletData;
+import com.gma.challenge.beruang.domain.Budget;
 import com.gma.challenge.beruang.domain.Category;
 import com.gma.challenge.beruang.domain.Wallet;
 
@@ -67,7 +70,7 @@ public class Mapper {
     if (requestData.getColor() != null && !requestData.getColor().isBlank()) {
       category.setColor(requestData.getColor());
     }
-    
+
     return category;
   }
 
@@ -147,6 +150,29 @@ public class Mapper {
     }
 
     return wallet;
+  }
+
+  public static BudgetData toBudgetData(Budget budget) {
+    BudgetData budgetData = new BudgetData();
+    budgetData.setId(budget.getId());
+    budgetData.setName(budget.getName());
+    budgetData.setPeriod(budget.getPeriod());
+    budgetData.setLimitAmount(budget.getLimitAmount());
+    budgetData.setCurrentAmount(budget.getCurrentAmount());
+    budgetData.setWallet(toWalletData(budget.getWallet()));
+    budgetData.setCategories(toCategoriesData(budget.getCategories()));
+
+    return budgetData;
+  }
+
+  private static List<CategoryData> toCategoriesData(Collection<Category> categories) {
+    if (categories != null) {
+      return categories.stream()
+          .map(category -> toCategoryData(category))
+          .collect(Collectors.toList());
+    }
+
+    return null;
   }
 
 }
