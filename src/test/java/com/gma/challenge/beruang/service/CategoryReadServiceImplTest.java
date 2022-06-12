@@ -48,7 +48,7 @@ public class CategoryReadServiceImplTest implements ReadServiceTest {
   }
 
   @Test
-  @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindCategories_singleItem.sql"})
+  @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindCategories_single.sql"})
   @Override
   public void testFind_single() {
     CategoriesResponseData categoriesResponseData = SUT.findCategories();
@@ -60,7 +60,7 @@ public class CategoryReadServiceImplTest implements ReadServiceTest {
   }
 
   @Test
-  @Sql("classpath:sql/testFindCategories_multipleItems.sql")
+  @Sql("classpath:sql/testFindCategories_multiple.sql")
   @Override
   public void testFind_multiple() {
     CategoriesResponseData categoriesResponseData = SUT.findCategories();
@@ -72,7 +72,7 @@ public class CategoryReadServiceImplTest implements ReadServiceTest {
   }
 
   @Test
-  @Sql("classpath:sql/testFindCategories_multipleItems.sql")
+  @Sql("classpath:sql/testFindCategories_multiple.sql")
   @Override
   public void testFind_validId_recordExist() {
     CategoryResponseData categoryResponseData = SUT.findCategory(VALID_ID);

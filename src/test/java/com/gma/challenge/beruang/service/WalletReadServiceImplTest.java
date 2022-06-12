@@ -42,7 +42,7 @@ public class WalletReadServiceImplTest implements ReadServiceTest {
   }
 
   @Test
-  @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindWallets_singleItem.sql"})
+  @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindWallets_single.sql"})
   @Override
   public void testFind_single() {
     WalletsResponseData walletsResponseData = SUT.findWallets();
@@ -53,7 +53,7 @@ public class WalletReadServiceImplTest implements ReadServiceTest {
   }
   
   @Test
-  @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindWallets_multipleItems.sql"})
+  @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindWallets_multiple.sql"})
   @Override
   public void testFind_multiple() {
     WalletsResponseData walletsResponseData = SUT.findWallets();

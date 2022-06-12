@@ -120,7 +120,7 @@ public class CategoryControllerTest implements ControllerTest {
 
   @Test
   @Override
-  @Sql("classpath:sql/testFindCategories_singleItem.sql")
+  @Sql("classpath:sql/testFindCategories_single.sql")
   public void testFindRecords_single() {
     ResponseEntity<CategoriesResponseData> responseEntity = SUT.findCategories();
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
@@ -130,7 +130,7 @@ public class CategoryControllerTest implements ControllerTest {
 
   @Test
   @Override
-  @Sql("classpath:sql/testFindCategories_multipleItems.sql")
+  @Sql("classpath:sql/testFindCategories_multiple.sql")
   public void testFindRecords_multiple() {
     ResponseEntity<CategoriesResponseData> responseEntity = SUT.findCategories();
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
