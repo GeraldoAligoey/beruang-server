@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gma.challenge.beruang.data.WalletData;
 import com.gma.challenge.beruang.data.WalletResponseData;
 import com.gma.challenge.beruang.data.WalletsResponseData;
 import com.gma.challenge.beruang.domain.Wallet;
@@ -24,21 +23,19 @@ public class WalletReadServiceImpl implements WalletReadService {
   public WalletResponseData findWallet(Long walletId) {
     Wallet wallet = walletRepository.findById(walletId)
         .orElseThrow(() -> new WalletNotFoundException("Wallet id " + walletId + " not found"));
-    WalletResponseData responseData = new WalletResponseData();
-    responseData.setWallet(Mapper.toWalletData(wallet));
 
-    return responseData;
+    return new WalletResponseData().wallet(Mapper.toWalletData(wallet));
   }
 
   @Override
   public WalletsResponseData findWallets() {
     List<Wallet> wallets = walletRepository.findAll();
-    WalletsResponseData responseData = new WalletsResponseData();
-    List<WalletData> walletDatas = wallets.stream().map(wallet -> Mapper.toWalletData(wallet))
-        .collect(Collectors.toList());
-    responseData.setWallets(walletDatas);
 
-    return responseData;
+    return new WalletsResponseData()
+        .wallets(wallets
+            .stream()
+            .map(wallet -> Mapper.toWalletData(wallet))
+            .collect(Collectors.toList()));
   }
 
 }

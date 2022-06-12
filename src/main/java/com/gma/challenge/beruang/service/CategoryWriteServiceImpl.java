@@ -40,10 +40,7 @@ public class CategoryWriteServiceImpl implements CategoryWriteService {
     Validator.validateNewCategoryRequestData(newCategoryRequestData);
     Category category = categoryRepository.saveAndFlush(Mapper.toCategory(newCategoryRequestData));
 
-    CategoryResponseData categoryResponseData = new CategoryResponseData();
-    categoryResponseData.category(Mapper.toCategoryData(category));
-
-    return categoryResponseData;
+    return new CategoryResponseData().category(Mapper.toCategoryData(category));
   }
 
   @Override
@@ -55,11 +52,7 @@ public class CategoryWriteServiceImpl implements CategoryWriteService {
       CategoryData categoryData = Mapper
           .toCategoryData(categoryRepository.saveAndFlush(Mapper.updateCategory(category, updateCategoryRequestData)));
 
-      CategoryResponseData categoryResponseData = new CategoryResponseData();
-      categoryResponseData.category(categoryData);
-
-      return categoryResponseData;
-
+      return new CategoryResponseData().category(categoryData);
     } catch (EntityNotFoundException ex) {
       throw new CategoryNotFoundException("Invalid category id");
     }

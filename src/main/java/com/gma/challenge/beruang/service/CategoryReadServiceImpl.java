@@ -26,24 +26,15 @@ public class CategoryReadServiceImpl implements CategoryReadService {
   public CategoriesResponseData findCategories() {
     List<Category> categories = categoryRepository.findAll();
 
-    CategoriesResponseData data = new CategoriesResponseData();
-
-    for (Category category : categories) {
-      data.addCategoriesItem(Mapper.toCategoryData(category));
-    }
-
-    return data;
+    return new CategoriesResponseData().categories(Mapper.toCategoriesData(categories));
   }
 
   @Override
   public CategoryResponseData findCategory(Long categoryId) {
-    Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category id " + categoryId + " not found"));
-
-    CategoryResponseData data = new CategoryResponseData();
-
-    data.category(Mapper.toCategoryData(category));
-
-    return data;
+    Category category = categoryRepository.findById(categoryId)
+        .orElseThrow(() -> new CategoryNotFoundException("Category id " + categoryId + " not found"));
+        
+    return new CategoryResponseData().category(Mapper.toCategoryData(category));
   }
-  
+
 }

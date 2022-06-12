@@ -47,10 +47,7 @@ public class WalletWriteServiceImpl implements WalletWriteService {
     wallet.setCategories(categories);
     wallet = walletRepository.saveAndFlush(wallet);
 
-    WalletResponseData walletResponseData = new WalletResponseData();
-    walletResponseData.wallet(Mapper.toWalletData(wallet));
-
-    return walletResponseData;
+    return new WalletResponseData().wallet(Mapper.toWalletData(wallet));
   }
 
   @Override
@@ -59,12 +56,12 @@ public class WalletWriteServiceImpl implements WalletWriteService {
       Validator.validateUpdateWalletRequestData(updateWalletRequestData);
 
       Wallet wallet = walletRepository.getReferenceById(walletId);
-      WalletData walletData = Mapper.toWalletData(
-          walletRepository.saveAndFlush(Mapper.updateWallet(wallet, updateWalletRequestData)));
-      WalletResponseData responseData = new WalletResponseData();
-      responseData.setWallet(walletData);
+      WalletData walletData = Mapper
+          .toWalletData(walletRepository
+              .saveAndFlush(Mapper
+                  .updateWallet(wallet, updateWalletRequestData)));
 
-      return responseData;
+      return new WalletResponseData().wallet(walletData);
     } catch (EntityNotFoundException ex) {
       throw new WalletNotFoundException("Invalid wallet id");
     }
@@ -72,7 +69,9 @@ public class WalletWriteServiceImpl implements WalletWriteService {
 
   @Override
   public void deleteWallet(Long walletId) {
-    Wallet wallet = walletRepository.findById(walletId).orElseThrow(() -> new WalletNotFoundException("Wallet id " + walletId + " not found"));
+    Wallet wallet = walletRepository.findById(walletId)
+        .orElseThrow(() -> new WalletNotFoundException("Wallet id " + walletId + " not found"));
+
     walletRepository.delete(wallet);
   }
 
