@@ -10,6 +10,7 @@ import com.gma.challenge.beruang.data.BudgetResponseData;
 import com.gma.challenge.beruang.data.BudgetsResponseData;
 import com.gma.challenge.beruang.domain.Budget;
 import com.gma.challenge.beruang.exception.BudgetNotFoundException;
+import com.gma.challenge.beruang.exception.WalletNotFoundException;
 import com.gma.challenge.beruang.repo.BudgetRepository;
 import com.gma.challenge.beruang.util.Mapper;
 
@@ -38,11 +39,19 @@ public class BudgetReadServiceImpl implements BudgetReadService {
   public BudgetsResponseData findBudgets(Long walletId) {
     List<Budget> budgets = budgetRepository.findAllByWalletId(walletId);
 
+    if (!isWalletIdValid(walletId) || budgets == null) {
+      throw new WalletNotFoundException("Invalid wallet id");
+    }
+
     return new BudgetsResponseData()
         .budgets(budgets
-          .stream()
-          .map(budget -> Mapper.toBudgetData(budget))
-          .collect(Collectors.toList()));
+            .stream()
+            .map(budget -> Mapper.toBudgetData(budget))
+            .collect(Collectors.toList()));
+  }
+
+  private boolean isWalletIdValid(Long walletId) {
+    return walletId > 0;
   }
 
 }
