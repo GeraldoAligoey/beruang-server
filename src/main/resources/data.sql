@@ -19,3 +19,17 @@ insert into wallet_categories(wallet_id, categories_id) values(2, 1);
 insert into wallet_categories(wallet_id, categories_id) values(2, 5);
 
 insert into wallet_categories(wallet_id, categories_id) values(3, 3);
+
+insert into budget(name, current_amount, limit_amount, period, wallet_id) values('Budget 1', 1000, 5000, 'MONTHLY', 1);
+insert into budget(name, current_amount, limit_amount, period, wallet_id) values('Budget 2', 1000, 5000, 'MONTHLY', 2);
+insert into budget(name, current_amount, limit_amount, period, wallet_id) values('Budget 3', 1000, 5000, 'MONTHLY', 1);
+
+insert into budget_categories(budget_id, categories_id) values(1, 1);
+insert into budget_categories(budget_id, categories_id) values(1, 2);
+insert into budget_categories(budget_id, categories_id) values(1, 3);
+
+insert into budget_categories(budget_id, categories_id) values(2, 3);
+insert into budget_categories(budget_id, categories_id) values(2, 4);
+
+insert into budget_categories(budget_id, categories_id) values(3, 3);
+insert into budget_categories(budget_id, categories_id) values(3, 4);
