@@ -15,13 +15,13 @@ insert into wallet(id, name, balance_amount, default_currency_code, default_wall
 -- findAllByPeriodId()
 insert into budget(id, name, current_amount, limit_amount, period, wallet_id) values(1, 'Budget 1', 500, 1000, 'MONTHLY', 1);
 
-insert into budget_categories(budget_id, categories_id) values(1, 3);
+insert into budget_category(budget_id, category_id) values(1, 3);
 
 insert into budget(id, name, current_amount, limit_amount, period, wallet_id) values(2, 'Budget 2', 200, 500, 'MONTHLY', 1);
 
-insert into budget_categories(budget_id, categories_id) values(2, 6);
+insert into budget_category(budget_id, category_id) values(2, 6);
 
 insert into budget(id, name, current_amount, limit_amount, period, wallet_id) values(3, 'Budget 3', 0, 100, 'DAILY', 2);
 
-insert into budget_categories(budget_id, categories_id) values(3, 7);
+insert into budget_category(budget_id, category_id) values(3, 7);
 

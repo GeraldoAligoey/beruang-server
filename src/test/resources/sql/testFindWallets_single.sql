@@ -5,15 +5,15 @@ insert into category(name, expense, icon, color, user_defined, active) values('r
 
 insert into wallet(name, initial_balance_amount, default_currency_code, default_wallet) values('My Wallet 1', 1000, 'MYR', 1);
 
-insert into wallet_categories(wallet_id, categories_id) values(
+insert into wallet_category(wallet_id, category_id) values(
   (select w.id from wallet w where w.name = 'My Wallet 1'),
   (select c.id from category c where c.name = 'salary'));
-insert into wallet_categories(wallet_id, categories_id) values(
+insert into wallet_category(wallet_id, category_id) values(
   (select w.id from wallet w where w.name = 'My Wallet 1'),
   (select c.id from category c where c.name = 'transport'));
-insert into wallet_categories(wallet_id, categories_id) values(
+insert into wallet_category(wallet_id, category_id) values(
   (select w.id from wallet w where w.name = 'My Wallet 1'),
   (select c.id from category c where c.name = 'food and drinks'));
-insert into wallet_categories(wallet_id, categories_id) values(
+insert into wallet_category(wallet_id, category_id) values(
   (select w.id from wallet w where w.name = 'My Wallet 1'), 
   (select c.id from category c where c.name = 'rental fee'));

@@ -10,17 +10,17 @@ insert into wallet(id, name, initial_balance_amount, default_currency_code, defa
 insert into wallet(id, name, initial_balance_amount, default_currency_code, default_wallet) values(2, 'My Wallet 2', 2000, 'USD', 0);
 insert into wallet(id, name, initial_balance_amount, default_currency_code, default_wallet) values(3, 'My Wallet 3', 3000, 'IDR', 0);
 
-insert into wallet_categories(wallet_id, categories_id) values(1, 1);
-insert into wallet_categories(wallet_id, categories_id) values(1, 2);
-insert into wallet_categories(wallet_id, categories_id) values(1, 3);
-insert into wallet_categories(wallet_id, categories_id) values(1, 4);
+insert into wallet_category(wallet_id, category_id) values(1, 1);
+insert into wallet_category(wallet_id, category_id) values(1, 2);
+insert into wallet_category(wallet_id, category_id) values(1, 3);
+insert into wallet_category(wallet_id, category_id) values(1, 4);
 
-insert into wallet_categories(wallet_id, categories_id) values(2, 1);
-insert into wallet_categories(wallet_id, categories_id) values(2, 5);
+insert into wallet_category(wallet_id, category_id) values(2, 1);
+insert into wallet_category(wallet_id, category_id) values(2, 5);
 
-insert into wallet_categories(wallet_id, categories_id) values(3, 3);
+insert into wallet_category(wallet_id, category_id) values(3, 3);
 
 insert into budget(id, name, current_amount, limit_amount, period, wallet_id) values(1, 'Budget 1', 500, 1000, 'MONTHLY', 1);
 
-insert into budget_categories(budget_id, categories_id) values(1, 2);
-insert into budget_categories(budget_id, categories_id) values(1, 3);
+insert into budget_category(budget_id, category_id) values(1, 2);
+insert into budget_category(budget_id, category_id) values(1, 3);
