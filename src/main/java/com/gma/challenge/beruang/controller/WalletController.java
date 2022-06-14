@@ -20,6 +20,7 @@ import com.gma.challenge.beruang.data.UpdateTransactionRequestData;
 import com.gma.challenge.beruang.data.UpdateWalletRequestData;
 import com.gma.challenge.beruang.data.WalletResponseData;
 import com.gma.challenge.beruang.data.WalletsResponseData;
+import com.gma.challenge.beruang.service.BudgetReadService;
 import com.gma.challenge.beruang.service.WalletReadService;
 import com.gma.challenge.beruang.service.WalletWriteService;
 
@@ -28,11 +29,13 @@ public class WalletController implements WalletsApi {
 
   private final WalletReadService walletReadService;
   private final WalletWriteService walletWriteService;
+  private final BudgetReadService budgetReadService;
 
   @Autowired
-  public WalletController(WalletReadService walletReadService, WalletWriteService walletWriteService) {
+  public WalletController(WalletReadService walletReadService, WalletWriteService walletWriteService, BudgetReadService budgetReadService) {
     this.walletReadService = walletReadService;
     this.walletWriteService = walletWriteService;
+    this.budgetReadService = budgetReadService;
   }
 
   @Override
@@ -90,14 +93,12 @@ public class WalletController implements WalletsApi {
 
   @Override
   public ResponseEntity<BudgetResponseData> findBudget(Long walletId, Long budgetId) {
-    // TODO Auto-generated method stub
-    return WalletsApi.super.findBudget(walletId, budgetId);
+    return ResponseEntity.ok(budgetReadService.findBudget(walletId, budgetId));
   }
 
   @Override
   public ResponseEntity<BudgetsResponseData> findBudgets(Long walletId) {
-    // TODO Auto-generated method stub
-    return WalletsApi.super.findBudgets(walletId);
+    return ResponseEntity.ok(budgetReadService.findBudgets(walletId));
   }
 
   @Override
