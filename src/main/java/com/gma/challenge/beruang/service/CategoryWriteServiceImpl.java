@@ -1,8 +1,5 @@
 package com.gma.challenge.beruang.service;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +11,8 @@ import com.gma.challenge.beruang.data.CategoryResponseData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
 import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
 import com.gma.challenge.beruang.domain.Category;
-import com.gma.challenge.beruang.domain.Wallet;
 import com.gma.challenge.beruang.exception.CategoryNotFoundException;
 import com.gma.challenge.beruang.repo.CategoryRepository;
-import com.gma.challenge.beruang.repo.WalletRepository;
 import com.gma.challenge.beruang.util.Mapper;
 import com.gma.challenge.beruang.util.Validator;
 
@@ -26,13 +21,10 @@ import com.gma.challenge.beruang.util.Validator;
 public class CategoryWriteServiceImpl implements CategoryWriteService {
 
   private final CategoryRepository categoryRepository;
-  private final WalletRepository walletRepository;
 
   @Autowired
-  public CategoryWriteServiceImpl(CategoryRepository categoryRepository,
-      WalletRepository walletRepository) {
+  public CategoryWriteServiceImpl(CategoryRepository categoryRepository) {
     this.categoryRepository = categoryRepository;
-    this.walletRepository = walletRepository;
   }
 
   @Override
@@ -62,13 +54,6 @@ public class CategoryWriteServiceImpl implements CategoryWriteService {
   public void deleteCategory(Long id) {
     Category category = categoryRepository.findById(id)
         .orElseThrow(() -> new CategoryNotFoundException("Invalid category id"));
-
-    List<Wallet> wallets = walletRepository.findByCategoryIds(Arrays.asList(id));
-
-    for (Wallet wallet : wallets) {
-      wallet.removeCategory(category);
-      walletRepository.saveAndFlush(wallet);
-    }
 
     categoryRepository.delete(category);
   }
