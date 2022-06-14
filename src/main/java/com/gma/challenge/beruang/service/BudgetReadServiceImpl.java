@@ -39,7 +39,7 @@ public class BudgetReadServiceImpl implements BudgetReadService {
 
   @Override
   public BudgetsResponseData findBudgets(Long walletId) {
-    List<Budget> budgets = budgetRepository.findAllByWalletId(walletId);
+    List<Budget> budgets = budgetRepository.findByWalletId(walletId);
 
     if (!isWalletIdValid(walletId) || budgets == null) {
       throw new WalletNotFoundException("Invalid wallet id");
