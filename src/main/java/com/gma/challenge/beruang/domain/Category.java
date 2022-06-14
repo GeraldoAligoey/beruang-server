@@ -1,6 +1,13 @@
 package com.gma.challenge.beruang.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 
 import com.gma.challenge.beruang.domain.common.CommonNamedClass;
 
@@ -22,6 +29,14 @@ public class Category extends CommonNamedClass {
   private boolean userDefined;
   private boolean active;
 
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "categories")
+  @Column(name = "wallet_id")
+  Set<Wallet> wallets = new HashSet<>();  
+
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "categories")
+  @Column(name = "budget_id")
+  Set<Budget> budgets = new HashSet<>();  
+
   public Category(String name, boolean expense, String icon, String color, boolean userDefined) {
     this.expense = expense;
     this.icon = icon;
@@ -40,4 +55,19 @@ public class Category extends CommonNamedClass {
     super.setName(name);
   }
 
+  // public void addWallet(Wallet wallet) {
+  //   wallets.add(wallet);
+  // }
+
+  // public void removeWallet(Wallet wallet) {
+  //   wallets.remove(wallet);
+  // }
+
+  // public void addBudget(Budget budget) {
+  //   budgets.add(budget);
+  // }
+
+  // public void removeBudget(Budget budget) {
+  //   budgets.remove(budget);
+  // }
 }

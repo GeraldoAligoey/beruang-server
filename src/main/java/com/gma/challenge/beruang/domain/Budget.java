@@ -8,8 +8,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import com.gma.challenge.beruang.domain.common.CommonNamedClass;
 
@@ -31,15 +32,15 @@ public class Budget extends CommonNamedClass {
   private BigDecimal limitAmount = BigDecimal.ZERO;
   private BigDecimal currentAmount = BigDecimal.ZERO;
 
-  @OneToOne(cascade = {
-    CascadeType.PERSIST,
-    CascadeType.MERGE})
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn
   private Wallet wallet;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = { 
+  @ManyToMany(fetch = FetchType.LAZY, cascade = {
       CascadeType.PERSIST,
-      CascadeType.MERGE })
+      CascadeType.MERGE,
+      CascadeType.DETACH })
+  @JoinTable(name = "BUDGET_CATEGORY", joinColumns = @JoinColumn(name ="budget_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
   private Set<Category> categories = new HashSet<>();
 
   public void addCategory(Category category) {
