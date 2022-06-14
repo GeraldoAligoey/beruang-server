@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gma.challenge.beruang.data.WalletResponseData;
 import com.gma.challenge.beruang.data.WalletsResponseData;
@@ -13,6 +14,7 @@ import com.gma.challenge.beruang.exception.WalletNotFoundException;
 import com.gma.challenge.beruang.repo.WalletRepository;
 import com.gma.challenge.beruang.util.Mapper;
 
+@Transactional
 @Service
 public class WalletReadServiceImpl implements WalletReadService {
 
