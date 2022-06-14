@@ -55,19 +55,19 @@ public class Category extends CommonNamedClass {
     super.setName(name);
   }
 
-  // public void addWallet(Wallet wallet) {
-  //   wallets.add(wallet);
-  // }
+  public void addWallet(Wallet wallet) {
+    wallets.add(wallet);
+  }
 
-  // public void removeWallet(Wallet wallet) {
-  //   wallets.remove(wallet);
-  // }
+  public void removeWallet(Wallet wallet) {
+    wallets.remove(wallet);
+  }
 
-  // public void addBudget(Budget budget) {
-  //   budgets.add(budget);
-  // }
+  public void addBudget(Budget budget) {
+    budgets.add(budget);
+  }
 
-  // public void removeBudget(Budget budget) {
-  //   budgets.remove(budget);
-  // }
+  public void removeBudget(Budget budget) {
+    budgets.remove(budget);
+  }
 }
