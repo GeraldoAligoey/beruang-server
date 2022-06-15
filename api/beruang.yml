@@ -783,7 +783,6 @@ components:
         - name
         - period
         - limitAmount
-        - currentAmount
         - categories
       properties:
         name:
@@ -791,9 +790,6 @@ components:
         period:
           type: string 
         limitAmount:
-          type: number
-          format: double
-        currentAmount:
           type: number
           format: double
         categoryIds:
@@ -812,13 +808,11 @@ components:
         limitAmount:
           type: number
           format: double
-        currentAmount:
-          type: number
-          format: double
-        categories:
+        categoryIds:
           type: array
-          items:
-            $ref: '#/components/schemas/Category'
+          items: 
+            type: integer 
+            format: int64
     Transaction:
       type: object
       properties:
