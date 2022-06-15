@@ -59,6 +59,7 @@
 								<apiPackage>com.gma.challenge.beruang.api</apiPackage>
 								<modelPackage>com.gma.challenge.beruang.data</modelPackage>
 								<configPackage>com.gma.challenge.beruang.config</configPackage>
+								<additionalModelTypeAnnotations>@lombok.Builder @lombok.NoArgsConstructor @lombok.AllArgsConstructor</additionalModelTypeAnnotations>
 							</configOptions>
 							<typeMappings>
 								<typeMapping>Double=java.math.BigDecimal</typeMapping>
