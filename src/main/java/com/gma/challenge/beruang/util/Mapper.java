@@ -6,10 +6,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
+
 import com.gma.challenge.beruang.data.BudgetData;
 import com.gma.challenge.beruang.data.CategoryData;
+import com.gma.challenge.beruang.data.NewBudgetRequestData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
 import com.gma.challenge.beruang.data.NewWalletRequestData;
+import com.gma.challenge.beruang.data.UpdateBudgetRequestData;
 import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
 import com.gma.challenge.beruang.data.UpdateWalletRequestData;
 import com.gma.challenge.beruang.data.WalletData;
@@ -173,6 +177,37 @@ public class Mapper {
     }
 
     return null;
+  }
+
+  public static Budget toBudget(NewBudgetRequestData newBudgetRequestData) {
+    Budget budget = new Budget();
+    BeanUtils.copyProperties(newBudgetRequestData, budget);
+
+    return budget;
+  }
+
+  public static Budget updateBudget(Budget budget, UpdateBudgetRequestData requestData) {
+    if (requestData.getName() != null && !requestData.getName().isBlank()) {
+      budget.setName(requestData.getName());
+    }
+
+    if (requestData.getPeriod() != null && !requestData.getPeriod().isBlank()) {
+      budget.setPeriod(requestData.getPeriod());
+    }
+
+    if (requestData.getLimitAmount() != null) {
+      budget.setLimitAmount(requestData.getLimitAmount());
+    }
+
+    if (requestData.getCategoryIds() != null && !requestData.getCategoryIds().isEmpty()) {
+      Set<Category> categories = requestData.getCategoryIds()
+          .stream()
+          .map(categoryData -> toCategory(categoryData))
+          .collect(Collectors.toSet());
+      budget.setCategories(categories);
+    }
+
+    return budget;
   }
 
 }
