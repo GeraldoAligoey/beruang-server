@@ -18,8 +18,12 @@ import com.gma.challenge.beruang.util.Mapper;
 @Service
 public class WalletReadServiceImpl implements WalletReadService {
 
+  private final WalletRepository walletRepository;
+
   @Autowired
-  WalletRepository walletRepository;
+  public WalletReadServiceImpl(WalletRepository walletRepository) {
+    this.walletRepository = walletRepository;
+  }
 
   @Override
   public WalletResponseData findWallet(Long walletId) {
