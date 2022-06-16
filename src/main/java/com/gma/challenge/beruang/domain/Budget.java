@@ -40,7 +40,7 @@ public class Budget extends CommonNamedClass {
       CascadeType.PERSIST,
       CascadeType.MERGE,
       CascadeType.DETACH })
-  @JoinTable(name = "BUDGET_CATEGORY", joinColumns = @JoinColumn(name ="budget_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+  @JoinTable(name = "BUDGET_CATEGORY", joinColumns = @JoinColumn(name = "budget_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
   private Set<Category> categories = new HashSet<>();
 
   public void addCategory(Category category) {
