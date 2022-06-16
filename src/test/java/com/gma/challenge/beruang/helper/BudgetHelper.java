@@ -7,6 +7,7 @@ import java.util.List;
 import com.gma.challenge.beruang.data.BudgetData;
 import com.gma.challenge.beruang.data.BudgetResponseData;
 import com.gma.challenge.beruang.data.NewBudgetRequestData;
+import com.gma.challenge.beruang.data.UpdateBudgetRequestData;
 import com.gma.challenge.beruang.domain.Period;
 
 public class BudgetHelper {
@@ -16,14 +17,18 @@ public class BudgetHelper {
   private static final String BUDGET_PERIOD = Period.MONTHLY.getValue();
   private static final String BUDGET_NAME = "Budget Name";
 
+  private static final List<Long> UPDATE_BUDGET_CATEGORY_IDS = Arrays.asList(Long.valueOf(3), Long.valueOf(4));
+  private static final BigDecimal UPDATE_BUDGET_LIMIT_AMOUNT = new BigDecimal(500);
+  private static final String UPDATE_BUDGET_PERIOD = Period.WEEKLY.getValue();
+  private static final String UPDATE_BUDGET_NAME = "Update Budget Name";
+
   public static NewBudgetRequestData getValidNewBudgetRequestDataSample() {
-    NewBudgetRequestData requestData = NewBudgetRequestData.builder()
+    return NewBudgetRequestData.builder()
         .name(BUDGET_NAME)
         .period(BUDGET_PERIOD)
         .limitAmount(BUDGET_LIMIT_AMOUNT)
         .categoryIds(BUDGET_CATEGORY_IDS)
         .build();
-    return requestData;
   }
 
   public static boolean isBudgetResponseDataEqualsToSample(BudgetResponseData responseData) {
@@ -46,5 +51,80 @@ public class BudgetHelper {
 
     return true;
   }
+
+  public static NewBudgetRequestData getInvalidIncompleteNewBudgetRequestDataSample() {
+    return NewBudgetRequestData.builder()
+        .name(BUDGET_NAME)
+        .limitAmount(BUDGET_LIMIT_AMOUNT)
+        .categoryIds(BUDGET_CATEGORY_IDS)
+        .build();
+  }
+
+  public static NewBudgetRequestData getInvalidEmptyNewBudgetRequestDataSample() {
+    return NewBudgetRequestData.builder().build();
+  }
+
+  public static NewBudgetRequestData getInvalidNullNewBudgetRequestDataSample() {
+    return null;
+  }
+
+  public static UpdateBudgetRequestData getValidFullUpdateBudgetRequestDataSample() {
+    return UpdateBudgetRequestData.builder()
+        .name(UPDATE_BUDGET_NAME)
+        .period(UPDATE_BUDGET_PERIOD)
+        .limitAmount(UPDATE_BUDGET_LIMIT_AMOUNT)
+        .categoryIds(UPDATE_BUDGET_CATEGORY_IDS)
+        .build();
+  }
+
+  public static UpdateBudgetRequestData getValidPartialUpdateBudgetRequestDataSample() {
+    return UpdateBudgetRequestData.builder()
+        .period(UPDATE_BUDGET_PERIOD)
+        .limitAmount(UPDATE_BUDGET_LIMIT_AMOUNT)
+        .build();
+  }
+
+  public static UpdateBudgetRequestData getInvalidEmptyUpdateBudgetRequestDataSample() {
+    return UpdateBudgetRequestData.builder()
+        .build();
+  }
+
+  public static UpdateBudgetRequestData getInvalidNullUpdateBudgetRequestDataSample() {
+    return null;
+  }
+
+  public static boolean isUpdateBudgetResponseDataEqualsToSample(BudgetResponseData responseData) {
+    BudgetData budgetData = responseData.getBudget();
+    if (!budgetData.getName().equals(UPDATE_BUDGET_NAME)) {
+      return false;
+    }
+
+    if (!budgetData.getPeriod().equals(UPDATE_BUDGET_PERIOD)) {
+      return false;
+    }
+
+    if (!budgetData.getLimitAmount().equals(UPDATE_BUDGET_LIMIT_AMOUNT)) {
+      return false;
+    }
+
+    if (!UtilHelper.isEquals(budgetData.getCategories(), UPDATE_BUDGET_CATEGORY_IDS)) {
+      return false;
+    }
+
+    return true;
+  }
+
+	public static boolean isUpdateBudgetResponseDataEqualsToPartialSample(BudgetResponseData responseData) {
+    BudgetData budgetData = responseData.getBudget();
+    if (!budgetData.getPeriod().equals(UPDATE_BUDGET_PERIOD)) {
+      return false;
+    }
+
+    if (!budgetData.getLimitAmount().equals(UPDATE_BUDGET_LIMIT_AMOUNT)) {
+      return false;
+    }
+
+    return true;
+	}
 
 }
