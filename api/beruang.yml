@@ -309,7 +309,7 @@ paths:
         - Transaction
       summary: Get all transactions in a wallet
       description: Get all transactions in a wallet
-      operationId: getTransactions
+      operationId: findTransactions
       parameters:
         - name: walletId
           in: path
@@ -370,7 +370,7 @@ paths:
         - Transaction
       summary: Get a transaction in a wallet 
       description: Get a transaction in a wallet 
-      operationId: getTransaction
+      operationId: findTransaction
       parameters:
         - name: walletId
           in: path
