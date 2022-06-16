@@ -1,6 +1,5 @@
 package com.gma.challenge.beruang.service;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,20 +41,14 @@ public class BudgetWriteServiceImpl implements BudgetWriteService {
     Validator.validateNewBudgetRequestData(newBudgetRequestData);
     Budget budget = Mapper.toBudget(newBudgetRequestData);
 
-    try {
-      for (Long categoryId : newBudgetRequestData.getCategoryIds()) {
-        budget.addCategory(categoryRepository.getReferenceById(categoryId));
-      }
-    } catch (EntityNotFoundException ex) {
-      throw new CategoryNotFoundException("Invalid category id");
+    for (Long categoryId : newBudgetRequestData.getCategoryIds()) {
+      budget.addCategory(categoryRepository.findById(categoryId)
+          .orElseThrow(() -> new CategoryNotFoundException("Invalid category id")));
     }
 
-    try {
-      Wallet wallet = walletRepository.getReferenceById(walletId);
-      budget.setWallet(wallet);
-    } catch (EntityNotFoundException ex) {
-      throw new WalletNotFoundException("Invalid wallet id");
-    }
+    Wallet wallet = walletRepository.findById(walletId)
+        .orElseThrow(() -> new WalletNotFoundException("Invalid wallet id"));
+    budget.setWallet(wallet);
 
     budget = budgetRepository.saveAndFlush(budget);
     return new BudgetResponseData().budget(Mapper.toBudgetData(budget));
@@ -83,6 +76,10 @@ public class BudgetWriteServiceImpl implements BudgetWriteService {
   public void deleteBudget(Long walletId, Long budgetId) {
     Budget budget = budgetRepository.findById(budgetId)
         .orElseThrow(() -> new BudgetNotFoundException("Invalid budget id"));
+
+    if (!budget.getWallet().getId().equals(walletId)) {
+      throw new WalletNotFoundException("Invalid wallet id");
+    }
 
     budgetRepository.delete(budget);
   }
