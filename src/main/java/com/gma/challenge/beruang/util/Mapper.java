@@ -13,13 +13,17 @@ import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.NewBudgetRequestData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
 import com.gma.challenge.beruang.data.NewWalletRequestData;
+import com.gma.challenge.beruang.data.TransactionData;
 import com.gma.challenge.beruang.data.UpdateBudgetRequestData;
 import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
 import com.gma.challenge.beruang.data.UpdateWalletRequestData;
 import com.gma.challenge.beruang.data.WalletData;
 import com.gma.challenge.beruang.domain.Budget;
 import com.gma.challenge.beruang.domain.Category;
+import com.gma.challenge.beruang.domain.Transaction;
 import com.gma.challenge.beruang.domain.Wallet;
+
+import ch.qos.logback.core.joran.util.beans.BeanUtil;
 
 public class Mapper {
 
@@ -208,6 +212,13 @@ public class Mapper {
     }
 
     return budget;
+  }
+
+  public static TransactionData toTransactionData(Transaction transaction) {
+    TransactionData transactionData = new TransactionData();
+    BeanUtils.copyProperties(transaction, transactionData);    
+
+    return transactionData;
   }
 
 }
