@@ -12,10 +12,12 @@ import com.gma.challenge.beruang.data.BudgetData;
 import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.NewBudgetRequestData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
+import com.gma.challenge.beruang.data.NewTransactionRequestData;
 import com.gma.challenge.beruang.data.NewWalletRequestData;
 import com.gma.challenge.beruang.data.TransactionData;
 import com.gma.challenge.beruang.data.UpdateBudgetRequestData;
 import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
+import com.gma.challenge.beruang.data.UpdateTransactionRequestData;
 import com.gma.challenge.beruang.data.UpdateWalletRequestData;
 import com.gma.challenge.beruang.data.WalletData;
 import com.gma.challenge.beruang.domain.Budget;
@@ -217,6 +219,31 @@ public class Mapper {
     BeanUtils.copyProperties(transaction, transactionData);    
 
     return transactionData;
+  }
+
+  public static Transaction toTransaction(NewTransactionRequestData newTransactionRequestData) {
+    Transaction transaction = new Transaction();
+    BeanUtils.copyProperties(newTransactionRequestData, transaction); 
+    
+    return transaction;
+  }
+
+  public static Transaction updateTransaction(Transaction transaction,
+      UpdateTransactionRequestData requestData) {
+      
+    if (requestData.getNote() != null) {
+      transaction.setNote(requestData.getNote());
+    }
+
+    if (requestData.getAmount() != null) {
+      transaction.setAmount(requestData.getAmount());
+    }
+
+    if (requestData.getDate() != null) {
+      transaction.setDate(requestData.getDate());
+    }
+
+    return transaction;
   }
 
 }
