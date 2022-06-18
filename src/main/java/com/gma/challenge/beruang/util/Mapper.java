@@ -23,8 +23,6 @@ import com.gma.challenge.beruang.domain.Category;
 import com.gma.challenge.beruang.domain.Transaction;
 import com.gma.challenge.beruang.domain.Wallet;
 
-import ch.qos.logback.core.joran.util.beans.BeanUtil;
-
 public class Mapper {
 
   public static CategoryData toCategoryData(Category category) {
