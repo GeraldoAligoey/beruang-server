@@ -1,15 +1,15 @@
 openapi: 3.0.2
 info:
-  title: Beruang API 
+  title: Beruang API
   description: Beruang API
   version: 1.0.0
 servers:
   - url: /api
 paths:
   /wallets:
-    get: 
+    get:
       tags:
-        - Wallet 
+        - Wallet
       summary: Get all wallets
       description: Get all wallets
       operationId: findWallets
@@ -19,25 +19,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WalletsResponse'
+                $ref: "#/components/schemas/WalletsResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
     post:
       tags:
-        - Wallet 
+        - Wallet
       summary: Create a new wallet
       description: Create a new wallet
       operationId: createWallet
       requestBody:
         description: Details of the new wallet to add
         content:
-          application/json :
+          application/json:
             schema:
-              $ref: '#/components/schemas/NewWalletRequest'
+              $ref: "#/components/schemas/NewWalletRequest"
         required: true
       responses:
         201:
@@ -45,13 +45,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WalletResponse'
+                $ref: "#/components/schemas/WalletResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
   /wallets/{walletId}:
     get:
       tags:
@@ -64,7 +64,7 @@ paths:
           in: path
           description: Id of the wallet to get
           required: true
-          schema: 
+          schema:
             type: integer
             format: int64
       responses:
@@ -73,13 +73,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WalletResponse'
+                $ref: "#/components/schemas/WalletResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
     put:
       tags:
         - Wallet
@@ -88,30 +88,30 @@ paths:
       operationId: updateWallet
       parameters:
         - name: walletId
-          in: path 
+          in: path
           description: the id of the wallet to be updated
           required: true
           schema:
             type: integer
             format: int64
-      requestBody: 
-        content:  
+      requestBody:
+        content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateWalletRequest'
+              $ref: "#/components/schemas/UpdateWalletRequest"
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WalletResponse'
+                $ref: "#/components/schemas/WalletResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
     delete:
       tags:
         - Wallet
@@ -127,7 +127,7 @@ paths:
             type: integer
             format: int64
       responses:
-        200: 
+        200:
           description: OK
           content: {}
         422:
@@ -135,7 +135,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
   /wallets/{walletId}/budgets:
     get:
       tags:
@@ -153,17 +153,17 @@ paths:
             format: int64
       responses:
         200:
-          description: OK 
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BudgetsResponse'
+                $ref: "#/components/schemas/BudgetsResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
     post:
       tags:
         - Budget
@@ -175,27 +175,27 @@ paths:
           in: path
           description: Id of the wallet that contains all the budget
           required: true
-          schema: 
+          schema:
             type: integer
             format: int64
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewBudgetRequest'
+              $ref: "#/components/schemas/NewBudgetRequest"
       responses:
         200:
-          description: OK 
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BudgetResponse'
+                $ref: "#/components/schemas/BudgetResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
   /wallets/{walletId}/budgets/{budgetId}:
     get:
       tags:
@@ -220,17 +220,17 @@ paths:
             format: int64
       responses:
         200:
-          description: OK 
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BudgetResponse'
+                $ref: "#/components/schemas/BudgetResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
     put:
       tags:
         - Budget
@@ -257,21 +257,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateBudgetRequest'
+              $ref: "#/components/schemas/UpdateBudgetRequest"
         required: true
       responses:
         200:
-          description: OK 
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BudgetResponse'
+                $ref: "#/components/schemas/BudgetResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
     delete:
       tags:
         - Budget
@@ -302,7 +302,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
   /wallets/{walletId}/transactions:
     get:
       tags:
@@ -324,18 +324,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionsResponse'
+                $ref: "#/components/schemas/TransactionsResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
     post:
       tags:
         - Transaction
-      summary: Create a new transaction in a wallet 
-      description: Create a new transaction in a wallet 
+      summary: Create a new transaction in a wallet
+      description: Create a new transaction in a wallet
       operationId: createTransaction
       parameters:
         - name: walletId
@@ -350,26 +350,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewTransactionRequest'
+              $ref: "#/components/schemas/NewTransactionRequest"
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionResponse'
+                $ref: "#/components/schemas/TransactionResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
   /wallets/{walletId}/transactions/{transactionId}:
     get:
       tags:
         - Transaction
-      summary: Get a transaction in a wallet 
-      description: Get a transaction in a wallet 
+      summary: Get a transaction in a wallet
+      description: Get a transaction in a wallet
       operationId: findTransaction
       parameters:
         - name: walletId
@@ -377,14 +377,14 @@ paths:
           description: Id of the wallet
           required: true
           schema:
-            type: integer 
+            type: integer
             format: int64
         - name: transactionId
           in: path
           description: Id of the transaction
           required: true
           schema:
-            type: integer 
+            type: integer
             format: int64
       responses:
         200:
@@ -392,18 +392,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionResponse'
+                $ref: "#/components/schemas/TransactionResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
     put:
       tags:
         - Transaction
-      summary: Update a transaction in a wallet 
-      description: Update a transaction in a wallet 
+      summary: Update a transaction in a wallet
+      description: Update a transaction in a wallet
       operationId: updateTransaction
       parameters:
         - name: walletId
@@ -411,39 +411,39 @@ paths:
           description: Id of the wallet
           required: true
           schema:
-            type: integer 
+            type: integer
             format: int64
         - name: transactionId
           in: path
           description: Id of the transaction
           required: true
           schema:
-            type: integer 
+            type: integer
             format: int64
       requestBody:
         description: Updated transaction information
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateTransactionRequest'
+              $ref: "#/components/schemas/UpdateTransactionRequest"
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionResponse'
+                $ref: "#/components/schemas/TransactionResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
     delete:
       tags:
         - Transaction
-      summary: Delete a transaction in a wallet 
-      description: Delete a transaction in a wallet 
+      summary: Delete a transaction in a wallet
+      description: Delete a transaction in a wallet
       operationId: deleteTransaction
       parameters:
         - name: walletId
@@ -469,7 +469,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
   /categories:
     get:
       tags:
@@ -483,7 +483,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoriesResponse'
+                $ref: "#/components/schemas/CategoriesResponse"
     post:
       tags:
         - Category
@@ -495,7 +495,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewCategoryRequest'
+              $ref: "#/components/schemas/NewCategoryRequest"
         required: true
       responses:
         201:
@@ -503,13 +503,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryResponse'
+                $ref: "#/components/schemas/CategoryResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
   /categories/{categoryId}:
     get:
       tags:
@@ -523,7 +523,7 @@ paths:
           description: Id of the category to get
           required: true
           schema:
-            type: integer 
+            type: integer
             format: int64
       responses:
         200:
@@ -531,15 +531,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryResponse'
+                $ref: "#/components/schemas/CategoryResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
     put:
-      tags: 
+      tags:
         - Category
       summary: Update a category
       description: Update a category
@@ -550,32 +550,32 @@ paths:
           description: Id of the category to update
           required: true
           schema:
-            type: integer 
+            type: integer
             format: int64
       requestBody:
-        description: Category object with the updated content 
+        description: Category object with the updated content
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateCategoryRequest'
+              $ref: "#/components/schemas/UpdateCategoryRequest"
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryResponse'
+                $ref: "#/components/schemas/CategoryResponse"
         422:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
     delete:
       tags:
         - Category
-      summary: Delete a category 
-      description: Delete a category 
+      summary: Delete a category
+      description: Delete a category
       operationId: deleteCategory
       parameters:
         - name: categoryId
@@ -583,7 +583,7 @@ paths:
           description: Id of the category to delete
           required: true
           schema:
-            type: integer 
+            type: integer
             format: int64
       responses:
         200:
@@ -594,7 +594,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericErrorModel'
+                $ref: "#/components/schemas/GenericErrorModel"
 components:
   schemas:
     NewWalletRequest:
@@ -615,8 +615,8 @@ components:
           format: double
         categoryIds:
           type: array
-          items: 
-            type: integer 
+          items:
+            type: integer
             format: int64
     Wallet:
       type: object
@@ -625,7 +625,7 @@ components:
         - defaultCurrencyCode
       properties:
         id:
-          type: integer 
+          type: integer
           format: int64
         name:
           type: string
@@ -638,15 +638,15 @@ components:
           format: double
         categories:
           type: array
-          items: 
-            $ref: '#/components/schemas/Category'
+          items:
+            $ref: "#/components/schemas/Category"
     WalletResponse:
       type: object
       required:
         - wallet
       properties:
         wallet:
-          $ref: '#/components/schemas/Wallet'
+          $ref: "#/components/schemas/Wallet"
     WalletsResponse:
       type: object
       required:
@@ -655,7 +655,7 @@ components:
         wallets:
           type: array
           items:
-            $ref: '#/components/schemas/Wallet'
+            $ref: "#/components/schemas/Wallet"
     UpdateWalletRequest:
       type: object
       minProperties: 1
@@ -671,8 +671,8 @@ components:
           format: double
         categoryIds:
           type: array
-          items: 
-            type: integer 
+          items:
+            type: integer
             format: int64
     Category:
       type: object
@@ -683,7 +683,7 @@ components:
         - color
       properties:
         id:
-          type: integer 
+          type: integer
           format: int64
         name:
           type: string
@@ -701,7 +701,7 @@ components:
         - category
       properties:
         category:
-          $ref: '#/components/schemas/Category'
+          $ref: "#/components/schemas/Category"
     CategoriesResponse:
       type: object
       required:
@@ -710,7 +710,7 @@ components:
         categories:
           type: array
           items:
-            $ref: '#/components/schemas/Category'
+            $ref: "#/components/schemas/Category"
     NewCategoryRequest:
       type: object
       required:
@@ -743,12 +743,12 @@ components:
       type: object
       properties:
         id:
-          type: integer 
+          type: integer
           format: int64
         name:
           type: string
         period:
-          type: string 
+          type: string
         limitAmount:
           type: number
           format: double
@@ -756,27 +756,27 @@ components:
           type: number
           format: double
         wallet:
-          $ref: '#/components/schemas/Wallet'
+          $ref: "#/components/schemas/Wallet"
         categories:
           type: array
           items:
-            $ref: '#/components/schemas/Category'
+            $ref: "#/components/schemas/Category"
     BudgetResponse:
       type: object
       required:
         - budget
       properties:
         budget:
-          $ref: '#/components/schemas/Budget'
+          $ref: "#/components/schemas/Budget"
     BudgetsResponse:
-      type: object 
+      type: object
       required:
         - budgets
       properties:
         budgets:
           type: array
           items:
-            $ref: '#/components/schemas/Budget'
+            $ref: "#/components/schemas/Budget"
     NewBudgetRequest:
       type: object
       required:
@@ -788,14 +788,14 @@ components:
         name:
           type: string
         period:
-          type: string 
+          type: string
         limitAmount:
           type: number
           format: double
         categoryIds:
           type: array
-          items: 
-            type: integer 
+          items:
+            type: integer
             format: int64
     UpdateBudgetRequest:
       type: object
@@ -804,23 +804,23 @@ components:
         name:
           type: string
         period:
-          type: string 
+          type: string
         limitAmount:
           type: number
           format: double
         categoryIds:
           type: array
-          items: 
-            type: integer 
+          items:
+            type: integer
             format: int64
     Transaction:
       type: object
       properties:
         id:
-          type: integer 
+          type: integer
           format: int64
         note:
-          type: string        
+          type: string
         amount:
           type: number
           format: double
@@ -828,16 +828,16 @@ components:
           type: string
           format: date
         wallet:
-          $ref: '#/components/schemas/Wallet'
+          $ref: "#/components/schemas/Wallet"
         category:
-          $ref: '#/components/schemas/Category'
+          $ref: "#/components/schemas/Category"
     TransactionResponse:
       type: object
       required:
         - transaction
       properties:
         transaction:
-          $ref: '#/components/schemas/Transaction'
+          $ref: "#/components/schemas/Transaction"
     TransactionsResponse:
       type: object
       required:
@@ -846,46 +846,43 @@ components:
         transactions:
           type: array
           items:
-            $ref: '#/components/schemas/Transaction'
+            $ref: "#/components/schemas/Transaction"
     NewTransactionRequest:
       type: object
       required:
         - note
         - amount
         - date
-        - walletId
         - categoryId
       properties:
         note:
-          type: string        
+          type: string
         amount:
           type: number
           format: double
         date:
           type: string
           format: date
-        walletId:
-          type: number
         categoryId:
-          type: number
+          type: integer
+          format: int64
     UpdateTransactionRequest:
       type: object
       minProperties: 1
       properties:
         note:
-          type: string        
+          type: string
         amount:
           type: number
           format: double
         date:
           type: string
           format: date
-        walletId:
-          type: number
         categoryId:
-          type: number
-    GenericErrorModel: 
-      required: 
+          type: integer
+          format: int64
+    GenericErrorModel:
+      required:
         - errors
       type: object
       properties:
