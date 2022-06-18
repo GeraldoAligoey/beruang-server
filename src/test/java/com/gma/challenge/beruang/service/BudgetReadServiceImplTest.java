@@ -26,10 +26,10 @@ public class BudgetReadServiceImplTest implements ReadServiceTest {
 
   private static final Long INVALID_BUDGETID = Long.valueOf(-2);
   private static final Long VALID_NORECORD_BUDGETID = Long.valueOf(1000);
-  private static final Long VALID_NORECORD_WALLETID = Long.valueOf(1000);
+  private static final Long VALID_NORECORD_WALLET_ID = Long.valueOf(1000);
   private static final Long VALID_BUDGETID = Long.valueOf(1);
-  private static final Long INVALID_WALLETID = Long.valueOf(-1);
-  private static final Long VALID_WALLETID = Long.valueOf(1);
+  private static final Long INVALID_WALLET_ID = Long.valueOf(-1);
+  private static final Long VALID_WALLET_ID = Long.valueOf(1);
 
   @Autowired
   BudgetReadServiceImpl SUT;
@@ -38,7 +38,7 @@ public class BudgetReadServiceImplTest implements ReadServiceTest {
   @Sql("classpath:sql/testFind_empty.sql")
   @Override
   public void testFind_empty() {
-    BudgetsResponseData responseData = SUT.findBudgets(VALID_WALLETID);
+    BudgetsResponseData responseData = SUT.findBudgets(VALID_WALLET_ID);
     List<BudgetData> budgets = responseData.getBudgets();
 
     assertNotNull(budgets);
@@ -48,14 +48,14 @@ public class BudgetReadServiceImplTest implements ReadServiceTest {
   @Test
   @Sql("classpath:sql/testFind_empty.sql")
   public void testFind_empty_invalidWalletId() {
-    assertThrows(WalletNotFoundException.class, () -> SUT.findBudgets(INVALID_WALLETID));
+    assertThrows(WalletNotFoundException.class, () -> SUT.findBudgets(INVALID_WALLET_ID));
   }
 
   @Test
   @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindBudgets_single.sql"})
   @Override
   public void testFind_single() {
-    BudgetsResponseData responseData = SUT.findBudgets(VALID_WALLETID);
+    BudgetsResponseData responseData = SUT.findBudgets(VALID_WALLET_ID);
     List<BudgetData> budgets = responseData.getBudgets();
 
     assertTrue(budgets.size() == 1);
@@ -64,14 +64,14 @@ public class BudgetReadServiceImplTest implements ReadServiceTest {
   @Test
   @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindBudgets_single.sql"})
   public void testFind_single_invalidWalletId() {
-    assertThrows(WalletNotFoundException.class, () -> SUT.findBudgets(INVALID_WALLETID));
+    assertThrows(WalletNotFoundException.class, () -> SUT.findBudgets(INVALID_WALLET_ID));
   }
 
   @Test
   @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindBudgets_multiple.sql"})
   @Override
   public void testFind_multiple() {
-    BudgetsResponseData responseData = SUT.findBudgets(VALID_WALLETID);
+    BudgetsResponseData responseData = SUT.findBudgets(VALID_WALLET_ID);
     List<BudgetData> budgets = responseData.getBudgets();
 
     assertTrue(budgets.size() > 1);
@@ -80,14 +80,14 @@ public class BudgetReadServiceImplTest implements ReadServiceTest {
   @Test
   @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindBudgets_multiple.sql"})
   public void testFind_multiple_invalidWalletId() {
-    assertThrows(WalletNotFoundException.class, () -> SUT.findBudgets(INVALID_WALLETID));
+    assertThrows(WalletNotFoundException.class, () -> SUT.findBudgets(INVALID_WALLET_ID));
   }
 
   @Test
   @Sql({"classpath:sql/testFind_empty.sql", "classpath:sql/testFindBudgets_multiple.sql"})
   @Override
   public void testFind_validId_recordExist() {
-    BudgetResponseData responseData = SUT.findBudget(VALID_WALLETID, VALID_BUDGETID);
+    BudgetResponseData responseData = SUT.findBudget(VALID_WALLET_ID, VALID_BUDGETID);
     assertNotNull(responseData);
     assertNotNull(responseData.getBudget());
   }
@@ -95,15 +95,15 @@ public class BudgetReadServiceImplTest implements ReadServiceTest {
   @Test
   @Override
   public void testFind_validId_recordNotExist() {
-    assertThrows(BudgetNotFoundException.class, () -> SUT.findBudget(VALID_NORECORD_WALLETID, VALID_BUDGETID));
-    assertThrows(BudgetNotFoundException.class, () -> SUT.findBudget(VALID_WALLETID, VALID_NORECORD_BUDGETID));
+    assertThrows(BudgetNotFoundException.class, () -> SUT.findBudget(VALID_NORECORD_WALLET_ID, VALID_BUDGETID));
+    assertThrows(BudgetNotFoundException.class, () -> SUT.findBudget(VALID_WALLET_ID, VALID_NORECORD_BUDGETID));
   }
 
   @Test
   @Override
   public void testFind_invalidId() {
-    assertThrows(BudgetNotFoundException.class, () -> SUT.findBudget(INVALID_WALLETID, VALID_BUDGETID));
-    assertThrows(BudgetNotFoundException.class, () -> SUT.findBudget(VALID_WALLETID, INVALID_BUDGETID));
+    assertThrows(BudgetNotFoundException.class, () -> SUT.findBudget(INVALID_WALLET_ID, VALID_BUDGETID));
+    assertThrows(BudgetNotFoundException.class, () -> SUT.findBudget(VALID_WALLET_ID, INVALID_BUDGETID));
   }
 
 }
