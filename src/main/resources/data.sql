@@ -33,3 +33,9 @@ insert into budget_category(budget_id, category_id) values(2, 4);
 
 insert into budget_category(budget_id, category_id) values(3, 3);
 insert into budget_category(budget_id, category_id) values(3, 4);
+
+insert into transaction(amount, date, note, category_id, wallet_id) values(100, CURRENT_DATE, '', 1, 1);
+insert into transaction(amount, date, note, category_id, wallet_id) values(5, CURRENT_DATE, '', 2, 1);
+insert into transaction(amount, date, note, category_id, wallet_id) values(12.5, CURRENT_DATE, '', 4, 2);
+insert into transaction(amount, date, note, category_id, wallet_id) values(18.8, CURRENT_DATE, '', 4, 2);
+insert into transaction(amount, date, note, category_id, wallet_id) values(50, CURRENT_DATE, '', 2, 1);
