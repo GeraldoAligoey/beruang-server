@@ -218,6 +218,9 @@ public class Mapper {
     TransactionData transactionData = new TransactionData();
     BeanUtils.copyProperties(transaction, transactionData);    
 
+    transactionData.category(toCategoryData(transaction.getCategory()));
+    transactionData.wallet(toWalletData(transaction.getWallet()));
+
     return transactionData;
   }
 
