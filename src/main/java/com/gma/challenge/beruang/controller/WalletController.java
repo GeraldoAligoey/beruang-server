@@ -22,6 +22,8 @@ import com.gma.challenge.beruang.data.WalletResponseData;
 import com.gma.challenge.beruang.data.WalletsResponseData;
 import com.gma.challenge.beruang.service.BudgetReadService;
 import com.gma.challenge.beruang.service.BudgetWriteService;
+import com.gma.challenge.beruang.service.TransactionReadService;
+import com.gma.challenge.beruang.service.TransactionWriteService;
 import com.gma.challenge.beruang.service.WalletReadService;
 import com.gma.challenge.beruang.service.WalletWriteService;
 
@@ -32,14 +34,19 @@ public class WalletController implements WalletsApi {
   private final WalletWriteService walletWriteService;
   private final BudgetReadService budgetReadService;
   private final BudgetWriteService budgetWriteService;
+  private final TransactionReadService transactionReadService;
+  private final TransactionWriteService transactionWriteService;
 
   @Autowired
   public WalletController(WalletReadService walletReadService, WalletWriteService walletWriteService,
-      BudgetReadService budgetReadService, BudgetWriteService budgetWriteService) {
+      BudgetReadService budgetReadService, BudgetWriteService budgetWriteService,
+      TransactionReadService transactionReadService, TransactionWriteService transactionWriteService) {
     this.walletReadService = walletReadService;
     this.walletWriteService = walletWriteService;
     this.budgetReadService = budgetReadService;
     this.budgetWriteService = budgetWriteService;
+    this.transactionReadService = transactionReadService;
+    this.transactionWriteService = transactionWriteService;
   }
 
   @Override
@@ -100,33 +107,29 @@ public class WalletController implements WalletsApi {
   @Override
   public ResponseEntity<TransactionResponseData> createTransaction(Long walletId,
       @Valid NewTransactionRequestData newTransactionRequestData) {
-    // TODO Auto-generated method stub
-    return WalletsApi.super.createTransaction(walletId, newTransactionRequestData);
+    return ResponseEntity.ok(transactionWriteService.createTransaction(walletId, newTransactionRequestData));
   }
 
   @Override
   public ResponseEntity<TransactionResponseData> updateTransaction(Long walletId, Long transactionId,
       @Valid UpdateTransactionRequestData updateTransactionRequestData) {
-    // TODO Auto-generated method stub
-    return WalletsApi.super.updateTransaction(walletId, transactionId, updateTransactionRequestData);
+    return ResponseEntity.ok(transactionWriteService.updateTransaction(walletId, transactionId, updateTransactionRequestData));
   }
 
   @Override
   public ResponseEntity<Void> deleteTransaction(Long walletId, Long transactionId) {
-    // TODO Auto-generated method stub
-    return WalletsApi.super.deleteTransaction(walletId, transactionId);
+    transactionWriteService.deleteTransaction(walletId, transactionId);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @Override
   public ResponseEntity<TransactionResponseData> findTransaction(Long walletId, Long transactionId) {
-    // TODO Auto-generated method stub
-    return WalletsApi.super.findTransaction(walletId, transactionId);
+    return ResponseEntity.ok(transactionReadService.findTransaction(walletId, transactionId));
   }
 
   @Override
   public ResponseEntity<TransactionsResponseData> findTransactions(Long walletId) {
-    // TODO Auto-generated method stub
-    return WalletsApi.super.findTransactions(walletId);
+    return ResponseEntity.ok(transactionReadService.findTransactions(walletId));
   }
 
 }
