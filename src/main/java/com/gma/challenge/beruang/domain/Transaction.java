@@ -3,10 +3,10 @@ package com.gma.challenge.beruang.domain;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import com.gma.challenge.beruang.domain.common.CommonClass;
 
@@ -28,17 +28,11 @@ public class Transaction extends CommonClass {
   private BigDecimal amount;
   private LocalDate date;
 
-  @OneToOne(cascade = {
-    CascadeType.PERSIST,
-    CascadeType.MERGE
-  })
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn
   private Wallet wallet;
 
-  @OneToOne(cascade = {
-    CascadeType.PERSIST,
-    CascadeType.MERGE
-  })
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn
   private Category category;
 }

@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.gma.challenge.beruang.domain.common.CommonNamedClass;
 
@@ -36,6 +37,9 @@ public class Category extends CommonNamedClass {
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "categories")
   @Column(name = "budget_id")
   Set<Budget> budgets = new HashSet<>();  
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
+  private Set<Transaction> transactions = new HashSet<>();
 
   public Category(String name, boolean expense, String icon, String color, boolean userDefined) {
     this.expense = expense;

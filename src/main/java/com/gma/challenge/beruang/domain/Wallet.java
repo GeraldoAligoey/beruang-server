@@ -42,6 +42,9 @@ public class Wallet extends CommonNamedClass {
   @JoinTable(name = "WALLET_CATEGORY", joinColumns = @JoinColumn(name ="wallet_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
   private Set<Category> categories = new HashSet<>();
 
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "wallet", cascade = CascadeType.ALL)
+  private Set<Transaction> transactions = new HashSet<>();
+
   public void addCategory(Category category) {
     categories.add(category);
   }
