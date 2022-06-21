@@ -29,35 +29,21 @@ public class Mapper {
 
   public static CategoryData toCategoryData(Category category) {
     CategoryData categoryData = new CategoryData();
-    categoryData.setId(category.getId());
-    categoryData.setName(category.getName());
-    categoryData.setExpense(category.isExpense());
-    categoryData.setIcon(category.getIcon());
-    categoryData.setColor(category.getColor());
-    categoryData.setActive(category.isActive());
+    BeanUtils.copyProperties(category, categoryData);
 
     return categoryData;
   }
 
   public static Category toCategory(CategoryData categoryData) {
     Category category = new Category();
-    category.setId(categoryData.getId());
-    category.setName(categoryData.getName());
-    category.setExpense(categoryData.getExpense());
-    category.setIcon(categoryData.getIcon());
-    category.setColor(categoryData.getColor());
-    category.setActive(true);
+    BeanUtils.copyProperties(category, categoryData);
 
     return category;
   }
 
   public static Category toCategory(NewCategoryRequestData requestData) {
     Category category = new Category();
-    category.setName(requestData.getName());
-    category.setExpense(requestData.getExpense());
-    category.setIcon(requestData.getIcon());
-    category.setColor(requestData.getColor());
-    category.setActive(true);
+    BeanUtils.copyProperties(requestData, category);
 
     return category;
   }
@@ -84,11 +70,7 @@ public class Mapper {
 
   public static WalletData toWalletData(Wallet wallet) {
     WalletData walletData = new WalletData();
-    walletData.setId(wallet.getId());
-    walletData.setName(wallet.getName());
-    walletData.setDefaultCurrencyCode(wallet.getDefaultCurrencyCode());
-    walletData.setDefaultWallet(wallet.isDefaultWallet());
-    walletData.setInitialBalanceAmount(wallet.getInitialBalanceAmount());
+    BeanUtils.copyProperties(wallet, walletData);
 
     List<CategoryData> categoryDatas = wallet.getCategories()
         .stream()
@@ -162,11 +144,7 @@ public class Mapper {
 
   public static BudgetData toBudgetData(Budget budget) {
     BudgetData budgetData = new BudgetData();
-    budgetData.setId(budget.getId());
-    budgetData.setName(budget.getName());
-    budgetData.setPeriod(budget.getPeriod());
-    budgetData.setLimitAmount(budget.getLimitAmount());
-    budgetData.setCurrentAmount(budget.getCurrentAmount());
+    BeanUtils.copyProperties(budget, budgetData);
     budgetData.setWallet(toWalletData(budget.getWallet()));
     budgetData.setCategories(toCategoriesData(budget.getCategories()));
 
