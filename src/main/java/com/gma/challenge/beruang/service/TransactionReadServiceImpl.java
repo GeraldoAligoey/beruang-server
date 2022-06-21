@@ -36,7 +36,7 @@ public class TransactionReadServiceImpl implements TransactionReadService {
       throw new WalletNotFoundException("Invalid wallet id");
     }
 
-    return new TransactionResponseData().transaction(Mapper.toTransactionData(transaction));
+    return TransactionResponseData.builder().transaction(Mapper.toTransactionData(transaction)).build();
   }
 
   @Override
@@ -48,8 +48,11 @@ public class TransactionReadServiceImpl implements TransactionReadService {
       throw new WalletNotFoundException("Invalid wallet id");
     }
 
-    return new TransactionsResponseData(
-        transactions.stream().map(transaction -> Mapper.toTransactionData(transaction)).collect(Collectors.toList()));
+    return TransactionsResponseData.builder()
+        .transactions(
+            transactions.stream().map(transaction -> Mapper.toTransactionData(transaction))
+                .collect(Collectors.toList()))
+        .build();
   }
 
   private boolean isWalletIdValid(Long walletId) {

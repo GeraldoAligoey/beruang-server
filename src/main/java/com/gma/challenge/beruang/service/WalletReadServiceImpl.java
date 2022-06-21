@@ -30,18 +30,19 @@ public class WalletReadServiceImpl implements WalletReadService {
     Wallet wallet = walletRepository.findById(walletId)
         .orElseThrow(() -> new WalletNotFoundException("Wallet id " + walletId + " not found"));
 
-    return new WalletResponseData().wallet(Mapper.toWalletData(wallet));
+    return WalletResponseData.builder().wallet(Mapper.toWalletData(wallet)).build();
   }
 
   @Override
   public WalletsResponseData findWallets() {
     List<Wallet> wallets = walletRepository.findAll();
 
-    return new WalletsResponseData()
-        .wallets(wallets
+    return WalletsResponseData.builder().wallets(
+        wallets
             .stream()
             .map(wallet -> Mapper.toWalletData(wallet))
-            .collect(Collectors.toList()));
+            .collect(Collectors.toList()))
+        .build();
   }
 
 }

@@ -34,7 +34,7 @@ public class BudgetReadServiceImpl implements BudgetReadService {
       throw new BudgetNotFoundException("The budget is not in the given wallet");
     }
 
-    return new BudgetResponseData().budget(Mapper.toBudgetData(budget));
+    return BudgetResponseData.builder().budget(Mapper.toBudgetData(budget)).build();
   }
 
   @Override
@@ -45,11 +45,11 @@ public class BudgetReadServiceImpl implements BudgetReadService {
       throw new WalletNotFoundException("Invalid wallet id");
     }
 
-    return new BudgetsResponseData()
+    return BudgetsResponseData.builder()
         .budgets(budgets
             .stream()
             .map(budget -> Mapper.toBudgetData(budget))
-            .collect(Collectors.toList()));
+            .collect(Collectors.toList())).build();
   }
 
   private boolean isWalletIdValid(Long walletId) {

@@ -47,7 +47,7 @@ public class WalletWriteServiceImpl implements WalletWriteService {
     wallet.setCategories(categories);
     wallet = walletRepository.saveAndFlush(wallet);
 
-    return new WalletResponseData().wallet(Mapper.toWalletData(wallet));
+    return WalletResponseData.builder().wallet(Mapper.toWalletData(wallet)).build();
   }
 
   @Override
@@ -61,7 +61,7 @@ public class WalletWriteServiceImpl implements WalletWriteService {
               .saveAndFlush(Mapper
                   .updateWallet(wallet, updateWalletRequestData)));
 
-      return new WalletResponseData().wallet(walletData);
+      return WalletResponseData.builder().wallet(walletData).build();
     } catch (EntityNotFoundException ex) {
       throw new WalletNotFoundException("Invalid wallet id");
     }

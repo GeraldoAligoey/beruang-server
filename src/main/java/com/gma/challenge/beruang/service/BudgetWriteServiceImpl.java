@@ -51,7 +51,7 @@ public class BudgetWriteServiceImpl implements BudgetWriteService {
     budget.setWallet(wallet);
 
     budget = budgetRepository.saveAndFlush(budget);
-    return new BudgetResponseData().budget(Mapper.toBudgetData(budget));
+    return BudgetResponseData.builder().budget(Mapper.toBudgetData(budget)).build();
   }
 
   @Override
@@ -66,7 +66,7 @@ public class BudgetWriteServiceImpl implements BudgetWriteService {
           .toBudgetData(budgetRepository
               .saveAndFlush(Mapper
                   .updateBudget(budget, updateBudgetRequestData)));
-      return new BudgetResponseData().budget(budgetData);
+      return BudgetResponseData.builder().budget(budgetData).build();
     } else {
       throw new WalletNotFoundException("Invalid wallet id");
     }

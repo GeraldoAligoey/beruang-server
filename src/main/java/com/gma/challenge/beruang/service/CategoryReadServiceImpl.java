@@ -26,7 +26,7 @@ public class CategoryReadServiceImpl implements CategoryReadService {
   public CategoriesResponseData findCategories() {
     List<Category> categories = categoryRepository.findAll();
 
-    return new CategoriesResponseData().categories(Mapper.toCategoriesData(categories));
+    return CategoriesResponseData.builder().categories(Mapper.toCategoriesData(categories)).build();
   }
 
   @Override
@@ -34,7 +34,7 @@ public class CategoryReadServiceImpl implements CategoryReadService {
     Category category = categoryRepository.findById(categoryId)
         .orElseThrow(() -> new CategoryNotFoundException("Category id " + categoryId + " not found"));
         
-    return new CategoryResponseData().category(Mapper.toCategoryData(category));
+    return CategoryResponseData.builder().category(Mapper.toCategoryData(category)).build();
   }
 
 }
