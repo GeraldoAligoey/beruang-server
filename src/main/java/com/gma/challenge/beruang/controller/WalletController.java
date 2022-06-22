@@ -130,6 +130,14 @@ public class WalletController implements WalletsApi {
     return ResponseEntity.ok(transactionReadService.findTransaction(walletId, transactionId));
   }
 
+  /**
+   * @deprecated Replaced by {@link #findTransactions(Long, LocalDate, LocalDate, BigDecimal, BigDecimal)}
+   */
+  @Deprecated
+  public ResponseEntity<TransactionsResponseData> findTransactions(Long walletId) {
+    return ResponseEntity.ok(transactionReadService.findTransactions(walletId));
+  }
+
   @Override
   public ResponseEntity<TransactionsResponseData> findTransactions(Long walletId, @Valid LocalDate fromDate,
       @Valid LocalDate toDate, BigDecimal fromAmount, BigDecimal toAmount) {
