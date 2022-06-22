@@ -318,6 +318,34 @@ paths:
           schema:
             type: integer
             format: int64
+        - name: fromDate
+          in: query
+          description: Starting date to search transaction record. Transaction date before this date will be excluded
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: toDate
+          in: query
+          description: Ending date to search transaction record. Transaction date after this date will be excluded
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: fromAmount
+          in: query
+          description: Starting amount to search transaction record. Transaction amount lower than this will be excluded
+          required: false
+          schema:
+            type: number
+            format: double
+        - name: toAmount
+          in: query
+          description: Ending amount to search transaction record. Transaction amount higher than this will be excluded
+          required: false
+          schema:
+            type: number
+            format: double
       responses:
         200:
           description: OK
