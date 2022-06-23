@@ -64,7 +64,7 @@ public class TransactionReadServiceImpl implements TransactionReadService {
 
   @Override
   public TransactionsResponseData findTransactions(Long walletId, LocalDate fromDate, LocalDate toDate,
-      BigDecimal fromAmount, BigDecimal toAmount) {
+      BigDecimal fromAmount, BigDecimal toAmount, List<Long> categoryIds) {
     TransactionsResponseData responseData = findTransactions(walletId);
     List<TransactionData> transactions = responseData.getTransactions();
 
@@ -82,6 +82,10 @@ public class TransactionReadServiceImpl implements TransactionReadService {
 
     if (toAmount != null) {
       transactions.removeIf(transaction -> transaction.getAmount().compareTo(toAmount) > 0);
+    }
+
+    if (categoryIds != null && !categoryIds.isEmpty()) {
+      transactions.removeIf(transaction -> !categoryIds.contains(transaction.getCategory().getId()));
     }
 
     return TransactionsResponseData.builder().transactions(transactions).build();

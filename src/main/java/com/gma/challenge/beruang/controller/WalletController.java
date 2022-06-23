@@ -2,6 +2,7 @@ package com.gma.challenge.beruang.controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -140,8 +141,8 @@ public class WalletController implements WalletsApi {
 
   @Override
   public ResponseEntity<TransactionsResponseData> findTransactions(Long walletId, @Valid LocalDate fromDate,
-      @Valid LocalDate toDate, BigDecimal fromAmount, BigDecimal toAmount) {
-    return ResponseEntity.ok(transactionReadService.findTransactions(walletId, fromDate, toDate, fromAmount, toAmount));
+      @Valid LocalDate toDate, BigDecimal fromAmount, BigDecimal toAmount, @Valid List<Long> categoryIds) {
+    return ResponseEntity.ok(transactionReadService.findTransactions(walletId, fromDate, toDate, fromAmount, toAmount, categoryIds));
   }
 
 }

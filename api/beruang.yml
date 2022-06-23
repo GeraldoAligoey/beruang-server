@@ -346,6 +346,15 @@ paths:
           schema:
             type: number
             format: double
+        - name: categoryIds
+          in: query
+          description: List of category ids to search transaction record. The transaction with category id listed in this parameter will be included
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
       responses:
         200:
           description: OK
