@@ -325,6 +325,7 @@ paths:
           schema:
             type: string
             format: date
+            example: "2022-01-30"
         - name: toDate
           in: query
           description: Ending date to search transaction record. Transaction date after this date will be excluded
@@ -332,6 +333,7 @@ paths:
           schema:
             type: string
             format: date
+            example: "2022-01-30"
         - name: fromAmount
           in: query
           description: Starting amount to search transaction record. Transaction amount lower than this will be excluded
@@ -864,6 +866,7 @@ components:
         date:
           type: string
           format: date
+          example: "2022-01-30"
         wallet:
           $ref: "#/components/schemas/Wallet"
         category:
@@ -900,6 +903,7 @@ components:
         date:
           type: string
           format: date
+          example: "2022-01-30"
         categoryId:
           type: integer
           format: int64
@@ -915,6 +919,7 @@ components:
         date:
           type: string
           format: date
+          example: "2022-01-30"
         categoryId:
           type: integer
           format: int64
