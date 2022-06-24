@@ -278,6 +278,12 @@ public class WalletControllerTransactionTest implements ControllerTest {
 
     assertNotNull(transactions);
     assertTrue(transactions.isEmpty());
+    
+    responseEntity = SUT.findTransactions(VALID_WALLET_ID, null, null, null, null, null);
+    transactions = responseEntity.getBody().getTransactions();
+
+    assertNotNull(transactions);
+    assertTrue(transactions.isEmpty());
   }
 
   @Test
@@ -286,6 +292,12 @@ public class WalletControllerTransactionTest implements ControllerTest {
   public void testFindRecords_single() {
     ResponseEntity<TransactionsResponseData> responseEntity = SUT.findTransactions(VALID_WALLET_ID);
     List<TransactionData> transactions = responseEntity.getBody().getTransactions();
+
+    assertNotNull(transactions);
+    assertTrue(transactions.size() == 1);
+
+    responseEntity = SUT.findTransactions(VALID_WALLET_ID, null, null, null, null, null);
+    transactions = responseEntity.getBody().getTransactions();
 
     assertNotNull(transactions);
     assertTrue(transactions.size() == 1);
@@ -300,6 +312,11 @@ public class WalletControllerTransactionTest implements ControllerTest {
     assertNotNull(transactions);
     assertTrue(transactions.size() > 1);
 
+    responseEntity = SUT.findTransactions(VALID_WALLET_ID, null, null, null, null, null);
+    transactions = responseEntity.getBody().getTransactions();
+
+    assertNotNull(transactions);
+    assertTrue(transactions.size() > 1);
   }
 
 }
