@@ -10,6 +10,7 @@ import com.gma.challenge.beruang.data.BudgetResponseData;
 import com.gma.challenge.beruang.data.NewBudgetRequestData;
 import com.gma.challenge.beruang.data.UpdateBudgetRequestData;
 import com.gma.challenge.beruang.domain.Budget;
+import com.gma.challenge.beruang.domain.Category;
 import com.gma.challenge.beruang.domain.Wallet;
 import com.gma.challenge.beruang.exception.BudgetNotFoundException;
 import com.gma.challenge.beruang.exception.CategoryNotFoundException;
@@ -41,16 +42,24 @@ public class BudgetWriteServiceImpl implements BudgetWriteService {
     Validator.validateNewBudgetRequestData(newBudgetRequestData);
     Budget budget = Mapper.toBudget(newBudgetRequestData);
 
-    for (Long categoryId : newBudgetRequestData.getCategoryIds()) {
-      budget.addCategory(categoryRepository.findById(categoryId)
-          .orElseThrow(() -> new CategoryNotFoundException("Invalid category id")));
-    }
-
     Wallet wallet = walletRepository.findById(walletId)
         .orElseThrow(() -> new WalletNotFoundException("Invalid wallet id"));
     budget.setWallet(wallet);
 
+    for (Long categoryId : newBudgetRequestData.getCategoryIds()) {
+      Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Invalid category id"));
+
+      if (wallet.getCategories().contains(category)) {
+        budget.addCategory(category);
+      }
+    }
+
+    if (budget.getCategories().isEmpty()) {
+      throw new CategoryNotFoundException("Invalid category id");
+    }
+
     budget = budgetRepository.saveAndFlush(budget);
+
     return BudgetResponseData.builder().budget(Mapper.toBudgetData(budget)).build();
   }
 
