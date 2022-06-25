@@ -11,6 +11,7 @@ import com.gma.challenge.beruang.domain.Category;
 import com.gma.challenge.beruang.domain.Transaction;
 import com.gma.challenge.beruang.domain.Wallet;
 import com.gma.challenge.beruang.exception.CategoryNotFoundException;
+import com.gma.challenge.beruang.exception.CategoryNotInWalletException;
 import com.gma.challenge.beruang.exception.TransactionNotFoundException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
 import com.gma.challenge.beruang.repo.CategoryRepository;
@@ -45,6 +46,10 @@ public class TransactionWriteServiceImpl implements TransactionWriteService {
 
     Category category = categoryRepository.findById(newTransactionRequestData.getCategoryId())
         .orElseThrow(() -> new CategoryNotFoundException("Invalid category id"));
+    
+    if (!wallet.getCategories().contains(category)) {
+      throw new CategoryNotInWalletException("The given category id is not part of the categories in the selected wallet");
+    }
 
     transaction.setWallet(wallet);
     transaction.setCategory(category);
