@@ -131,14 +131,6 @@ public class Mapper {
       wallet.setInitialBalanceAmount(requestData.getInitialBalanceAmount());
     }
 
-    if (requestData.getCategoryIds() != null && !requestData.getCategoryIds().isEmpty()) {
-      Set<Category> categories = requestData.getCategoryIds()
-          .stream()
-          .map(categoryData -> toCategory(categoryData))
-          .collect(Collectors.toSet());
-      wallet.setCategories(categories);
-    }
-
     return wallet;
   }
 
