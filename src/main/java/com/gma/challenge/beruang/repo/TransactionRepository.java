@@ -8,6 +8,7 @@ import com.gma.challenge.beruang.domain.Transaction;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,4 +38,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
   @Query("select t from Transaction t where t.amount between ?1 and ?2 and t.date between ?3 and ?4")
   List<Transaction> findByAmountRangeAndDateRange(BigDecimal fromAmount, BigDecimal toAmount, LocalDate fromDate,
       LocalDate toDate, Sort sort);
+
+  @Modifying
+  @Query("delete from Transaction t where t.wallet.id = ?1 and t.category.id = ?2")
+  void deleteByWalletIdAndCategoryId(Long walletId, Long categoryId);
 }
