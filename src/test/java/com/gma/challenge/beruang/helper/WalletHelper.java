@@ -162,4 +162,16 @@ public class WalletHelper {
     return null;
   }
 
+  public static UpdateWalletRequestData getValidPartialNewCategoriesAddUpdateRequestDataSample() {
+    UpdateWalletRequestData requestData = UpdateWalletRequestData.builder()
+      .categoryIds(Arrays.asList(Long.valueOf(1), Long.valueOf(2), Long.valueOf(3), Long.valueOf(4), Long.valueOf(5), Long.valueOf(6))).build();
+    return requestData;
+  }
+
+  public static UpdateWalletRequestData getValidPartialNewCategoriesRemoveUpdateRequestDataSample() {
+    UpdateWalletRequestData requestData = UpdateWalletRequestData.builder()
+      .categoryIds(Arrays.asList(Long.valueOf(5), Long.valueOf(6))).build();
+    return requestData;
+  }
+
 }

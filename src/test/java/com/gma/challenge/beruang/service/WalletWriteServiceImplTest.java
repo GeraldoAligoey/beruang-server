@@ -5,12 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.gma.challenge.beruang.data.BudgetData;
+import com.gma.challenge.beruang.data.BudgetsResponseData;
+import com.gma.challenge.beruang.data.TransactionData;
+import com.gma.challenge.beruang.data.TransactionsResponseData;
 import com.gma.challenge.beruang.data.WalletResponseData;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.InvalidRequestException;
@@ -23,6 +31,8 @@ import com.gma.challenge.beruang.repo.WalletRepository;
 @ActiveProfiles("test")
 public class WalletWriteServiceImplTest implements WriteServiceTest {
 
+  private static final Logger LOG = LoggerFactory.getLogger(WalletWriteServiceImplTest.class);
+
   private static final Long INVALID_ID = -9999l;
   private final Long VALID_ID = 1l;
 
@@ -31,6 +41,12 @@ public class WalletWriteServiceImplTest implements WriteServiceTest {
 
   @Autowired
   private WalletRepository walletRepository;
+
+  @Autowired
+  private TransactionReadServiceImpl transactionReadServiceImpl;
+
+  @Autowired
+  private BudgetReadServiceImpl budgetReadServiceImpl;
 
   @Test
   @Override
@@ -81,6 +97,35 @@ public class WalletWriteServiceImplTest implements WriteServiceTest {
     assertNotNull(responseData.getWallet());
     assertNotNull(responseData.getWallet().getCategories());
     assertTrue(WalletHelper.isWalletUpdatedPartialResponseDataEqualsToSample(responseData));
+  }
+
+  @Test
+  public void testUpdate_validId_validPartialRequestData_newCategoriesAdd() {
+    WalletResponseData responseData = SUT.updateWallet(VALID_ID, WalletHelper.getValidPartialNewCategoriesAddUpdateRequestDataSample());
+    assertNotNull(responseData);
+    assertNotNull(responseData.getWallet());
+    assertNotNull(responseData.getWallet().getCategories());
+    assertTrue(responseData.getWallet().getCategories().size() == 6);
+  }
+
+  @Test
+  public void testUpdate_validId_validPartialRequestData_newCategoriesRemove() {
+    WalletResponseData responseData = SUT.updateWallet(VALID_ID, WalletHelper.getValidPartialNewCategoriesRemoveUpdateRequestDataSample());
+    assertNotNull(responseData);
+    assertNotNull(responseData.getWallet());
+    assertNotNull(responseData.getWallet().getCategories());
+    assertTrue(responseData.getWallet().getCategories().size() == 2);
+
+    BudgetsResponseData budgetResponseData = budgetReadServiceImpl.findBudgets(VALID_ID);
+
+    for (BudgetData budgetData : budgetResponseData.getBudgets()) {
+      assertTrue(budgetData.getCategories().isEmpty());
+    }
+
+    TransactionsResponseData transactionResponseData = transactionReadServiceImpl.findTransactions(VALID_ID);
+    List<TransactionData> transactionsData = transactionResponseData.getTransactions();
+
+    assertTrue(transactionsData.isEmpty());
   }
 
   @Test
