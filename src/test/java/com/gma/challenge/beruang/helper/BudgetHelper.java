@@ -127,4 +127,16 @@ public class BudgetHelper {
     return true;
 	}
 
+  public static UpdateBudgetRequestData getValidPartialUpdateBudgetInvalidCategoryIdsRequestDataSample() {
+    return UpdateBudgetRequestData.builder()
+        .categoryIds(Arrays.asList(Long.valueOf(6), Long.valueOf(7)))
+        .build();
+  }
+
+  public static UpdateBudgetRequestData getValidPartialUpdateBudgetValidCategoryIdsRequestDataSample() {
+    return UpdateBudgetRequestData.builder()
+        .categoryIds(Arrays.asList(Long.valueOf(1), Long.valueOf(7)))
+        .build();
+  }
+
 }

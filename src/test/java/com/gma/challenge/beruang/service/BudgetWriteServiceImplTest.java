@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.gma.challenge.beruang.data.BudgetResponseData;
 import com.gma.challenge.beruang.data.NewBudgetRequestData;
+import com.gma.challenge.beruang.domain.Budget;
 import com.gma.challenge.beruang.exception.BudgetNotFoundException;
 import com.gma.challenge.beruang.exception.CategoryNotInWalletException;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
@@ -143,6 +144,27 @@ public class BudgetWriteServiceImplTest implements WriteServiceTest {
     assertNotNull(responseData);
     assertNotNull(responseData.getBudget());
     assertTrue(BudgetHelper.isUpdateBudgetResponseDataEqualsToPartialSample(responseData));
+  }
+
+  /**
+   * The submitted data contains partially valid category ids
+   */
+  @Test
+  public void testUpdate_validId_validPartialRequestData_validCategoryIds() {
+    BudgetResponseData responseData = SUT.updateBudget(VALID_WALLET_ID, VALID_BUDGET_ID, BudgetHelper.getValidPartialUpdateBudgetValidCategoryIdsRequestDataSample());
+    assertNotNull(responseData);
+    assertNotNull(responseData.getBudget());
+    assertTrue(responseData.getBudget().getCategories().size() == 1);
+    assertTrue(responseData.getBudget().getCategories().get(0).getId() == 1);
+  }
+  
+  /**
+   * The submitted data doesn't contain valid category ids, an exception will be thrown
+   */
+  @Test
+  public void testUpdate_validId_validPartialRequestData_invalidCategoryIds() {
+    assertThrows(CategoryNotInWalletException.class,
+        () -> SUT.updateBudget(VALID_WALLET_ID, VALID_BUDGET_ID, BudgetHelper.getValidPartialUpdateBudgetInvalidCategoryIdsRequestDataSample() ));
   }
 
   @Test
