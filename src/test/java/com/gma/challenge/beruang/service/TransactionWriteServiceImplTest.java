@@ -11,7 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.gma.challenge.beruang.data.NewTransactionRequestData;
 import com.gma.challenge.beruang.data.TransactionResponseData;
+import com.gma.challenge.beruang.exception.CategoryNotInWalletException;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.InvalidRequestException;
 import com.gma.challenge.beruang.exception.TransactionNotFoundException;
@@ -47,6 +49,15 @@ public class TransactionWriteServiceImplTest implements WriteServiceTest {
     assertNotNull(responseData);
     assertNotNull(responseData.getTransaction());
     assertTrue(TransactionHelper.isTransactionResponseDataEqualsToSample(responseData));
+  }
+
+  @Test
+  public void testCreate_validRequestData_invalidCategoryId() {
+    NewTransactionRequestData requestData = TransactionHelper.getValidNewTransactionRequestDataSample();
+
+    requestData.setCategoryId(Long.valueOf(7));
+
+    assertThrows(CategoryNotInWalletException.class, () -> SUT.createTransaction(VALID_WALLET_ID, requestData));
   }
 
   @Test
