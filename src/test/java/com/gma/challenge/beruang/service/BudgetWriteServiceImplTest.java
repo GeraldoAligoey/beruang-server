@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +14,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.gma.challenge.beruang.data.BudgetResponseData;
+import com.gma.challenge.beruang.data.NewBudgetRequestData;
 import com.gma.challenge.beruang.exception.BudgetNotFoundException;
+import com.gma.challenge.beruang.exception.CategoryNotFoundException;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
 import com.gma.challenge.beruang.helper.BudgetHelper;
@@ -46,6 +50,34 @@ public class BudgetWriteServiceImplTest implements WriteServiceTest {
     assertNotNull(responseData);
     assertNotNull(responseData.getBudget());
     assertTrue(BudgetHelper.isBudgetResponseDataEqualsToSample(responseData));
+  }
+
+  /**
+   * The submitted data contains some invalid category ids, the budget creation will succeed and the invalid category ids will be ignored
+   */
+  @Test
+  public void testCreate_validRequestData_PartialInvalidCategoryId() {
+    NewBudgetRequestData requestData = BudgetHelper.getValidNewBudgetRequestDataSample();
+
+    requestData.categoryIds(Arrays.asList(Long.valueOf(1), Long.valueOf(2), Long.valueOf(6)));
+
+    BudgetResponseData responseData = SUT.createBudget(VALID_WALLET_ID, requestData); 
+    assertNotNull(responseData);
+    assertNotNull(responseData.getBudget());
+    assertTrue(BudgetHelper.isBudgetResponseDataEqualsToSample(responseData));
+  }
+
+  /**
+   * The submitted data doesn't contain valid category ids, an exception will be thrown
+   */
+  @Test
+  public void testCreate_validRequestData_invalidCategoryIds() {
+    NewBudgetRequestData requestData = BudgetHelper.getValidNewBudgetRequestDataSample();
+
+    requestData.categoryIds(Arrays.asList(Long.valueOf(5), Long.valueOf(7)));
+
+    assertThrows(CategoryNotFoundException.class,
+        () -> SUT.createBudget(VALID_WALLET_ID, requestData));
   }
 
   @Test
