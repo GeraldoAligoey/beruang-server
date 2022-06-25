@@ -1,5 +1,7 @@
 package com.gma.challenge.beruang.service;
 
+import java.util.Set;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,10 +74,27 @@ public class BudgetWriteServiceImpl implements BudgetWriteService {
         .orElseThrow(() -> new BudgetNotFoundException("Invalid budget id"));
 
     if (budget.getWallet().getId() == walletId) {
-      BudgetData budgetData = Mapper
-          .toBudgetData(budgetRepository
-              .saveAndFlush(Mapper
-                  .updateBudget(budget, updateBudgetRequestData)));
+      budget = Mapper.updateBudget(budget, updateBudgetRequestData);
+
+      if (updateBudgetRequestData.getCategoryIds() != null && !updateBudgetRequestData.getCategoryIds().isEmpty()) {
+        Set<Category> budgetCategories = budget.getCategories();
+        budgetCategories.clear();
+
+        for (Long categoryIds : updateBudgetRequestData.getCategoryIds()) {
+          Category category = categoryRepository.getReferenceById(categoryIds);
+
+          if (budget.getWallet().getCategories().contains(category)) {
+            budgetCategories.add(category);
+          }
+        }
+      }
+
+      if (budget.getCategories().isEmpty()) {
+        throw new CategoryNotInWalletException("The given category id is not part of the categories in the selected wallet");
+      }
+
+      BudgetData budgetData = Mapper.toBudgetData(budgetRepository.saveAndFlush(budget));
+
       return BudgetResponseData.builder().budget(budgetData).build();
     } else {
       throw new WalletNotFoundException("Invalid wallet id");

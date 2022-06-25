@@ -181,14 +181,6 @@ public class Mapper {
       budget.setLimitAmount(requestData.getLimitAmount());
     }
 
-    if (requestData.getCategoryIds() != null && !requestData.getCategoryIds().isEmpty()) {
-      Set<Category> categories = requestData.getCategoryIds()
-          .stream()
-          .map(categoryData -> toCategory(categoryData))
-          .collect(Collectors.toSet());
-      budget.setCategories(categories);
-    }
-
     return budget;
   }
 
