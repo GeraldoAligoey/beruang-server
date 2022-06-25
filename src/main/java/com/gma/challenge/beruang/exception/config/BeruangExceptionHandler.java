@@ -14,6 +14,7 @@ import com.gma.challenge.beruang.data.GenericErrorModelData;
 import com.gma.challenge.beruang.data.GenericErrorModelErrorsData;
 import com.gma.challenge.beruang.exception.BudgetNotFoundException;
 import com.gma.challenge.beruang.exception.CategoryNotFoundException;
+import com.gma.challenge.beruang.exception.CategoryNotInWalletException;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.TransactionNotFoundException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
@@ -58,6 +59,11 @@ public class BeruangExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(TransactionNotFoundException.class)
   public ResponseEntity<Object> handleTransactionNotFoundException(TransactionNotFoundException ex, WebRequest request) {
+    return handleExceptionInternal(ex, null, new HttpHeaders(), HttpStatus.UNPROCESSABLE_ENTITY, request);
+  }
+
+  @ExceptionHandler(CategoryNotInWalletException.class)
+  public ResponseEntity<Object> handleCategoryNotInWalletException(CategoryNotInWalletException ex, WebRequest request) {
     return handleExceptionInternal(ex, null, new HttpHeaders(), HttpStatus.UNPROCESSABLE_ENTITY, request);
   }
 }
