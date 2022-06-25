@@ -14,6 +14,7 @@ import com.gma.challenge.beruang.domain.Category;
 import com.gma.challenge.beruang.domain.Wallet;
 import com.gma.challenge.beruang.exception.BudgetNotFoundException;
 import com.gma.challenge.beruang.exception.CategoryNotFoundException;
+import com.gma.challenge.beruang.exception.CategoryNotInWalletException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
 import com.gma.challenge.beruang.repo.BudgetRepository;
 import com.gma.challenge.beruang.repo.CategoryRepository;
@@ -55,7 +56,7 @@ public class BudgetWriteServiceImpl implements BudgetWriteService {
     }
 
     if (budget.getCategories().isEmpty()) {
-      throw new CategoryNotFoundException("Invalid category id");
+      throw new CategoryNotInWalletException("The given category id is not part of the categories in the selected wallet");
     }
 
     budget = budgetRepository.saveAndFlush(budget);

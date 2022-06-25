@@ -16,7 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 import com.gma.challenge.beruang.data.BudgetResponseData;
 import com.gma.challenge.beruang.data.NewBudgetRequestData;
 import com.gma.challenge.beruang.exception.BudgetNotFoundException;
-import com.gma.challenge.beruang.exception.CategoryNotFoundException;
+import com.gma.challenge.beruang.exception.CategoryNotInWalletException;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
 import com.gma.challenge.beruang.helper.BudgetHelper;
@@ -76,7 +76,7 @@ public class BudgetWriteServiceImplTest implements WriteServiceTest {
 
     requestData.categoryIds(Arrays.asList(Long.valueOf(5), Long.valueOf(7)));
 
-    assertThrows(CategoryNotFoundException.class,
+    assertThrows(CategoryNotInWalletException.class,
         () -> SUT.createBudget(VALID_WALLET_ID, requestData));
   }
 
