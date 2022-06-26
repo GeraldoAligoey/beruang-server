@@ -136,6 +136,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericErrorModel"
+  /wallets/{walletId}/set-default-true:
+    post:
+      tags:
+        - Wallet
+      summary: Set wallet as default
+      description: Set wallet as default
+      operationId: setDefaultTrue
+      parameters:
+        - name: walletId
+          in: path
+          description: Wallet id to set default to true 
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Empty body
+        content:
+          application/json:
+            schema: {}
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WalletResponse"
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericErrorModel"
   /wallets/{walletId}/budgets:
     get:
       tags:
@@ -647,8 +680,6 @@ components:
           type: string
         defaultCurrencyCode:
           type: string
-        defaultWallet:
-          type: boolean
         initialBalanceAmount:
           type: number
           format: double
@@ -703,8 +734,6 @@ components:
           type: string
         defaultCurrencyCode:
           type: string
-        defaultWallet:
-          type: boolean
         initialBalanceAmount:
           type: number
           format: double
