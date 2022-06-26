@@ -14,7 +14,7 @@ import com.gma.challenge.beruang.data.WalletResponseData;
 public class WalletHelper {
 
   private static final BigDecimal WALLET_INITIALBALANCE = new BigDecimal(1000);
-  private static final boolean WALLET_DEFAULTWALLET = true;
+  private static final boolean WALLET_DEFAULTWALLET = false;
   private static final String WALLET_CURRENCYCODE = "MYR";
   private static final String WALLET_NAME = "My Wallet";
 
@@ -28,7 +28,6 @@ public class WalletHelper {
     NewWalletRequestData requestData = new NewWalletRequestData();
     requestData.setName(WALLET_NAME);
     requestData.setDefaultCurrencyCode(WALLET_CURRENCYCODE);
-    requestData.setDefaultWallet(WALLET_DEFAULTWALLET);
     requestData.setInitialBalanceAmount(WALLET_INITIALBALANCE);
     requestData.setCategoryIds(CategoryHelper.getCategoryIdsDataSample());
 
@@ -80,7 +79,6 @@ public class WalletHelper {
     UpdateWalletRequestData requestData = new UpdateWalletRequestData();
     requestData.setName(UPDATE_WALLET_NAME);
     requestData.setDefaultCurrencyCode(UPDATE_WALLET_CURRENCYCODE);
-    requestData.setDefaultWallet(UPDATE_WALLET_DEFAULTWALLET);
     requestData.setInitialBalanceAmount(UPDATE_WALLET_INITIALBALANCE);
     requestData.setCategoryIds(UPDATE_WALLET_CATEGORYIDS);
     return requestData;

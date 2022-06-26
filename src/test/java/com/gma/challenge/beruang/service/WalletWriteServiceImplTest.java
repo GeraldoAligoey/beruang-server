@@ -1,5 +1,6 @@
 package com.gma.challenge.beruang.service;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,6 +21,7 @@ import com.gma.challenge.beruang.data.BudgetsResponseData;
 import com.gma.challenge.beruang.data.TransactionData;
 import com.gma.challenge.beruang.data.TransactionsResponseData;
 import com.gma.challenge.beruang.data.WalletResponseData;
+import com.gma.challenge.beruang.domain.Wallet;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.InvalidRequestException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
@@ -181,5 +183,24 @@ public class WalletWriteServiceImplTest implements WriteServiceTest {
   @Override
   public void testDelete_invalidId() {
     assertThrows(WalletNotFoundException.class, () -> SUT.deleteWallet(INVALID_ID));
+  }
+
+  @Test
+  public void testSetDefaultTrue_validId() {
+    WalletResponseData responseData = SUT.setDefaultTrue(VALID_ID);
+
+    assertTrue(responseData.getWallet().getDefaultWallet());
+
+    List<Wallet> wallets = walletRepository.findAll();
+    wallets.removeIf(wallet -> wallet.getId().equals(responseData.getWallet().getId()));
+    
+    for (Wallet wallet : wallets) {
+      assertFalse(wallet.isDefaultWallet());
+    }
+  }
+
+  @Test
+  public void testSetDefaultTrue_invalidId() {
+    assertThrows(WalletNotFoundException.class, () -> SUT.setDefaultTrue(INVALID_ID));
   }
 }
