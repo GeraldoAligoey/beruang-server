@@ -81,6 +81,11 @@ public class WalletController implements WalletsApi {
   }
 
   @Override
+  public ResponseEntity<WalletResponseData> setDefaultTrue(Long walletId, @Valid Object body) {
+    return ResponseEntity.ok(walletWriteService.setDefaultTrue(walletId));
+  }
+
+  @Override
   public ResponseEntity<BudgetResponseData> createBudget(Long walletId,
       @Valid NewBudgetRequestData newBudgetRequestData) {
     return ResponseEntity.ok(budgetWriteService.createBudget(walletId, newBudgetRequestData));
