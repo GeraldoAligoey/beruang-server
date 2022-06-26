@@ -103,10 +103,6 @@ public class Validator {
         return;
       }
 
-      if (requestData.getDefaultWallet() != null) {
-        return;
-      }
-
       if (requestData.getInitialBalanceAmount() != null) {
         return;
       }

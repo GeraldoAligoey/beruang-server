@@ -100,10 +100,6 @@ public class Mapper {
       wallet.setInitialBalanceAmount(requestData.getInitialBalanceAmount());
     }
 
-    if (requestData.getDefaultWallet() != null) {
-      wallet.setDefaultWallet(requestData.getDefaultWallet());
-    }
-
     return wallet;
   }
 
@@ -117,10 +113,6 @@ public class Mapper {
   public static Wallet updateWallet(Wallet wallet, UpdateWalletRequestData requestData) {
     if (requestData.getName() != null && !requestData.getName().isBlank()) {
       wallet.setName(requestData.getName());
-    }
-
-    if (requestData.getDefaultWallet() != null) {
-      wallet.setDefaultWallet(requestData.getDefaultWallet());
     }
 
     if (requestData.getDefaultCurrencyCode() != null && !requestData.getDefaultCurrencyCode().isBlank()) {
