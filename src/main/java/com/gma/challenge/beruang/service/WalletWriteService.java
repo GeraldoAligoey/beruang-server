@@ -11,4 +11,7 @@ public interface WalletWriteService {
   public WalletResponseData updateWallet(Long walletId, UpdateWalletRequestData updateWalletRequestData);
 
   public void deleteWallet(Long walletId);
+
+  public WalletResponseData setDefaultTrue(Long walletId);
+
 }

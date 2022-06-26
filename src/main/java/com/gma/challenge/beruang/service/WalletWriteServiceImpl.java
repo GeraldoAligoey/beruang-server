@@ -113,4 +113,13 @@ public class WalletWriteServiceImpl implements WalletWriteService {
     walletRepository.delete(wallet);
   }
 
+  @Override
+  public WalletResponseData setDefaultTrue(Long walletId) {
+    Wallet wallet = walletRepository.findById(walletId).orElseThrow(() -> new WalletNotFoundException("Invalid wallet id"));
+    walletRepository.setAllDefaultFalse();
+    wallet.setDefaultWallet(true);
+
+    return WalletResponseData.builder().wallet(Mapper.toWalletData(walletRepository.saveAndFlush(wallet))).build();
+  }
+
 }
