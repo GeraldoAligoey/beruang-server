@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.controller;
+package com.gma.challenge.beruang.integration.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -14,11 +14,13 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.gma.challenge.beruang.common.ControllerTest;
+import com.gma.challenge.beruang.common.helper.WalletHelper;
+import com.gma.challenge.beruang.controller.WalletController;
 import com.gma.challenge.beruang.data.WalletResponseData;
 import com.gma.challenge.beruang.data.WalletsResponseData;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
-import com.gma.challenge.beruang.helper.WalletHelper;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)

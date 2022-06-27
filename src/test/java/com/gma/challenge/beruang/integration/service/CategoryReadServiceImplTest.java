@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.service;
+package com.gma.challenge.beruang.integration.service;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -15,10 +15,12 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.gma.challenge.beruang.common.ReadServiceTest;
 import com.gma.challenge.beruang.data.CategoriesResponseData;
 import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.CategoryResponseData;
 import com.gma.challenge.beruang.exception.CategoryNotFoundException;
+import com.gma.challenge.beruang.service.CategoryReadServiceImpl;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)

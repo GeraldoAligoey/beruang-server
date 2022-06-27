@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.service;
+package com.gma.challenge.beruang.integration.service;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.gma.challenge.beruang.common.WriteServiceTest;
+import com.gma.challenge.beruang.common.helper.TransactionHelper;
 import com.gma.challenge.beruang.data.NewTransactionRequestData;
 import com.gma.challenge.beruang.data.TransactionResponseData;
 import com.gma.challenge.beruang.exception.CategoryNotInWalletException;
@@ -18,9 +20,9 @@ import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.InvalidRequestException;
 import com.gma.challenge.beruang.exception.TransactionNotFoundException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
-import com.gma.challenge.beruang.helper.TransactionHelper;
 import com.gma.challenge.beruang.repo.TransactionRepository;
 import com.gma.challenge.beruang.repo.WalletRepository;
+import com.gma.challenge.beruang.service.TransactionWriteServiceImpl;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)

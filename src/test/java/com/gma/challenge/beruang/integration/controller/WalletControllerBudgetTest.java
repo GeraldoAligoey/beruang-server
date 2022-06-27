@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.controller;
+package com.gma.challenge.beruang.integration.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -17,13 +17,15 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.gma.challenge.beruang.common.ControllerTest;
+import com.gma.challenge.beruang.common.helper.BudgetHelper;
+import com.gma.challenge.beruang.controller.WalletController;
 import com.gma.challenge.beruang.data.BudgetData;
 import com.gma.challenge.beruang.data.BudgetResponseData;
 import com.gma.challenge.beruang.data.BudgetsResponseData;
 import com.gma.challenge.beruang.exception.BudgetNotFoundException;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
-import com.gma.challenge.beruang.helper.BudgetHelper;
 import com.gma.challenge.beruang.repo.BudgetRepository;
 import com.gma.challenge.beruang.repo.WalletRepository;
 

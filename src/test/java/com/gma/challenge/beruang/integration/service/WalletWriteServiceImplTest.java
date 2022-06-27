@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.service;
+package com.gma.challenge.beruang.integration.service;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.gma.challenge.beruang.common.WriteServiceTest;
+import com.gma.challenge.beruang.common.helper.WalletHelper;
 import com.gma.challenge.beruang.data.BudgetData;
 import com.gma.challenge.beruang.data.BudgetsResponseData;
 import com.gma.challenge.beruang.data.TransactionData;
@@ -25,15 +25,15 @@ import com.gma.challenge.beruang.domain.Wallet;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.InvalidRequestException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
-import com.gma.challenge.beruang.helper.WalletHelper;
 import com.gma.challenge.beruang.repo.WalletRepository;
+import com.gma.challenge.beruang.service.BudgetReadServiceImpl;
+import com.gma.challenge.beruang.service.TransactionReadServiceImpl;
+import com.gma.challenge.beruang.service.WalletWriteServiceImpl;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("test")
 public class WalletWriteServiceImplTest implements WriteServiceTest {
-
-  private static final Logger LOG = LoggerFactory.getLogger(WalletWriteServiceImplTest.class);
 
   private static final Long INVALID_ID = -9999l;
   private final Long VALID_ID = 1l;

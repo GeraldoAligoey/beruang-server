@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.controller;
+package com.gma.challenge.beruang.integration.controller;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,6 +17,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.gma.challenge.beruang.common.ControllerTest;
+import com.gma.challenge.beruang.common.helper.TransactionHelper;
+import com.gma.challenge.beruang.controller.WalletController;
 import com.gma.challenge.beruang.data.TransactionData;
 import com.gma.challenge.beruang.data.TransactionResponseData;
 import com.gma.challenge.beruang.data.TransactionsResponseData;
@@ -24,7 +27,6 @@ import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.InvalidRequestException;
 import com.gma.challenge.beruang.exception.TransactionNotFoundException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
-import com.gma.challenge.beruang.helper.TransactionHelper;
 import com.gma.challenge.beruang.repo.TransactionRepository;
 import com.gma.challenge.beruang.repo.WalletRepository;
 
@@ -272,6 +274,7 @@ public class WalletControllerTransactionTest implements ControllerTest {
   @Test
   @Sql("classpath:sql/testFind_empty.sql")
   @Override
+  @SuppressWarnings("deprecation")
   public void testFindRecords_empty() {
     ResponseEntity<TransactionsResponseData> responseEntity = SUT.findTransactions(VALID_WALLET_ID);
     List<TransactionData> transactions = responseEntity.getBody().getTransactions();
@@ -289,6 +292,7 @@ public class WalletControllerTransactionTest implements ControllerTest {
   @Test
   @Sql("classpath:sql/testFindTransactions_single.sql")
   @Override
+  @SuppressWarnings("deprecation")
   public void testFindRecords_single() {
     ResponseEntity<TransactionsResponseData> responseEntity = SUT.findTransactions(VALID_WALLET_ID);
     List<TransactionData> transactions = responseEntity.getBody().getTransactions();
@@ -305,6 +309,7 @@ public class WalletControllerTransactionTest implements ControllerTest {
 
   @Test
   @Override
+  @SuppressWarnings("deprecation")
   public void testFindRecords_multiple() {
     ResponseEntity<TransactionsResponseData> responseEntity = SUT.findTransactions(VALID_WALLET_ID);
     List<TransactionData> transactions = responseEntity.getBody().getTransactions();

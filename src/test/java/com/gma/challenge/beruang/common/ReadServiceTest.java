@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.service;
+package com.gma.challenge.beruang.common;
 
 public interface ReadServiceTest {
 

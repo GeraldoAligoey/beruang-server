@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.service;
+package com.gma.challenge.beruang.integration.service;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -13,16 +13,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.gma.challenge.beruang.common.WriteServiceTest;
+import com.gma.challenge.beruang.common.helper.BudgetHelper;
 import com.gma.challenge.beruang.data.BudgetResponseData;
 import com.gma.challenge.beruang.data.NewBudgetRequestData;
-import com.gma.challenge.beruang.domain.Budget;
 import com.gma.challenge.beruang.exception.BudgetNotFoundException;
 import com.gma.challenge.beruang.exception.CategoryNotInWalletException;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
-import com.gma.challenge.beruang.helper.BudgetHelper;
 import com.gma.challenge.beruang.repo.BudgetRepository;
 import com.gma.challenge.beruang.repo.WalletRepository;
+import com.gma.challenge.beruang.service.BudgetWriteServiceImpl;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)

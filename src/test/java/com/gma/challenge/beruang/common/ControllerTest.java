@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.controller;
+package com.gma.challenge.beruang.common;
 
 public interface ControllerTest {
 

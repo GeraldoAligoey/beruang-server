@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.controller;
+package com.gma.challenge.beruang.integration.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -14,11 +14,13 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.gma.challenge.beruang.common.ControllerTest;
+import com.gma.challenge.beruang.common.helper.CategoryHelper;
+import com.gma.challenge.beruang.controller.CategoryController;
 import com.gma.challenge.beruang.data.CategoriesResponseData;
 import com.gma.challenge.beruang.data.CategoryResponseData;
 import com.gma.challenge.beruang.exception.CategoryNotFoundException;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
-import com.gma.challenge.beruang.helper.CategoryHelper;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)

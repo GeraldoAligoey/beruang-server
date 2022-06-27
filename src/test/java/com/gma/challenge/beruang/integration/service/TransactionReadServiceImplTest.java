@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.service;
+package com.gma.challenge.beruang.integration.service;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,11 +16,13 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.gma.challenge.beruang.common.ReadServiceTest;
 import com.gma.challenge.beruang.data.TransactionData;
 import com.gma.challenge.beruang.data.TransactionResponseData;
 import com.gma.challenge.beruang.data.TransactionsResponseData;
 import com.gma.challenge.beruang.exception.TransactionNotFoundException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
+import com.gma.challenge.beruang.service.TransactionReadServiceImpl;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)

@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.helper;
+package com.gma.challenge.beruang.common.helper;
 
 import java.util.Arrays;
 import java.util.List;

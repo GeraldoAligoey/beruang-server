@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.service;
+package com.gma.challenge.beruang.integration.service;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -11,11 +11,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.gma.challenge.beruang.common.WriteServiceTest;
+import com.gma.challenge.beruang.common.helper.CategoryHelper;
 import com.gma.challenge.beruang.data.CategoryResponseData;
 import com.gma.challenge.beruang.exception.CategoryNotFoundException;
 import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
-import com.gma.challenge.beruang.helper.CategoryHelper;
 import com.gma.challenge.beruang.repo.CategoryRepository;
+import com.gma.challenge.beruang.service.CategoryWriteServiceImpl;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
