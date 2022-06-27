@@ -1,6 +1,7 @@
 package com.gma.challenge.beruang.common.helper;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import com.gma.challenge.beruang.data.NewWalletRequestData;
 import com.gma.challenge.beruang.data.UpdateWalletRequestData;
 import com.gma.challenge.beruang.data.WalletData;
 import com.gma.challenge.beruang.data.WalletResponseData;
+import com.gma.challenge.beruang.data.WalletsResponseData;
 
 public class WalletHelper {
 
@@ -170,6 +172,47 @@ public class WalletHelper {
     UpdateWalletRequestData requestData = UpdateWalletRequestData.builder()
       .categoryIds(Arrays.asList(Long.valueOf(5), Long.valueOf(6))).build();
     return requestData;
+  }
+
+  public static List<WalletData> getWalletDataSamples() {
+    List<WalletData> wallets = new ArrayList<>();
+
+    wallets.add(WalletData.builder()
+      .id(Long.valueOf(1))
+      .name("Spending")
+      .defaultCurrencyCode("MYR")
+      .initialBalanceAmount(new BigDecimal(10000))
+      .defaultWallet(true)
+      .categories(CategoryHelper.getCategoryDataSamples(true))
+      .build());
+
+    wallets.add(WalletData.builder()
+      .id(Long.valueOf(2))
+      .name("Saving")
+      .defaultCurrencyCode("MYR")
+      .initialBalanceAmount(new BigDecimal(50000))
+      .defaultWallet(true)
+      .categories(CategoryHelper.getCategoryDataSamples(false))
+      .build());
+
+    return wallets;
+  }
+
+  public static WalletsResponseData getWalletsResponseDataSample() {
+    return WalletsResponseData.builder().wallets(getWalletDataSamples()).build();
+  }
+
+  public static WalletsResponseData getWalletsResponseDataSingleSample() {
+    List<WalletData> walletDataSamples = getWalletDataSamples();
+    walletDataSamples.remove(1);
+
+    return WalletsResponseData.builder().wallets(walletDataSamples).build();
+  }
+
+  public static WalletsResponseData getWalletsResponseDataEmptySample() {
+    List<WalletData> wallets = new ArrayList<>();
+
+    return WalletsResponseData.builder().wallets(wallets).build();
   }
 
 }

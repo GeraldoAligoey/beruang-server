@@ -38,9 +38,9 @@ public interface ControllerTest {
 
   public void testFindRecord_invalidId();
 
-  public void testFindRecords_empty();
+  public void testFindRecords_empty() throws Exception;
 
-  public void testFindRecords_single();
+  public void testFindRecords_single() throws Exception;
 
-  public void testFindRecords_multiple();
+  public void testFindRecords_multiple() throws Exception;
 }
