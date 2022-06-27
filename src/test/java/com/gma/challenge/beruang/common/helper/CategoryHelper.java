@@ -1,5 +1,6 @@
 package com.gma.challenge.beruang.common.helper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import com.gma.challenge.beruang.data.NewCategoryRequestData;
 import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
 
 public class CategoryHelper {
+  private static Long ID_COUNTER = 1l;
 
   private static final String CATEGORY_ICON = "fa-solid fa-books";
   private static final boolean CATEGORY_EXPENSE = true;
@@ -55,7 +57,7 @@ public class CategoryHelper {
   public static NewCategoryRequestData getInvalidNullNewCategoryRequestDataSample() {
     return null;
   }
-  
+
   public static NewCategoryRequestData getInvalidIncompleteNewCategoryRequestDataSample() {
     NewCategoryRequestData requestData = new NewCategoryRequestData();
     requestData.setExpense(CATEGORY_EXPENSE);
@@ -67,7 +69,7 @@ public class CategoryHelper {
 
   public static NewCategoryRequestData getInvalidEmptyNewCategoryRequestDataSample() {
     NewCategoryRequestData requestData = new NewCategoryRequestData();
-    
+
     return requestData;
   }
 
@@ -137,5 +139,79 @@ public class CategoryHelper {
     return null;
   }
 
+  public static List<CategoryData> getCategoryDataSamples(boolean expense) {
+    List<CategoryData> categories = new ArrayList<>();
+
+    if (expense) {
+      categories.add(CategoryData.builder()
+          .id(getIdCounter())
+          .name("Food and drinks")
+          .expense(true)
+          .active(true)
+          .color("blue")
+          .icon("food")
+          .build());
+
+      categories.add(CategoryData.builder()
+          .id(getIdCounter())
+          .name("Transportation")
+          .expense(true)
+          .active(true)
+          .color("green")
+          .icon("bus")
+          .build());
+
+      categories.add(CategoryData.builder()
+          .id(getIdCounter())
+          .name("Mobile data")
+          .expense(true)
+          .active(true)
+          .color("red")
+          .icon("mobile-phone")
+          .build());
+
+      categories.add(CategoryData.builder()
+          .id(getIdCounter())
+          .name("Grocery")
+          .expense(true)
+          .active(true)
+          .color("dark-green")
+          .icon("grocery-bag")
+          .build());
+
+      categories.add(CategoryData.builder()
+          .id(getIdCounter())
+          .name("Hobby")
+          .expense(true)
+          .active(true)
+          .color("yellow")
+          .icon("basketball")
+          .build());
+    } else {
+      categories.add(CategoryData.builder()
+          .id(getIdCounter())
+          .name("Salary")
+          .expense(false)
+          .active(true)
+          .color("green")
+          .icon("money")
+          .build());
+
+      categories.add(CategoryData.builder()
+          .id(getIdCounter())
+          .name("Part time")
+          .expense(false)
+          .active(true)
+          .color("grey")
+          .icon("laptop")
+          .build());
+    }
+
+    return categories;
+  }
+
+  private static Long getIdCounter() {
+    return ID_COUNTER++;
+  }
 
 }
