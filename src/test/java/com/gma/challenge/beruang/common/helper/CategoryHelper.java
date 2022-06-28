@@ -3,11 +3,14 @@ package com.gma.challenge.beruang.common.helper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.CategoryResponseData;
 import com.gma.challenge.beruang.data.NewCategoryRequestData;
 import com.gma.challenge.beruang.data.UpdateCategoryRequestData;
+import com.gma.challenge.beruang.domain.Category;
+import com.gma.challenge.beruang.util.Mapper;
 
 public class CategoryHelper {
   private static Long ID_COUNTER = 1l;
@@ -212,6 +215,32 @@ public class CategoryHelper {
 
   private static Long getIdCounter() {
     return ID_COUNTER++;
+  }
+
+  public static Category getCategorySample(boolean expense) {
+    if (expense) {
+      return Mapper.toCategory(CategoryData.builder()
+          .id(getIdCounter())
+          .name("Food and drinks")
+          .expense(true)
+          .active(true)
+          .color("blue")
+          .icon("food")
+          .build());
+    } else {
+      return Mapper.toCategory(CategoryData.builder()
+          .id(getIdCounter())
+          .name("Salary")
+          .expense(false)
+          .active(true)
+          .color("green")
+          .icon("money")
+          .build());
+    }
+  }
+
+  public static List<Category> getCategorySamples(boolean expense) {
+    return getCategoryDataSamples(expense).stream().map(categoryData -> Mapper.toCategory(categoryData)).collect(Collectors.toList());
   }
 
 }
