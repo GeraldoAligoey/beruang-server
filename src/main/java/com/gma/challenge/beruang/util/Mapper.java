@@ -28,15 +28,24 @@ import com.gma.challenge.beruang.domain.Wallet;
 public class Mapper {
 
   public static CategoryData toCategoryData(Category category) {
-    CategoryData categoryData = new CategoryData();
-    BeanUtils.copyProperties(category, categoryData);
-
-    return categoryData;
+    return CategoryData.builder()
+    .id(category.getId())
+    .name(category.getName())
+    .expense(category.isExpense())
+    .icon(category.getIcon())
+    .color(category.getColor())
+    .active(category.isActive())
+    .build();
   }
 
   public static Category toCategory(CategoryData categoryData) {
     Category category = new Category();
-    BeanUtils.copyProperties(category, categoryData);
+    category.setId(categoryData.getId());
+    category.setName(categoryData.getName());
+    category.setExpense(categoryData.getExpense());
+    category.setIcon(categoryData.getIcon());
+    category.setColor(categoryData.getColor());
+    category.setActive(categoryData.getActive());
 
     return category;
   }
