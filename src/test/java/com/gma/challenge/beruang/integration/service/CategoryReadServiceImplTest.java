@@ -79,6 +79,12 @@ public class CategoryReadServiceImplTest implements ReadServiceTest {
   public void testFind_validId_recordExist() {
     CategoryResponseData categoryResponseData = SUT.findCategory(VALID_ID);
     assertNotNull(categoryResponseData.getCategory());
+    assertNotNull(categoryResponseData.getCategory().getId());
+    assertNotNull(categoryResponseData.getCategory().getName());
+    assertNotNull(categoryResponseData.getCategory().getColor());
+    assertNotNull(categoryResponseData.getCategory().getExpense());
+    assertNotNull(categoryResponseData.getCategory().getIcon());
+    assertNotNull(categoryResponseData.getCategory().getActive());
   }
 
   @Test
