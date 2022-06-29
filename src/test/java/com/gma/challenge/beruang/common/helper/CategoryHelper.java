@@ -243,4 +243,26 @@ public class CategoryHelper {
     return getCategoryDataSamples(expense).stream().map(categoryData -> Mapper.toCategory(categoryData)).collect(Collectors.toList());
   }
 
+  public static Category getCreateCategorySample() {
+    Category category = new Category();
+    category.setName(CATEGORY_NAME);
+    category.setExpense(CATEGORY_EXPENSE);
+    category.setColor(CATEGORY_COLOR);
+    category.setIcon(CATEGORY_ICON);
+
+    return category;
+  }
+
+  public static Category getCreatedCategorySample() {
+    Category category = new Category();
+    category.setId(Long.valueOf(1));
+    category.setName(CATEGORY_NAME);
+    category.setExpense(CATEGORY_EXPENSE);
+    category.setColor(CATEGORY_COLOR);
+    category.setIcon(CATEGORY_ICON);
+    category.setActive(true);
+
+    return category;
+  }
+
 }
