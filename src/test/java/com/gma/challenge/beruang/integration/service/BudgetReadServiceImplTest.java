@@ -92,6 +92,13 @@ public class BudgetReadServiceImplTest implements ReadServiceTest {
     BudgetResponseData responseData = SUT.findBudget(VALID_WALLET_ID, VALID_BUDGETID);
     assertNotNull(responseData);
     assertNotNull(responseData.getBudget());
+    assertNotNull(responseData.getBudget().getId());
+    assertNotNull(responseData.getBudget().getName());
+    assertNotNull(responseData.getBudget().getCurrentAmount());
+    assertNotNull(responseData.getBudget().getLimitAmount());
+    assertNotNull(responseData.getBudget().getPeriod());
+    assertNotNull(responseData.getBudget().getWallet());
+    assertNotNull(responseData.getBudget().getCategories());
   }
 
   @Test
