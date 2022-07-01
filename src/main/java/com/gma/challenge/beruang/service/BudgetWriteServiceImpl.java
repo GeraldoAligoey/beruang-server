@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gma.challenge.beruang.data.BudgetData;
@@ -32,7 +31,6 @@ public class BudgetWriteServiceImpl implements BudgetWriteService {
   private final WalletRepository walletRepository;
   private final CategoryRepository categoryRepository;
 
-  @Autowired
   public BudgetWriteServiceImpl(BudgetRepository budgetRepository, WalletRepository walletRepository,
       CategoryRepository categoryRepository) {
     this.budgetRepository = budgetRepository;

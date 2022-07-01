@@ -2,7 +2,6 @@ package com.gma.challenge.beruang.service;
 
 import javax.persistence.EntityNotFoundException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +21,6 @@ public class CategoryWriteServiceImpl implements CategoryWriteService {
 
   private final CategoryRepository categoryRepository;
 
-  @Autowired
   public CategoryWriteServiceImpl(CategoryRepository categoryRepository) {
     this.categoryRepository = categoryRepository;
   }

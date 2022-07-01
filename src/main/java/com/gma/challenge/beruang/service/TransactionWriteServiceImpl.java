@@ -1,6 +1,5 @@
 package com.gma.challenge.beruang.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +27,6 @@ public class TransactionWriteServiceImpl implements TransactionWriteService {
   private final WalletRepository walletRepository;
   private final CategoryRepository categoryRepository;
 
-  @Autowired
   public TransactionWriteServiceImpl(TransactionRepository transactionRepository, WalletRepository walletRepository,
       CategoryRepository categoryRepository) {
     this.transactionRepository = transactionRepository;

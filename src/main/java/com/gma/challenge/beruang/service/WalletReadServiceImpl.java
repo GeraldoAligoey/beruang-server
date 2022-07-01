@@ -3,7 +3,6 @@ package com.gma.challenge.beruang.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +19,6 @@ public class WalletReadServiceImpl implements WalletReadService {
 
   private final WalletRepository walletRepository;
 
-  @Autowired
   public WalletReadServiceImpl(WalletRepository walletRepository) {
     this.walletRepository = walletRepository;
   }

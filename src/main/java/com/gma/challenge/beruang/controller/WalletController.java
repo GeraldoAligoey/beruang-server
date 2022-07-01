@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -41,7 +40,6 @@ public class WalletController implements WalletsApi {
   private final TransactionReadService transactionReadService;
   private final TransactionWriteService transactionWriteService;
 
-  @Autowired
   public WalletController(WalletReadService walletReadService, WalletWriteService walletWriteService,
       BudgetReadService budgetReadService, BudgetWriteService budgetWriteService,
       TransactionReadService transactionReadService, TransactionWriteService transactionWriteService) {

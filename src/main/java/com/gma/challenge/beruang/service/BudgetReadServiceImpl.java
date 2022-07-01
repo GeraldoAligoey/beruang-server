@@ -3,7 +3,6 @@ package com.gma.challenge.beruang.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +20,6 @@ public class BudgetReadServiceImpl implements BudgetReadService {
 
   private final BudgetRepository budgetRepository;
 
-  @Autowired
   public BudgetReadServiceImpl(BudgetRepository budgetRepository) {
     this.budgetRepository = budgetRepository;
   }
