@@ -30,13 +30,13 @@ public interface ControllerTest {
 
   public void testDelete_validId_unlinked();
 
-  public void testDelete_invalidId();
+  public void testDelete_invalidId() throws Exception;
 
-  public void testFindRecord_validId_recordExist();
+  public void testFindRecord_validId_recordExist() throws Exception;
 
-  public void testFindRecord_validId_recordNotExist();
+  public void testFindRecord_validId_recordNotExist() throws Exception;
 
-  public void testFindRecord_invalidId();
+  public void testFindRecord_invalidId() throws Exception;
 
   public void testFindRecords_empty() throws Exception;
 
