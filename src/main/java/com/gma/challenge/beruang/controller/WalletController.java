@@ -53,7 +53,7 @@ public class WalletController implements WalletsApi {
 
   @Override
   public ResponseEntity<WalletResponseData> createWallet(@Valid NewWalletRequestData newWalletRequestData) {
-    return ResponseEntity.ok(walletWriteService.createWallet(newWalletRequestData));
+    return ResponseEntity.status(HttpStatus.CREATED).body(walletWriteService.createWallet(newWalletRequestData));
   }
 
   @Override
@@ -86,7 +86,7 @@ public class WalletController implements WalletsApi {
   @Override
   public ResponseEntity<BudgetResponseData> createBudget(Long walletId,
       @Valid NewBudgetRequestData newBudgetRequestData) {
-    return ResponseEntity.ok(budgetWriteService.createBudget(walletId, newBudgetRequestData));
+    return ResponseEntity.status(HttpStatus.CREATED).body(budgetWriteService.createBudget(walletId, newBudgetRequestData));
   }
 
   @Override
@@ -114,7 +114,7 @@ public class WalletController implements WalletsApi {
   @Override
   public ResponseEntity<TransactionResponseData> createTransaction(Long walletId,
       @Valid NewTransactionRequestData newTransactionRequestData) {
-    return ResponseEntity.ok(transactionWriteService.createTransaction(walletId, newTransactionRequestData));
+    return ResponseEntity.status(HttpStatus.CREATED).body(transactionWriteService.createTransaction(walletId, newTransactionRequestData));
   }
 
   @Override

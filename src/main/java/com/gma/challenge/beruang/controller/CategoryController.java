@@ -28,7 +28,7 @@ public class CategoryController implements CategoriesApi {
 
   @Override
   public ResponseEntity<CategoryResponseData> createCategory(@Valid NewCategoryRequestData newCategoryRequestData) {
-    return ResponseEntity.ok(categoryWriteService.createCategory(newCategoryRequestData));
+    return ResponseEntity.status(HttpStatus.CREATED).body(categoryWriteService.createCategory(newCategoryRequestData));
   }
 
   @Override
