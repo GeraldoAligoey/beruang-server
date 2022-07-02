@@ -1,5 +1,6 @@
 package com.gma.challenge.beruang.unit.controller;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -32,22 +33,25 @@ import com.gma.challenge.beruang.data.CategoryData;
 import com.gma.challenge.beruang.data.CategoryResponseData;
 import com.gma.challenge.beruang.domain.Category;
 import com.gma.challenge.beruang.exception.CategoryNotFoundException;
+import com.gma.challenge.beruang.exception.IncompleteRequestDataException;
 import com.gma.challenge.beruang.service.CategoryReadService;
 import com.gma.challenge.beruang.service.CategoryWriteService;
 import com.gma.challenge.beruang.util.Mapper;
+import com.google.gson.Gson;
 
 @WebMvcTest(CategoryController.class)
 public class CategoryControllerTest implements ControllerTest {
 
   private final Logger LOG = LoggerFactory.getLogger(CategoryControllerTest.class);
-  private static final String CATEGORIES_URL = "/categories";
   private static final Long VALID_ID = Long.valueOf(1);
   private static final Long INVALID_ID = Long.valueOf(-1);
-  private static final Long VALID_NORECORD_ID= Long.valueOf(100000);
+  private static final Long VALID_NORECORD_ID = Long.valueOf(100000);
+  private static final String CATEGORIES_URL = "/categories";
   private static final String FIND_CATEGORY_VALID_ID_URL = CATEGORIES_URL + "/" + VALID_ID;
   private static final String FIND_CATEGORIES_INVALID_ID_URL = CATEGORIES_URL + "/" + INVALID_ID;
   private static final String FIND_CATEGORY_VALID_NORECORD_ID_URL = CATEGORIES_URL + "/" + VALID_NORECORD_ID;
-  private static final String DELETE_CATEGORIES_INVALID_ID_URL = "/categories" + "/" + INVALID_ID;
+  private static final String DELETE_CATEGORIES_INVALID_ID_URL = CATEGORIES_URL + "/" + INVALID_ID;
+
   @Autowired
   private MockMvc mockMvc;
 
@@ -57,28 +61,102 @@ public class CategoryControllerTest implements ControllerTest {
   @MockBean
   private CategoryWriteService categoryWriteService;
 
+  @Test
   @Override
-  public void testCreate_validNewRequestData() {
-    // TODO Auto-generated method stub
+  public void testCreate_validNewRequestData() throws Exception {
+    CategoryResponseData responseData = CategoryResponseData.builder()
+        .category(Mapper.toCategoryData(CategoryHelper.getCategorySample(true))).build();
+    when(categoryWriteService.createCategory(any())).thenReturn(responseData);
 
+    RequestBuilder request = MockMvcRequestBuilders
+      .post(CATEGORIES_URL)
+      .content(new Gson().toJson(CategoryHelper.getValidNewCategoryRequestDataSample()))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+
+    LOG.info("URL: {}", CATEGORIES_URL);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().isCreated())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "{category:{}}";
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
+  @Test
   @Override
-  public void testCreate_invalidEmptyNewRequestData() {
-    // TODO Auto-generated method stub
+  public void testCreate_invalidEmptyNewRequestData() throws Exception {
+    when(categoryWriteService.createCategory(CategoryHelper.getInvalidEmptyNewCategoryRequestDataSample())).thenThrow(new IncompleteRequestDataException("Invalid request data"));
 
+    RequestBuilder request = MockMvcRequestBuilders
+      .post(CATEGORIES_URL)
+      .content(new Gson().toJson(CategoryHelper.getInvalidEmptyNewCategoryRequestDataSample()))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+
+    LOG.info("URL: {}", CATEGORIES_URL);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "{errors:{}}";
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
+  @Test
   @Override
-  public void testCreate_invalidIncompleteNewRequestData() {
-    // TODO Auto-generated method stub
+  public void testCreate_invalidIncompleteNewRequestData() throws Exception {
+    when(categoryWriteService.createCategory(CategoryHelper.getInvalidIncompleteNewCategoryRequestDataSample())).thenThrow(new IncompleteRequestDataException("Invalid request data"));
 
+    RequestBuilder request = MockMvcRequestBuilders
+      .post(CATEGORIES_URL)
+      .content(new Gson().toJson(CategoryHelper.getInvalidIncompleteNewCategoryRequestDataSample()))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+
+    LOG.info("URL: {}", CATEGORIES_URL);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "{errors:{}}";
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
+  @Test
   @Override
-  public void testCreate_invalidNullNewRequestData() {
-    // TODO Auto-generated method stub
+  public void testCreate_invalidNullNewRequestData() throws Exception {
+    when(categoryWriteService.createCategory(CategoryHelper.getInvalidNullNewCategoryRequestDataSample())).thenThrow(new IncompleteRequestDataException("Invalid request data"));
 
+    RequestBuilder request = MockMvcRequestBuilders
+      .post(CATEGORIES_URL)
+      .content(new Gson().toJson(CategoryHelper.getInvalidNullNewCategoryRequestDataSample()))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+
+    LOG.info("URL: {}", CATEGORIES_URL);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "{errors:{}}";
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
   @Override
@@ -146,7 +224,8 @@ public class CategoryControllerTest implements ControllerTest {
   public void testDelete_invalidId() throws Exception {
     doThrow(new CategoryNotFoundException("Invalid category id")).when(categoryWriteService).deleteCategory(INVALID_ID);
 
-    RequestBuilder request = MockMvcRequestBuilders.delete(DELETE_CATEGORIES_INVALID_ID_URL).accept(MediaType.APPLICATION_JSON);
+    RequestBuilder request = MockMvcRequestBuilders.delete(DELETE_CATEGORIES_INVALID_ID_URL)
+        .accept(MediaType.APPLICATION_JSON);
 
     MvcResult result = mockMvc.perform(request)
         .andExpect(status().is4xxClientError())
@@ -163,7 +242,8 @@ public class CategoryControllerTest implements ControllerTest {
   @Override
   public void testFindRecord_validId_recordExist() throws Exception {
     Category category = CategoryHelper.getCategorySample(true);
-    CategoryResponseData responseData = CategoryResponseData.builder().category(Mapper.toCategoryData(category)).build();
+    CategoryResponseData responseData = CategoryResponseData.builder().category(Mapper.toCategoryData(category))
+        .build();
 
     when(categoryReadService.findCategory(VALID_ID)).thenReturn(responseData);
 
@@ -185,9 +265,11 @@ public class CategoryControllerTest implements ControllerTest {
   @Test
   @Override
   public void testFindRecord_validId_recordNotExist() throws Exception {
-    when(categoryReadService.findCategory(VALID_NORECORD_ID)).thenThrow(new CategoryNotFoundException("Invalid category id"));
+    when(categoryReadService.findCategory(VALID_NORECORD_ID))
+        .thenThrow(new CategoryNotFoundException("Invalid category id"));
 
-    RequestBuilder request = MockMvcRequestBuilders.get(FIND_CATEGORY_VALID_NORECORD_ID_URL).accept(MediaType.APPLICATION_JSON);
+    RequestBuilder request = MockMvcRequestBuilders.get(FIND_CATEGORY_VALID_NORECORD_ID_URL)
+        .accept(MediaType.APPLICATION_JSON);
 
     LOG.info("URL: {}", FIND_CATEGORY_VALID_NORECORD_ID_URL);
 
@@ -208,7 +290,8 @@ public class CategoryControllerTest implements ControllerTest {
   public void testFindRecord_invalidId() throws Exception {
     when(categoryReadService.findCategory(INVALID_ID)).thenThrow(new CategoryNotFoundException("Invalid category id"));
 
-    RequestBuilder request = MockMvcRequestBuilders.get(FIND_CATEGORIES_INVALID_ID_URL).accept(MediaType.APPLICATION_JSON);
+    RequestBuilder request = MockMvcRequestBuilders.get(FIND_CATEGORIES_INVALID_ID_URL)
+        .accept(MediaType.APPLICATION_JSON);
 
     LOG.info("URL: {}", FIND_CATEGORIES_INVALID_ID_URL);
 
@@ -226,7 +309,8 @@ public class CategoryControllerTest implements ControllerTest {
   @Test
   @Override
   public void testFindRecords_empty() throws Exception {
-    CategoriesResponseData responseData = CategoriesResponseData.builder().categories(new ArrayList<CategoryData>()).build();
+    CategoriesResponseData responseData = CategoriesResponseData.builder().categories(new ArrayList<CategoryData>())
+        .build();
     when(categoryReadService.findCategories()).thenReturn(responseData);
 
     RequestBuilder request = MockMvcRequestBuilders.get(CATEGORIES_URL).accept(MediaType.APPLICATION_JSON);
@@ -242,7 +326,8 @@ public class CategoryControllerTest implements ControllerTest {
     JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
 
     expectedResponse = "{categories:[0]}";
-    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), new ArraySizeComparator(JSONCompareMode.LENIENT));
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(),
+        new ArraySizeComparator(JSONCompareMode.LENIENT));
   }
 
   @Test
@@ -266,7 +351,8 @@ public class CategoryControllerTest implements ControllerTest {
     JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
 
     expectedResponse = "{categories:[1]}";
-    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), new ArraySizeComparator(JSONCompareMode.LENIENT));
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(),
+        new ArraySizeComparator(JSONCompareMode.LENIENT));
   }
 
   @Test
@@ -286,7 +372,8 @@ public class CategoryControllerTest implements ControllerTest {
     LOG.info(result.getResponse().getContentAsString());
 
     String expectedResponse = "{categories:[1, 9999]}";
-    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), new ArraySizeComparator(JSONCompareMode.LENIENT));
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(),
+        new ArraySizeComparator(JSONCompareMode.LENIENT));
   }
 
 }

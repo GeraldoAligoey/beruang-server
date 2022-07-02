@@ -2,13 +2,13 @@ package com.gma.challenge.beruang.common;
 
 public interface ControllerTest {
 
-  public void testCreate_validNewRequestData();
+  public void testCreate_validNewRequestData() throws Exception;
 
-  public void testCreate_invalidEmptyNewRequestData();
+  public void testCreate_invalidEmptyNewRequestData() throws Exception;
 
-  public void testCreate_invalidIncompleteNewRequestData();
+  public void testCreate_invalidIncompleteNewRequestData() throws Exception;
 
-  public void testCreate_invalidNullNewRequestData();
+  public void testCreate_invalidNullNewRequestData() throws Exception;
 
   public void testUpdate_validId_validFullRequestData();
   
