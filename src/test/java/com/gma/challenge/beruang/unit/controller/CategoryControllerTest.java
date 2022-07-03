@@ -1,6 +1,8 @@
 package com.gma.challenge.beruang.unit.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -44,13 +46,18 @@ public class CategoryControllerTest implements ControllerTest {
 
   private final Logger LOG = LoggerFactory.getLogger(CategoryControllerTest.class);
   private static final Long VALID_ID = Long.valueOf(1);
+  private static final Long VALID_UNLINKED_ID = Long.valueOf(7);
   private static final Long INVALID_ID = Long.valueOf(-1);
   private static final Long VALID_NORECORD_ID = Long.valueOf(100000);
   private static final String CATEGORIES_URL = "/categories";
   private static final String FIND_CATEGORY_VALID_ID_URL = CATEGORIES_URL + "/" + VALID_ID;
   private static final String FIND_CATEGORIES_INVALID_ID_URL = CATEGORIES_URL + "/" + INVALID_ID;
   private static final String FIND_CATEGORY_VALID_NORECORD_ID_URL = CATEGORIES_URL + "/" + VALID_NORECORD_ID;
+  private static final String DELETE_CATEGORIES_VALID_ID_URL = CATEGORIES_URL + "/" + VALID_ID;
+  private static final String DELETE_CATEGORIES_VALID_ID_UNLINKED_URL = CATEGORIES_URL + "/" + VALID_UNLINKED_ID;
   private static final String DELETE_CATEGORIES_INVALID_ID_URL = CATEGORIES_URL + "/" + INVALID_ID;
+  private static final String UPDATE_CATEGORY_VALID_ID_URL = CATEGORIES_URL + "/" + VALID_ID;
+  private static final String UPDATE_CATEGORY_INVALID_ID_URL = CATEGORIES_URL + "/" + INVALID_ID;
 
   @Autowired
   private MockMvc mockMvc;
@@ -159,64 +166,235 @@ public class CategoryControllerTest implements ControllerTest {
     JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
+  @Test
   @Override
-  public void testUpdate_validId_validFullRequestData() {
-    // TODO Auto-generated method stub
+  public void testUpdate_validId_validFullRequestData() throws Exception {
+    CategoryResponseData responseData = CategoryResponseData.builder().category(Mapper.toCategoryData(CategoryHelper.getCategorySample(false))).build();
+    when(categoryWriteService.updateCategory(VALID_ID, CategoryHelper.getValidFullUpdateCategoryRequestDataSample())).thenReturn(responseData);
 
+    RequestBuilder request = MockMvcRequestBuilders
+      .put(UPDATE_CATEGORY_VALID_ID_URL)
+      .content(new Gson().toJson(CategoryHelper.getValidFullUpdateCategoryRequestDataSample()))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+
+    LOG.info("URL: {}", UPDATE_CATEGORY_VALID_ID_URL);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "{category:{}}";
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
+  @Test
   @Override
-  public void testUpdate_validId_validPartialRequestData() {
-    // TODO Auto-generated method stub
+  public void testUpdate_validId_validPartialRequestData() throws Exception {
+    CategoryResponseData responseData = CategoryResponseData.builder().category(Mapper.toCategoryData(CategoryHelper.getCategorySample(false))).build();
+    when(categoryWriteService.updateCategory(VALID_ID, CategoryHelper.getValidPartialUpdateCategoryRequestDataSample())).thenReturn(responseData);
 
+    RequestBuilder request = MockMvcRequestBuilders
+      .put(UPDATE_CATEGORY_VALID_ID_URL)
+      .content(new Gson().toJson(CategoryHelper.getValidPartialUpdateCategoryRequestDataSample()))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+
+    LOG.info("URL: {}", UPDATE_CATEGORY_VALID_ID_URL);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "{category:{}}";
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
+  @Test
   @Override
-  public void testUpdate_validId_invalidEmptyRequestData() {
-    // TODO Auto-generated method stub
+  public void testUpdate_validId_invalidEmptyRequestData() throws Exception {
+    when(categoryWriteService.updateCategory(VALID_ID, CategoryHelper.getInvalidEmptyUpdateCategoryRequestDataSample())).thenThrow(new IncompleteRequestDataException("Invalid request data"));
 
+    RequestBuilder request = MockMvcRequestBuilders
+      .put(UPDATE_CATEGORY_VALID_ID_URL)
+      .content(new Gson().toJson(CategoryHelper.getInvalidEmptyUpdateCategoryRequestDataSample()))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+
+    LOG.info("URL: {}", UPDATE_CATEGORY_VALID_ID_URL);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "{errors:{}}";
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
+  @Test
   @Override
-  public void testUpdate_validId_invalidNullRequestData() {
-    // TODO Auto-generated method stub
+  public void testUpdate_validId_invalidNullRequestData() throws Exception {
+    when(categoryWriteService.updateCategory(VALID_ID, CategoryHelper.getInvalidNullUpdateCategoryRequestDataSample())).thenThrow(new IncompleteRequestDataException("Invalid request data"));
 
+    RequestBuilder request = MockMvcRequestBuilders
+      .put(UPDATE_CATEGORY_VALID_ID_URL)
+      .content(new Gson().toJson(CategoryHelper.getInvalidNullUpdateCategoryRequestDataSample()))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+
+    LOG.info("URL: {}", UPDATE_CATEGORY_VALID_ID_URL);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "{errors:{}}";
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
+  @Test
   @Override
-  public void testUpdate_invalidId_validFullRequestData() {
-    // TODO Auto-generated method stub
+  public void testUpdate_invalidId_validFullRequestData() throws Exception {
+    when(categoryWriteService.updateCategory(INVALID_ID, CategoryHelper.getValidFullUpdateCategoryRequestDataSample())).thenThrow(new CategoryNotFoundException("Invalid category id"));
 
+    RequestBuilder request = MockMvcRequestBuilders
+      .put(UPDATE_CATEGORY_INVALID_ID_URL)
+      .content(new Gson().toJson(CategoryHelper.getValidFullUpdateCategoryRequestDataSample()))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+
+    LOG.info("URL: {}", UPDATE_CATEGORY_INVALID_ID_URL);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "{errors:{}}";
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
+  @Test
   @Override
-  public void testUpdate_invalidId_validPartialRequestData() {
-    // TODO Auto-generated method stub
+  public void testUpdate_invalidId_validPartialRequestData() throws Exception {
+    when(categoryWriteService.updateCategory(INVALID_ID, CategoryHelper.getValidPartialUpdateCategoryRequestDataSample())).thenThrow(new CategoryNotFoundException("Invalid category id"));
 
+    RequestBuilder request = MockMvcRequestBuilders
+      .put(UPDATE_CATEGORY_INVALID_ID_URL)
+      .content(new Gson().toJson(CategoryHelper.getValidPartialUpdateCategoryRequestDataSample()))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+
+    LOG.info("URL: {}", UPDATE_CATEGORY_INVALID_ID_URL);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "{errors:{}}";
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
+  @Test
   @Override
-  public void testUpdate_invalidId_invalidEmptyRequestData() {
-    // TODO Auto-generated method stub
+  public void testUpdate_invalidId_invalidEmptyRequestData() throws Exception {
+    when(categoryWriteService.updateCategory(INVALID_ID, CategoryHelper.getInvalidEmptyUpdateCategoryRequestDataSample())).thenThrow(new IncompleteRequestDataException("Invalid request data"));
 
+    RequestBuilder request = MockMvcRequestBuilders
+      .put(UPDATE_CATEGORY_INVALID_ID_URL)
+      .content(new Gson().toJson(CategoryHelper.getInvalidEmptyNewCategoryRequestDataSample()))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+
+    LOG.info("URL: {}", UPDATE_CATEGORY_INVALID_ID_URL);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "{errors:{}}";
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
+  @Test
   @Override
-  public void testUpdate_invalidId_invalidNullRequestData() {
-    // TODO Auto-generated method stub
+  public void testUpdate_invalidId_invalidNullRequestData() throws Exception {
+    when(categoryWriteService.updateCategory(INVALID_ID, CategoryHelper.getInvalidNullUpdateCategoryRequestDataSample())).thenThrow(new IncompleteRequestDataException("Invalid request data"));
 
+    RequestBuilder request = MockMvcRequestBuilders
+      .put(UPDATE_CATEGORY_INVALID_ID_URL)
+      .content(new Gson().toJson(CategoryHelper.getInvalidNullUpdateCategoryRequestDataSample()))
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON);
+
+    LOG.info("URL: {}", UPDATE_CATEGORY_INVALID_ID_URL);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "{errors:{}}";
+    JSONAssert.assertEquals(expectedResponse, result.getResponse().getContentAsString(), false);
   }
 
+  @Test
   @Override
-  public void testDelete_validId_linked() {
-    // TODO Auto-generated method stub
+  public void testDelete_validId_linked() throws Exception {
+    doNothing().when(categoryWriteService).deleteCategory(VALID_ID);
 
+    RequestBuilder request = MockMvcRequestBuilders.delete(DELETE_CATEGORIES_VALID_ID_URL)
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().isOk())
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "";
+    assertEquals(expectedResponse, result.getResponse().getContentAsString());
   }
 
+  @Test
   @Override
-  public void testDelete_validId_unlinked() {
-    // TODO Auto-generated method stub
+  public void testDelete_validId_unlinked() throws Exception {
+    doNothing().when(categoryWriteService).deleteCategory(VALID_UNLINKED_ID);
 
+    RequestBuilder request = MockMvcRequestBuilders.delete(DELETE_CATEGORIES_VALID_ID_UNLINKED_URL)
+        .accept(MediaType.APPLICATION_JSON);
+
+    MvcResult result = mockMvc.perform(request)
+        .andExpect(status().isOk())
+        .andReturn();
+
+    LOG.info(result.getResponse().getContentAsString());
+
+    String expectedResponse = "";
+    assertEquals(expectedResponse, result.getResponse().getContentAsString());
   }
 
   @Test
