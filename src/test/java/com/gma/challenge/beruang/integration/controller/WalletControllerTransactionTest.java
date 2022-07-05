@@ -56,7 +56,7 @@ public class WalletControllerTransactionTest implements ControllerTest {
   public void testCreate_validNewRequestData() {
     ResponseEntity<TransactionResponseData> responseEntity = SUT.createTransaction(VALID_WALLET_ID,
         TransactionHelper.getValidNewTransactionRequestDataSample());
-    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getTransaction());
     assertTrue(TransactionHelper.isTransactionResponseDataEqualsToSample(responseEntity.getBody()));
   }

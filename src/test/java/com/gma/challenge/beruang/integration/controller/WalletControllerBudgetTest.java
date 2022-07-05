@@ -53,7 +53,7 @@ public class WalletControllerBudgetTest implements ControllerTest {
   public void testCreate_validNewRequestData() {
     ResponseEntity<BudgetResponseData> responseEntity = SUT.createBudget(VALID_WALLET_ID,
         BudgetHelper.getValidNewBudgetRequestDataSample());
-    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getBudget());
     assertTrue(BudgetHelper.isBudgetResponseDataEqualsToSample(responseEntity.getBody()));
   }

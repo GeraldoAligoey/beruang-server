@@ -40,7 +40,7 @@ public class WalletControllerTest implements ControllerTest {
   public void testCreate_validNewRequestData() {
     ResponseEntity<WalletResponseData> responseEntity = SUT
         .createWallet(WalletHelper.getValidNewWalletRequestDataSample());
-    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getWallet());
     assertTrue(WalletHelper.isWalletResponseDataEqualsToSample(responseEntity.getBody()));
   }

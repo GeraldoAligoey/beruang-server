@@ -40,7 +40,7 @@ public class CategoryControllerTest implements ControllerTest {
   public void testCreate_validNewRequestData() {
     ResponseEntity<CategoryResponseData> responseEntity = SUT
         .createCategory(CategoryHelper.getValidNewCategoryRequestDataSample());
-    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
     assertNotNull(responseEntity.getBody().getCategory());
     assertTrue(CategoryHelper.isCategoryResponseDataEqualsToSample(responseEntity.getBody()));
   }
