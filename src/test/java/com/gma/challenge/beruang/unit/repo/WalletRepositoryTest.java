@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.gma.challenge.beruang.common.RepositoryTest;
+import com.gma.challenge.beruang.domain.Category;
 import com.gma.challenge.beruang.domain.Wallet;
 import com.gma.challenge.beruang.repo.WalletRepository;
 
@@ -40,7 +41,15 @@ public class WalletRepositoryTest implements RepositoryTest {
     newWallet.setInitialBalanceAmount(BigDecimal.ZERO); 
     newWallet.setDefaultCurrencyCode("MYR");
     newWallet.setDefaultWallet(true);
-    newWallet.setCategories(null);
+
+    Category c1 = new Category();
+    c1.setId(Long.valueOf(1)); 
+
+    Category c2 = new Category();
+    c2.setId(Long.valueOf(2)); 
+
+    newWallet.addCategory(c1);
+    newWallet.addCategory(c2);
 
     Wallet wallet = SUT.save(newWallet);
 
