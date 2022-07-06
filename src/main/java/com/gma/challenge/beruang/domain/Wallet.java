@@ -36,7 +36,6 @@ public class Wallet extends CommonNamedClass {
   private Set<Budget> budgets = new HashSet<>();
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = {
-      CascadeType.PERSIST,
       CascadeType.MERGE,
       CascadeType.DETACH})
   @JoinTable(name = "WALLET_CATEGORY", joinColumns = @JoinColumn(name ="wallet_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
