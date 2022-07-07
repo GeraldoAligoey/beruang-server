@@ -3,6 +3,7 @@ package com.gma.challenge.beruang.common.helper;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,8 @@ import com.gma.challenge.beruang.data.UpdateWalletRequestData;
 import com.gma.challenge.beruang.data.WalletData;
 import com.gma.challenge.beruang.data.WalletResponseData;
 import com.gma.challenge.beruang.data.WalletsResponseData;
+import com.gma.challenge.beruang.domain.Category;
+import com.gma.challenge.beruang.domain.Wallet;
 
 public class WalletHelper {
 
@@ -213,6 +216,45 @@ public class WalletHelper {
     List<WalletData> wallets = new ArrayList<>();
 
     return WalletsResponseData.builder().wallets(wallets).build();
+  }
+
+  public static Wallet getWalletSample() {
+    Wallet wallet = new Wallet();
+    wallet.setId(Long.valueOf(1));
+    wallet.setName("Spending");
+    wallet.setDefaultCurrencyCode("MYR");
+    wallet.setDefaultWallet(true);
+    wallet.setInitialBalanceAmount(BigDecimal.valueOf(1000));
+    
+    List<Category> categorySamples = CategoryHelper.getCategorySamples(false);
+    HashSet<Category> categorySet = new HashSet<>(categorySamples);
+
+    wallet.setCategories(categorySet);
+
+    return wallet;
+  }
+
+  public static List<Wallet> getWalletSamples() {
+    List<Wallet> wallets = new ArrayList<>();
+
+    Wallet w1 = new Wallet();
+    w1.setId(Long.valueOf(1));
+    w1.setName("Spending");
+    w1.setDefaultCurrencyCode("MYR");
+    w1.setDefaultWallet(true);
+    w1.setInitialBalanceAmount(BigDecimal.valueOf(1000));
+
+    Wallet w2 = new Wallet();
+    w2.setId(Long.valueOf(2));
+    w2.setName("Saving");
+    w2.setDefaultCurrencyCode("MYR");
+    w2.setDefaultWallet(false);
+    w2.setInitialBalanceAmount(BigDecimal.valueOf(5000));
+
+    wallets.add(w1);
+    wallets.add(w2);
+
+    return wallets;
   }
 
 }
