@@ -14,4 +14,6 @@ public interface WalletWriteService {
 
   public WalletResponseData setDefaultTrue(Long walletId);
 
+  public void moveTransaction(Long walletId, Long oldCategoryId, Long newCategoryId);
+  
 }

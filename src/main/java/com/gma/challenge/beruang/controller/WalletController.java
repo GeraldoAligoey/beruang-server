@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -146,6 +147,13 @@ public class WalletController implements WalletsApi {
   public ResponseEntity<TransactionsResponseData> findTransactions(Long walletId, @Valid LocalDate fromDate,
       @Valid LocalDate toDate, BigDecimal fromAmount, BigDecimal toAmount, @Valid List<Long> categoryIds) {
     return ResponseEntity.ok(transactionReadService.findTransactions(walletId, fromDate, toDate, fromAmount, toAmount, categoryIds));
+  }
+
+  @Override
+  public ResponseEntity<Void> moveTransaction(Long walletId, @NotNull @Valid Long oldCategoryId,
+      @NotNull @Valid Long newCategoryId, @Valid Object body) {
+    walletWriteService.moveTransaction(walletId, oldCategoryId, newCategoryId);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
 }

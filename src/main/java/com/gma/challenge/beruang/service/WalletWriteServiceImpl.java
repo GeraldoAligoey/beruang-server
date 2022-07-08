@@ -1,5 +1,6 @@
 package com.gma.challenge.beruang.service;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +18,7 @@ import com.gma.challenge.beruang.domain.Budget;
 import com.gma.challenge.beruang.domain.Category;
 import com.gma.challenge.beruang.domain.Wallet;
 import com.gma.challenge.beruang.exception.CategoryNotFoundException;
+import com.gma.challenge.beruang.exception.CategoryNotInWalletException;
 import com.gma.challenge.beruang.exception.WalletNotFoundException;
 import com.gma.challenge.beruang.repo.BudgetRepository;
 import com.gma.challenge.beruang.repo.CategoryRepository;
@@ -118,6 +120,20 @@ public class WalletWriteServiceImpl implements WalletWriteService {
     wallet.setDefaultWallet(true);
 
     return WalletResponseData.builder().wallet(Mapper.toWalletData(walletRepository.saveAndFlush(wallet))).build();
+  }
+
+  @Override
+  public void moveTransaction(Long walletId, Long oldCategoryId, Long newCategoryId) {
+    Wallet wallet = walletRepository.findById(walletId).orElseThrow(() -> new WalletNotFoundException("Invalid wallet id"));
+    Category oldCategory = categoryRepository.findById(oldCategoryId).orElseThrow(() -> new CategoryNotFoundException("Invalid category id"));
+    Category newCategory = categoryRepository.findById(newCategoryId).orElseThrow(() -> new CategoryNotFoundException("Invalid category id"));
+
+    if (wallet.getCategories().containsAll(Arrays.asList(oldCategory, newCategory))) {
+      transactionRepository.moveTransaction(walletId, oldCategoryId, newCategoryId);
+    } else {
+      throw new CategoryNotInWalletException("Category id is not in the wallet");
+    };
+
   }
 
 }

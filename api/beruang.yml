@@ -436,6 +436,50 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericErrorModel"
+  /wallets/{walletId}/transactions/move-to-category:
+    post:
+      tags:
+        - Transaction
+      summary: Move transactions from oldCategory to newCategory
+      description: Move transactions from oldCategory to newCategory
+      operationId: moveTransaction
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the wallet
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: oldCategoryId
+          in: query
+          description: category id to be moved from
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: newCategoryId
+          in: query
+          description: Category id to be moved to
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Empty body
+        content:
+          application/json:
+            schema: {}
+      responses:
+        200:
+          description: OK
+          content: {}
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericErrorModel"
   /wallets/{walletId}/transactions/{transactionId}:
     get:
       tags:
