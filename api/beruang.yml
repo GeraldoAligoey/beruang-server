@@ -442,7 +442,7 @@ paths:
         - Transaction
       summary: Move transactions from oldCategory to newCategory
       description: Move transactions from oldCategory to newCategory
-      operationId: moveTransaction
+      operationId: moveTransactionToNewCategory
       parameters:
         - name: walletId
           in: path
@@ -461,6 +461,43 @@ paths:
         - name: newCategoryId
           in: query
           description: Category id to be moved to
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Empty body
+        content:
+          application/json:
+            schema: {}
+      responses:
+        200:
+          description: OK
+          content: {}
+        422:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericErrorModel"
+  /wallets/{walletId}/transactions/move-to-wallet:
+    post:
+      tags:
+        - Transaction
+      summary: Move transactions from old wallet to new wallet
+      description: Move transactions from old wallet to new wallet
+      operationId: moveTransactionToNewWallet
+      parameters:
+        - name: walletId
+          in: path
+          description: Id of the old wallet
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: newWalletId
+          in: query
+          description: Wallet Id to be moved to
           required: true
           schema:
             type: integer

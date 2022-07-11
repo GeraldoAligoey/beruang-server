@@ -123,17 +123,25 @@ public class WalletWriteServiceImpl implements WalletWriteService {
   }
 
   @Override
-  public void moveTransaction(Long walletId, Long oldCategoryId, Long newCategoryId) {
+  public void moveTransactionToNewCategory(Long walletId, Long oldCategoryId, Long newCategoryId) {
     Wallet wallet = walletRepository.findById(walletId).orElseThrow(() -> new WalletNotFoundException("Invalid wallet id"));
     Category oldCategory = categoryRepository.findById(oldCategoryId).orElseThrow(() -> new CategoryNotFoundException("Invalid category id"));
     Category newCategory = categoryRepository.findById(newCategoryId).orElseThrow(() -> new CategoryNotFoundException("Invalid category id"));
 
     if (wallet.getCategories().containsAll(Arrays.asList(oldCategory, newCategory))) {
-      transactionRepository.moveTransaction(walletId, oldCategoryId, newCategoryId);
+      transactionRepository.moveTransactionToNewCategory(walletId, oldCategoryId, newCategoryId);
     } else {
       throw new CategoryNotInWalletException("Category id is not in the wallet");
     };
 
+  }
+
+  @Override
+  public void moveTransactionToNewWallet(Long oldWalletId, Long newWalletId) {
+    walletRepository.findById(oldWalletId).orElseThrow(() -> new WalletNotFoundException("Invalid old wallet id"));
+    walletRepository.findById(newWalletId).orElseThrow(() -> new WalletNotFoundException("Invalid new wallet id"));
+
+    transactionRepository.moveTransactionToNewWallet(oldWalletId, newWalletId);
   }
 
 }

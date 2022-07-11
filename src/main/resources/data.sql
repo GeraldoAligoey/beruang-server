@@ -16,6 +16,7 @@ insert into wallet_category(wallet_id, category_id) values(1, 3);
 insert into wallet_category(wallet_id, category_id) values(1, 4);
 
 insert into wallet_category(wallet_id, category_id) values(2, 1);
+insert into wallet_category(wallet_id, category_id) values(2, 4);
 insert into wallet_category(wallet_id, category_id) values(2, 5);
 
 insert into wallet_category(wallet_id, category_id) values(3, 3);

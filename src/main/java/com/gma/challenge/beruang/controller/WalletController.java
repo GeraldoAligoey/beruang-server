@@ -150,9 +150,16 @@ public class WalletController implements WalletsApi {
   }
 
   @Override
-  public ResponseEntity<Void> moveTransaction(Long walletId, @NotNull @Valid Long oldCategoryId,
+  public ResponseEntity<Void> moveTransactionToNewCategory(Long walletId, @NotNull @Valid Long oldCategoryId,
       @NotNull @Valid Long newCategoryId, @Valid Object body) {
-    walletWriteService.moveTransaction(walletId, oldCategoryId, newCategoryId);
+    walletWriteService.moveTransactionToNewCategory(walletId, oldCategoryId, newCategoryId);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<Void> moveTransactionToNewWallet(Long walletId, @NotNull @Valid Long newWalletId,
+      @Valid Object body) {
+    walletWriteService.moveTransactionToNewWallet(walletId, newWalletId);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 

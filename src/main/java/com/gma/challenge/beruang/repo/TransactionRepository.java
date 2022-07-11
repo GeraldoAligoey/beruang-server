@@ -45,6 +45,10 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
   @Modifying
   @Query("update Transaction t set t.category.id = ?3 where t.category.id = ?2 and t.wallet.id = ?1")
-  void moveTransaction(Long walletId, Long oldCategoryId, Long newCategoryId);
+  void moveTransactionToNewCategory(Long walletId, Long oldCategoryId, Long newCategoryId);
+
+  @Modifying
+  @Query("update Transaction t set t.wallet.id = ?2 where t.wallet.id = ?1")
+  void moveTransactionToNewWallet(Long oldWalletId, Long newWalletId);
 
 }
