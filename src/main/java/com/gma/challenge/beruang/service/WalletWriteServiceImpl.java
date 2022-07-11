@@ -139,8 +139,17 @@ public class WalletWriteServiceImpl implements WalletWriteService {
   @Override
   public void moveTransactionToNewWallet(Long oldWalletId, Long newWalletId) {
     walletRepository.findById(oldWalletId).orElseThrow(() -> new WalletNotFoundException("Invalid old wallet id"));
-    walletRepository.findById(newWalletId).orElseThrow(() -> new WalletNotFoundException("Invalid new wallet id"));
+    Wallet newWallet = walletRepository.findById(newWalletId).orElseThrow(() -> new WalletNotFoundException("Invalid new wallet id"));
 
+    Set<Category> usedCategories = categoryRepository.findUsedCategoriesByWallet(oldWalletId);
+
+    for (Category category : usedCategories) {
+      if (!newWallet.getCategories().contains(category)) {
+        newWallet.addCategory(category);
+      }
+    }
+
+    walletRepository.save(newWallet);
     transactionRepository.moveTransactionToNewWallet(oldWalletId, newWalletId);
   }
 

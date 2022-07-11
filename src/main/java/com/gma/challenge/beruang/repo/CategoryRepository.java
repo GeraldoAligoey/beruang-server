@@ -18,4 +18,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
   @Query(value = "select * from category where category.id in (select b_c.categories_id from budget_categories b_c where b_c.budget_id = :budgetId) order by category.name", nativeQuery = true)
   public Set<Category> findByBudgetId(Long budgetId);
+
+  @Query(value = "select * from category where category.id in (select distinct category.id from category join transaction on transaction.category_id = category.id where transaction.wallet_id = :walletId)", nativeQuery = true)
+  public Set<Category> findUsedCategoriesByWallet(Long walletId);
 }
