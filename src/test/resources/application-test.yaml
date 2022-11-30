@@ -1,5 +1,19 @@
-spring.datasource.url=jdbc:h2:mem:beruang-test
-logging.level.org.hibernate.SQL=DEBUG
-logging.level.org.hibernate.type=TRACE
-spring.mvc.pathmatch.matching-strategy=ant-path-matcher
-spring.jpa.defer-datasource-initialization=true
+spring:
+  datasource:
+    url: jdbc:h2:mem:beruang-test
+  jpa:
+    defer-datasource-initialization: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type: TRACE
+test:
+  data:
+    variable-a: test
+    "variable b": test b
