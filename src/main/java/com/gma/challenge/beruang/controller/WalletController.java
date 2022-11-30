@@ -1,35 +1,17 @@
 package com.gma.challenge.beruang.controller;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
+import com.gma.challenge.beruang.api.WalletsApi;
+import com.gma.challenge.beruang.data.*;
+import com.gma.challenge.beruang.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import com.gma.challenge.beruang.api.WalletsApi;
-import com.gma.challenge.beruang.data.BudgetResponseData;
-import com.gma.challenge.beruang.data.BudgetsResponseData;
-import com.gma.challenge.beruang.data.NewBudgetRequestData;
-import com.gma.challenge.beruang.data.NewTransactionRequestData;
-import com.gma.challenge.beruang.data.NewWalletRequestData;
-import com.gma.challenge.beruang.data.TransactionResponseData;
-import com.gma.challenge.beruang.data.TransactionsResponseData;
-import com.gma.challenge.beruang.data.UpdateBudgetRequestData;
-import com.gma.challenge.beruang.data.UpdateTransactionRequestData;
-import com.gma.challenge.beruang.data.UpdateWalletRequestData;
-import com.gma.challenge.beruang.data.WalletResponseData;
-import com.gma.challenge.beruang.data.WalletsResponseData;
-import com.gma.challenge.beruang.service.BudgetReadService;
-import com.gma.challenge.beruang.service.BudgetWriteService;
-import com.gma.challenge.beruang.service.TransactionReadService;
-import com.gma.challenge.beruang.service.TransactionWriteService;
-import com.gma.challenge.beruang.service.WalletReadService;
-import com.gma.challenge.beruang.service.WalletWriteService;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class WalletController implements WalletsApi {
@@ -136,7 +118,7 @@ public class WalletController implements WalletsApi {
   }
 
   /**
-   * @deprecated Replaced by {@link #findTransactions(Long, LocalDate, LocalDate, BigDecimal, BigDecimal)}
+   * @deprecated Replaced by {@link #findTransactions(Long, LocalDate, LocalDate, BigDecimal, BigDecimal, List)}
    */
   @Deprecated
   public ResponseEntity<TransactionsResponseData> findTransactions(Long walletId) {
