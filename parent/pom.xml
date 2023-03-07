@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.gma.challenge</groupId>
+        <artifactId>beruang</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>parent</name>
+
+    <properties>
+        <!-- common properties -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler>11</maven.compiler>
+        <maven.compiler.version>3.11.0</maven.compiler.version>
+
+        <!-- module -->
+        <beruang-parent.version>1.0.0-SNAPSHOT</beruang-parent.version>
+        <beruang-generated.version>1.0.0-SNAPSHOT</beruang-generated.version>
+        <beruang-entity.version>1.0.0-SNAPSHOT</beruang-entity.version>
+        <beruang-service.version>1.0.0-SNAPSHOT</beruang-service.version>
+        <beruang-api.version>1.0.0-SNAPSHOT</beruang-api.version>
+
+        <!-- spring boot -->
+        <springboot.version>2.7.9</springboot.version>
+        <surefire.plugin.version>3.0.0-M9</surefire.plugin.version>
+
+        <!-- openapi generator -->
+        <openapi-generator.version>6.4.0</openapi-generator.version>
+        <swagger-annotation.version>2.2.8</swagger-annotation.version>
+        <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
+        <lombok.version>1.18.26</lombok.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Boot BOM -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- MODULES -->
+            <dependency>
+                <groupId>com.gma.challenge</groupId>
+                <artifactId>generated</artifactId>
+                <version>${beruang-generated.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gma.challenge</groupId>
+                <artifactId>entity</artifactId>
+                <version>${beruang-entity.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gma.challenge</groupId>
+                <artifactId>service</artifactId>
+                <version>${beruang-service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gma.challenge</groupId>
+                <artifactId>api</artifactId>
+                <version>${beruang-api.version}</version>
+            </dependency>
+
+            <!-- UTILITIES -->
+
+            <!-- Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- NEEDED IN GENERATED -->
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openapitools</groupId>
+                <artifactId>jackson-databind-nullable</artifactId>
+                <version>${jackson-databind-nullable.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- To compile source code -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.version}</version>
+                    <configuration>
+                        <source>${maven.compiler}</source>
+                        <target>${maven.compiler}</target>
+                    </configuration>
+                </plugin>
+
+                <!-- Testing purposes -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${surefire.plugin.version}</version>
+                </plugin>
+
+                <!-- Spring boot support for maven -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${springboot.version}</version>
+                </plugin>
+
+                <!-- OpenApi generator -->
+                <plugin>
+                    <groupId>org.openapitools</groupId>
+                    <artifactId>openapi-generator-maven-plugin</artifactId>
+                    <version>${openapi-generator.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

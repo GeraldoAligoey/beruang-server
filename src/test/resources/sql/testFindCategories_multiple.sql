@@ -1,2 +1,0 @@
-insert into category(name, expense, icon, color, user_defined, active) values('games', 1, 'icon', 'blue', 0, 1);
-insert into category(name, expense, icon, color, user_defined, active) values('online services', 1, 'icon', 'blue', 0, 1);
