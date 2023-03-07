@@ -27,6 +27,14 @@
             <groupId>com.gma.challenge</groupId>
             <artifactId>generated</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.gma.challenge</groupId>
+            <artifactId>entity</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gma.challenge</groupId>
+            <artifactId>exception</artifactId>
+        </dependency>
 
         <!-- Test -->
         <dependency>

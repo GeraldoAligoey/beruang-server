@@ -7,5 +7,4 @@ public interface CategoryReadService {
     public CategoriesResponseData findCategories();
 
     public CategoryResponseData findCategory(Long categoryId);
-
 }
