@@ -36,12 +36,22 @@
         </dependency>
         <dependency>
             <groupId>com.gma.challenge</groupId>
-            <artifactId>service</artifactId>
+            <artifactId>category</artifactId>
         </dependency>
         <dependency>
             <groupId>com.gma.challenge</groupId>
-            <artifactId>entity</artifactId>
+            <artifactId>wallet</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.gma.challenge</groupId>
+            <artifactId>transaction</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gma.challenge</groupId>
+            <artifactId>budget</artifactId>
+        </dependency>
+
+        <!-- Doc -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>

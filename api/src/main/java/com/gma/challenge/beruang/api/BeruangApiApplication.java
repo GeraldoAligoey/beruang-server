@@ -9,18 +9,27 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @ComponentScan(
         basePackages = {
-                "com.gma.challenge.beruang.service",
+                "com.gma.challenge.beruang.category",
+                "com.gma.challenge.beruang.wallet",
+                "com.gma.challenge.beruang.transaction",
+                "com.gma.challenge.beruang.budget",
                 "com.gma.challenge.beruang.api"
         }
 )
 @EntityScan(
         basePackages = {
-                "com.gma.challenge.beruang.model"
+                "com.gma.challenge.beruang.category.model",
+                "com.gma.challenge.beruang.wallet.model",
+                "com.gma.challenge.beruang.transaction.model",
+                "com.gma.challenge.beruang.budget.model"
         }
 )
 @EnableJpaRepositories(
         basePackages = {
-                "com.gma.challenge.beruang.repo"
+                "com.gma.challenge.beruang.category.repo",
+                "com.gma.challenge.beruang.wallet.repo",
+                "com.gma.challenge.beruang.transaction.repo",
+                "com.gma.challenge.beruang.budget.repo"
         }
 )
 public class BeruangApiApplication {

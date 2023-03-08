@@ -1,8 +1,13 @@
 package com.gma.challenge.beruang.api;
 
+import com.gma.challenge.beruang.budget.service.BudgetReadService;
+import com.gma.challenge.beruang.budget.service.BudgetWriteService;
 import com.gma.challenge.beruang.generated.api.WalletsApi;
 import com.gma.challenge.beruang.generated.dto.*;
-import com.gma.challenge.beruang.service.*;
+import com.gma.challenge.beruang.transaction.service.TransactionReadService;
+import com.gma.challenge.beruang.transaction.service.TransactionWriteService;
+import com.gma.challenge.beruang.wallet.service.WalletReadService;
+import com.gma.challenge.beruang.wallet.service.WalletWriteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -162,14 +167,14 @@ public class WalletApi implements WalletsApi {
             @NotNull @Valid Long oldCategoryId,
             @NotNull @Valid Long newCategoryId,
             @Valid Object body) {
-        walletWriteService.moveTransactionToNewCategory(walletId, oldCategoryId, newCategoryId);
-        return new ResponseEntity<>(HttpStatus.OK);
+//        walletWriteService.moveTransactionToNewCategory(walletId, oldCategoryId, newCategoryId);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     @Override
     public ResponseEntity<Void> moveTransactionToNewWallet(
             Long walletId, @NotNull @Valid Long newWalletId, @Valid Object body) {
-        walletWriteService.moveTransactionToNewWallet(walletId, newWalletId);
-        return new ResponseEntity<>(HttpStatus.OK);
+//        walletWriteService.moveTransactionToNewWallet(walletId, newWalletId);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 }

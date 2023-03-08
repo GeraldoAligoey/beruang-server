@@ -23,10 +23,12 @@
 
         <!-- module -->
         <beruang-parent.version>1.0.0-SNAPSHOT</beruang-parent.version>
+        <beruang-common.version>1.0.0-SNAPSHOT</beruang-common.version>
         <beruang-generated.version>1.0.0-SNAPSHOT</beruang-generated.version>
-        <beruang-entity.version>1.0.0-SNAPSHOT</beruang-entity.version>
-        <beruang-service.version>1.0.0-SNAPSHOT</beruang-service.version>
-        <beruang-exception.version>1.0.0-SNAPSHOT</beruang-exception.version>
+        <beruang-category.version>1.0.0-SNAPSHOT</beruang-category.version>
+        <beruang-wallet.version>1.0.0-SNAPSHOT</beruang-wallet.version>
+        <beruang-transaction.version>1.0.0-SNAPSHOT</beruang-transaction.version>
+        <beruang-budget.version>1.0.0-SNAPSHOT</beruang-budget.version>
         <beruang-api.version>1.0.0-SNAPSHOT</beruang-api.version>
 
         <!-- spring boot -->
@@ -57,23 +59,33 @@
             <!-- MODULES -->
             <dependency>
                 <groupId>com.gma.challenge</groupId>
+                <artifactId>common</artifactId>
+                <version>${beruang-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gma.challenge</groupId>
                 <artifactId>generated</artifactId>
                 <version>${beruang-generated.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.gma.challenge</groupId>
-                <artifactId>entity</artifactId>
-                <version>${beruang-entity.version}</version>
+                <artifactId>category</artifactId>
+                <version>${beruang-category.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.gma.challenge</groupId>
-                <artifactId>service</artifactId>
-                <version>${beruang-service.version}</version>
+                <artifactId>wallet</artifactId>
+                <version>${beruang-wallet.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.gma.challenge</groupId>
-                <artifactId>exception</artifactId>
-                <version>${beruang-exception.version}</version>
+                <artifactId>transaction</artifactId>
+                <version>${beruang-transaction.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gma.challenge</groupId>
+                <artifactId>budget</artifactId>
+                <version>${beruang-budget.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.gma.challenge</groupId>

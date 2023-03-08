@@ -10,12 +10,14 @@
 
     <modules>
         <module>parent</module>
-        <module>generated</module>
-        <module>entity</module>
-		<module>exception</module>
-        <module>service</module>
+		<module>generated</module>
+		<module>common</module>
+		<module>category</module>
+        <module>wallet</module>
+		<module>transaction</module>
+		<module>budget</module>
         <module>api</module>
-    </modules>
+	</modules>
 
 	<properties>
 		<spotless.version>2.30.0</spotless.version>
