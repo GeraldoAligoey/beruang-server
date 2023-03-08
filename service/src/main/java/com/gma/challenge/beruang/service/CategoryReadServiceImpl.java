@@ -6,16 +6,19 @@ import com.gma.challenge.beruang.generated.dto.CategoryResponseData;
 import com.gma.challenge.beruang.model.Category;
 import com.gma.challenge.beruang.repo.CategoryRepository;
 import com.gma.challenge.beruang.service.util.Mapper;
-import java.util.List;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Transactional
 @Service
 public class CategoryReadServiceImpl implements CategoryReadService {
 
     private final CategoryRepository categoryRepository;
 
-    public CategoryReadServiceImpl(CategoryRepository categoryRespository) {
-        this.categoryRepository = categoryRespository;
+    public CategoryReadServiceImpl(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
