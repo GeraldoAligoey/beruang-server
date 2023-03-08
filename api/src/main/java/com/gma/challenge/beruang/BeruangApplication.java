@@ -1,4 +1,4 @@
-package com.gma.challenge.beruang.api;
+package com.gma.challenge.beruang;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,9 +32,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
                 "com.gma.challenge.beruang.budget.repo"
         }
 )
-public class BeruangApiApplication {
+public class BeruangApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BeruangApiApplication.class, args);
+        SpringApplication.run(BeruangApplication.class, args);
     }
 }
