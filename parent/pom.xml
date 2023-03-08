@@ -26,11 +26,15 @@
         <beruang-generated.version>1.0.0-SNAPSHOT</beruang-generated.version>
         <beruang-entity.version>1.0.0-SNAPSHOT</beruang-entity.version>
         <beruang-service.version>1.0.0-SNAPSHOT</beruang-service.version>
+        <beruang-exception.version>1.0.0-SNAPSHOT</beruang-exception.version>
         <beruang-api.version>1.0.0-SNAPSHOT</beruang-api.version>
 
         <!-- spring boot -->
         <springboot.version>2.7.9</springboot.version>
         <surefire.plugin.version>3.0.0-M9</surefire.plugin.version>
+
+        <!-- springdoc -->
+        <springdoc.version>1.6.14</springdoc.version>
 
         <!-- openapi generator -->
         <openapi-generator.version>6.4.0</openapi-generator.version>
@@ -68,6 +72,11 @@
             </dependency>
             <dependency>
                 <groupId>com.gma.challenge</groupId>
+                <artifactId>exception</artifactId>
+                <version>${beruang-exception.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gma.challenge</groupId>
                 <artifactId>api</artifactId>
                 <version>${beruang-api.version}</version>
             </dependency>
@@ -80,6 +89,13 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <!-- Spring doc -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
 
             <!-- NEEDED IN GENERATED -->

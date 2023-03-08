@@ -12,6 +12,7 @@
         <module>parent</module>
         <module>generated</module>
         <module>entity</module>
+		<module>exception</module>
         <module>service</module>
         <module>api</module>
     </modules>

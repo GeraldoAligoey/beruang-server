@@ -22,6 +22,31 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Database -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Module -->
+        <dependency>
+            <groupId>com.gma.challenge</groupId>
+            <artifactId>generated</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gma.challenge</groupId>
+            <artifactId>service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gma.challenge</groupId>
+            <artifactId>entity</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
