@@ -22,5 +22,5 @@ logging:
     org.hibernate.type: TRACE
 
 springdoc:
-  api-docs:
+  swagger-ui:
     path: /api
