@@ -1,0 +1,21 @@
+# ignore .git and .cache
+.git
+.cache
+
+# ignore maven and ide related folders
+.mvn
+.idea
+
+# ignore all *.class files in all folders, including build root
+**/*.class
+
+# ignore all markdown files (md) beside all README*.md other than README-secret.md
+*.md
+!README*.md
+README-secret.md
+
+# ignore license
+LICENSE
+
+# ignore db
+data-dev
